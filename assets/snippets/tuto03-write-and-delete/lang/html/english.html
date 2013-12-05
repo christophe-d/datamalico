@@ -1,0 +1,89 @@
+
+
+<!--tpl_label:"main_template"-->
+<!--Comments on this subTemplate -->
+
+<style type="text/css">
+	#display { background-color:#FFAA00; }
+	#div_debug_display { background-color:yellow; }
+	#datatable td { width:50px; height:10px; border:solid 1px #AAAAAA; }
+	#datatable td input[type=text] { width:25px; height:10px; }
+	#datatable td select { width:100px; height:10px; }
+
+	/* Rounded box*/
+	.roundedbox-4px {
+
+		border: 1px solid rgba(0, 0, 0, 0.15);
+		padding: 8.5px;
+		margin: 0 0 9px;
+
+		/* top-left */
+		-moz-border-radius-topleft:             4px;
+		-webkit-border-top-left-radius:         4px;
+		-khtml-border-top-left-radius:          4px;
+		border-top-left-radius:                 4px;
+
+		/* top-right */
+		-moz-border-radius-topright:            4px;
+		-webkit-border-top-right-radius:        4px;
+		-khtml-border-top-right-radius:         4px;
+		border-top-right-radius:                4px;
+
+		/* bottom-right */
+		-moz-border-radius-bottomright:         4px;
+		-webkit-border-bottom-right-radius:     4px;
+		-khtml-border-bottom-right-radius:      4px;
+		border-bottom-right-radius:             4px;
+
+		/* bottom-left */
+		-moz-border-radius-bottomleft:          4px;
+		-webkit-border-bottom-left-radius:      4px;
+		-khtml-border-bottom-left-radius:       4px;
+		border-bottom-left-radius:              4px;
+	}
+
+</style>
+
+<!-- #####################################
+INSERT -->
+How to insert data: You can make several tries:
+<ol>
+	<li>Enter your name and press the "New" button, then see in the list bellow, your name has been added.</li>
+	<li>Type "R2D2" in order to see how works the data validator on the client side.</li>
+	<li>Type "Solo" and press the "Insert New" button in order to see how works the <a href="1001_addon/documentation/datamalico/html/classdatamalico__server__ajax.html#a776ba8537bd683647db4a15e1615698e">"standard" data validator on the server side.</a></li>
+	<li>Type "Jabba" and press the "Insert New" button in order to see how works the <a href="1001_addon/documentation/datamalico/html/classdatamalico__server__ajax.html#ada33e163f12c51f56281d7492d081cfd">"custom" data validator on the server side.</a></li>
+</ol>
+<form accept-charset="utf-8" id="insert_form" method="post">
+	<div id="input_div" class="roundedbox-4px">
+	</div>
+	<button type="button" id="insert_button">Insert New</button>
+</form>
+
+<!-- #####################################
+UPDATE -->
+How to update data (only the 22 is modifiable):
+<form accept-charset="utf-8" id="update_form" method="post">
+	<div id="write_div" class="roundedbox-4px">
+	</div>
+	<button type="button" id="update_button">Save</button>	
+</form>
+
+<!-- #####################################
+DELETE -->
+How to delete data:
+<button type="button" id="delete_button">Make some Delete</button>	
+
+
+
+<div id="div_debug_display"></div>
+<script src="1001_addon/assets/snippets/tuto03-write-and-delete/lang/js/english.js" type="text/javascript"></script>
+
+
+
+<!-- ######################################################### -->
+<!--tpl_separator-->
+<!--tpl_label:"subTemplate_label"-->
+<!--Comments on this subTemplate -->
+
+
+

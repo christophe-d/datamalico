@@ -1,0 +1,15 @@
+
+sql (string): SELECT
+starwars_data_character.fullname
+, starwars_data_character.description
+, starwars_config_type.type_name
+
+FROM
+starwars_data_character
+INNER JOIN starwars_data_character2attribute ON starwars_data_character2attribute.char_id = starwars_data_character.char_id
+INNER JOIN starwars_config_type ON starwars_config_type.type_id = starwars_data_character.type_id
+INNER JOIN starwars_config_attribute ON starwars_config_attribute.attr_id = starwars_data_character2attribute.attr_id
+WHERE 1
+GROUP BY starwars_data_character.char_id
+ORDER BY starwars_data_character.fullname
+
