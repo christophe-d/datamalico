@@ -1,0 +1,90 @@
+
+
+
+#book { padding-bottom: 20px; }
+
+/* #################################################### */
+/* for datatables */
+#report { padding-top: 10px; text-align: right; }
+
+.grid_class { width: 100%; }
+
+/* Column headers and row headers: */
+.row_header_class { background-color: #9a9aff; }
+.header_cell_class { color: #FFF; text-align: center; padding: 5px 10px; }
+.lefter_cell_class {  }
+
+/* Rows: */
+.row_class {  }
+.odd_row { background-color: #ffffff; }
+.even_row { background-color: #eeeeff; }
+.over_row { background-color: #ddddff; }
+.selected_row { background-color: #bbbbff; }
+
+/* Cells: */
+.cell_class {  }
+/* align on the horizontal axis */
+.h_left_cell { text-align: left; }
+.h_center_cell { text-align: center; }
+.h_right_cell { text-align: right; }
+/* align on the vertical axis */
+.v_top_cell { vertical-align:top; }
+.v_center_cell { vertical-align:middle; }
+.v_bottom_cell { vertical-align:bottom; }
+.element_into_display_mode { width: 100%; min-height:10px; }
+#page_content .element_into_display_mode { text-align: center; }
+.will_be_deleted_from_DB { text-decoration:line-through; }
+
+
+
+
+/* Yellows 
+#data_registered_new .row_header_class { background-color: #ffd200; }
+#data_registered_new .odd_row { background-color: #ffffff; }
+#data_registered_new .even_row { background-color: #fdec9f; }
+#data_registered_new .over_row { background-color: #ffe154; }
+#data_registered_new .selected_row { background-color: #ffd200; }
+
+/* Blues 
+#data_registered_research .odd_row { background-color: #EFEFFF; }
+#data_registered_research .even_row { background-color: #E0E0FF; }
+#data_registered_research .over_row { background-color: #CCCCFF; }
+#data_registered_research .selected_row { background-color: #BCBCE6; }
+#data_registered_research .row_header_class { background-color: #8D8DDB; color: #ffffff; }
+
+/* Greens 
+#data_registered_results .row_header_class { background-color: #7aff7a; }
+#data_registered_results .odd_row { background-color: #ffffff; }
+#data_registered_results .even_row { background-color: #cafeca; }
+#data_registered_results .over_row { background-color: #b5ffb5; }
+#data_registered_results .selected_row { background-color: #7aff7a; }
+
+/* Reds 
+#data_registered_data .row_header_class { background-color: #e94d4d; }
+#data_registered_data .odd_row { background-color: #ffffff; }
+#data_registered_data .even_row { background-color: #f6d8d8; }
+#data_registered_data .over_row { background-color: #f3c0c0; }
+#data_registered_data .selected_row { background-color: #ef9090; }
+ */
+
+
+.research_simple_operators{ width:47px; }
+.research_advanced_operators { width:47px; /*width:76px;*/ }
+
+
+/* checkbox in image */
+.checkBox { background-position: 0px 0px; }
+.checkBoxClear { background-position: -21px 0px; }
+.checkBox, .checkBoxClear
+{
+	background-image: url('../img/CheckBox.png');
+	background-repeat: no-repeat;
+	display: inline-block;
+	float: left;
+	width: 21px;
+	height: 21px;
+	padding: 0px;
+	margin: 0px;
+	cursor: hand;
+}
+

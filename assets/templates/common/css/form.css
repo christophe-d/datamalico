@@ -1,0 +1,61 @@
+form h3 { margin: 0 0 1em 0; text-align: center; }
+form p { margin: 5px auto; }
+form p.blabla { margin: 1em 20px 1.5em 20px; font-size: .9em; color: #448; }
+form fieldset { margin: 0; margin-top:25px; padding: 0; border: 1px solid #444444; background-color:#F8F8F8; }
+form fieldset fieldset { margin: 10px 10px; }
+form fieldset legend { margin: 0 20px; padding: 0 10px; font-weight: bold; font-style: italic; font-size: 1.1em; text-shadow: 5px 5px 5px #B9B9B9; }
+form fieldset h3 { margin: 0 20px; padding: 0 10px; font-weight: bold; font-style: italic; font-size: 1.1em; text-shadow: 5px 5px 5px #B9B9B9; }
+#p_center form fieldset h3 { margin: 5px 20px 10px; padding: 0 10px; font-weight: bold; font-style: italic; font-size: 1.1em; text-shadow: 5px 5px 5px #B9B9B9; }
+form span.label { display: block; margin-top: 10px; }
+form span.controle { display: block; }
+form div.gauche { width: 250px; margin: 0 0 1em 20px; float: left; display: inline; /* évite le Doubled Float-Margin Bug d'IE6 */ }
+form div.gauche p { margin: .5em 0; }
+form div.gauche span.label { display: block; margin-bottom: .2em; }
+form div.gauche label { font-weight: bold; cursor: pointer; }
+span.error { background-color:#ff0000; color:#ffffff; display: block; margin-bottom: .2em; }
+form div.gauche span.controle { display: block; }
+form div.droite { margin: 0 20px 1em 310px; }
+form div.droite span.label { display: block; font-weight: bold; }
+form div.droite span.controle { display: block; margin: .5em 0 0 30px; }
+form div.droite span.controle input.case { position: absolute; margin-left: -30px; }
+form div.droite span.controle br { display: none; }
+form input[type=text] { width: 95%; border: solid 1px midnightblue; padding: 2px 4px; }
+form input[type=password] { width: 95%; border: solid 1px midnightblue; padding: 2px 4px; }
+form input.phone_number { width: 68%; border: solid 1px midnightblue; padding: 2px 4px; }
+form select { width: 95%; border: solid 1px midnightblue; padding: 2px 4px; }
+form select.calling_country_listing { width: 27%; border: solid 1px midnightblue; padding: 2px 4px; }
+form input.case { margin-right: 10px; }
+form textarea { width: 600px; height: 120px; border: 3px solid #cccccc;	padding: 5px; font-family: Tahoma, sans-serif; }
+form p.submit input { width:250px; font:1em Georgia,'Times New Roman',serif; letter-spacing:1; color:#575757; margin:5px 5px 5px 0; }
+form .details { font-style:italic; font-size:0.8em; color: #676767; }
+
+
+/* Services into sliding boxes */
+.service_title { display: inline; margin: 0 20px 0 0; padding: 0 10px; font-weight: bold; font-style: normal; font-size: 1.2em; text-shadow: 5px 5px 5px #B9B9B9; }
+.rolling_arrow { margin:2px 2px; }
+
+#service_archi_div {  }
+#button_service_archi { cursor:pointer; }
+#fleche_service_archi {  }
+#content_service_archi { display:none; }
+
+#service_joinery_div {  }
+#button_service_joinery { cursor:pointer; }
+#fleche_service_joinery {  }
+#content_service_joinery { display:none; }
+
+#service_garden_div {  }
+#button_service_garden { cursor:pointer; }
+#fleche_service_garden {  }
+#content_service_garden {  }
+
+
+
+
+/* NEW Generation */
+.optgroup_1 { margin-top: 10px; margin-bottom: 7px; margin-left: 5px }
+.optgroup_2 { margin-top: 10px; margin-bottom: 7px; margin-left: 10px }
+.optgroup_3 { margin-top: 10px; margin-bottom: 7px; margin-left: 15px }
+.optgroup_title_1 {font-size:130%; margin-bottom: 7px; }
+.optgroup_title_2 {font-size:120%; margin-bottom: 7px;}
+.optgroup_title_3 {font-size:110%; margin-bottom: 7px;}

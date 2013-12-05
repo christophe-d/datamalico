@@ -1,0 +1,24 @@
+#blanket 
+{
+	/*background-color:#111;
+	opacity: 0.65;*/
+	position:fixed;
+        background-color:#111;
+	opacity: 0.1;
+	filter:alpha(opacity=65);
+	z-index: 9001;
+	top:0px;
+	left:0px;
+	width:100%;
+}
+#loadingWheel 
+{
+	position:fixed;
+	background-color:#eeeeee;
+	width:80px;
+	height:100px;
+	z-index: 9002;
+	border-style:solid;
+	border-width:1px;
+	border-color:#000000;
+}

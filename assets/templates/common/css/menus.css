@@ -1,0 +1,27 @@
+
+#mainMenuBar { position: static; }
+#mainMenuBar .yuimenuitemlabel { _zoom: 1; } /* For IE 6: trigger "haslayout" for the anchor elements in the root Menu by setting the "zoom" property to 1. This ensures that the selected state of MenuItems doesn't get dropped when the user mouses off of the text node of the anchor element that represents a MenuItem's text label. */
+#mainMenuBar .yuimenu .yuimenuitemlabel { _zoom: normal; } /* For IE 6: trigger "haslayout" for the anchor elements in the root Menu by setting the "zoom" property to 1. This ensures that the selected state of MenuItems doesn't get dropped when the user mouses off of the text node of the anchor element that represents a MenuItem's text label. */
+
+
+#mainMenuBar .yuimenu .bd { margin-left: -12px; }
+
+
+
+.sideMenu { position: static; }
+.sideMenu .yuimenuitemlabel { _zoom: 1; } /* For IE 6: trigger "haslayout" for the anchor elements in the root Menu by setting the "zoom" property to 1. This ensures that the selected state of MenuItems doesn't get dropped when the user mouses off of the text node of the anchor element that represents a MenuItem's text label. */
+.sideMenu .yuimenu .yuimenuitemlabel { _zoom: normal; } /* For IE 6: trigger "haslayout" for the anchor elements in the root Menu by setting the "zoom" property to 1. This ensures that the selected state of MenuItems doesn't get dropped when the user mouses off of the text node of the anchor element that represents a MenuItem's text label. */
+
+.sideMenu .yuimenuitemlabel { white-space: normal; border-bottom: 0px solid #AAA; }
+.sideMenu #username { font-size:1em; word-wrap:break-word; text-align: center; }
+.yui-skin-sam .yuimenubaritemlabel { 1px dotted #000; }
+
+
+
+
+/* Correction done after having adapted the menu to smartphones and tablets, (that is to say, by click and mouseover.) */
+.yui-skin-sam .yuimenubarnav .yuimenubaritemlabel-hassubmenu { background: none; }
+/*.yui-skin-sam .yuimenubaritemlabel { padding: 0 0px; }
+.yui-skin-sam .yuimenubarnav .yuimenubaritemlabel { padding-right: 0px; }*/
+
+

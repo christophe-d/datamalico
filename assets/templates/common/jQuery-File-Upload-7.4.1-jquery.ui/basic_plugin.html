@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>jQuery File Upload Basic Plugin Example</title>
+	</head>
+
+	<style type="text/css">
+		.bar { height: 18px; background: green;	}
+		#load-zone { width: 50%; border:5px solid red; }
+	</style>
+
+	<body>
+		<!-- ########################## -->
+		<!-- jQuery-File-Upload plugin: -->
+		<script src="js/jquery.min.1.9.1.js"></script>
+		<script src="js/vendor/jquery.ui.widget.js"></script>
+		<script src="js/jquery.iframe-transport.js"></script>
+		<script src="js/jquery.fileupload.js"></script>
+
+		<!-- ########################## -->
+		<!-- jQuery-File-Upload plugin: -->
+		<input id="fileupload" type="file" name="files[]" data-url="server/php/" multiple>
+
+		<!-- jQuery-File-Upload plugin: For the progress bar feature -->
+		<div id="load-zone">
+			<div id="progress">
+				<div class="bar" style="width: 0%;"></div>
+			</div>
+		</div>
+
+		<script>
+			// jQuery-File-Upload plugin:
+			$(function () {
+				$('#fileupload').fileupload({
+					dataType: 'json'
+					, done: function (e, data) {
+						$.each(data.result.files, function (index, file) {
+							$('<p/>').text(file.name).appendTo(document.body);
+						});
+					}
+					, progressall: function (e, data) { // progress bar feature
+						var progress = parseInt(data.loaded / data.total * 100, 10);
+						$('#progress .bar').css(
+						'width',
+						progress + '%'
+						);
+					}	       
+				});
+			});
+		</script>
+	</body> 
+</html>
