@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>jQuery UI Autocomplete - Categories</title>
+		<link rel="stylesheet" href="../../themes/base/jquery.ui.all.css">
+		<script src="../../jquery-1.8.0.js"></script>
+		<script src="../../ui/jquery.ui.core.js"></script>
+		<script src="../../ui/jquery.ui.widget.js"></script>
+		<script src="../../ui/jquery.ui.position.js"></script>
+		<script src="../../ui/jquery.ui.autocomplete.js"></script>
+		<link rel="stylesheet" href="../demos.css">
+		<style>
+			.ui-autocomplete-loading { background: white url('images/ui-anim_basic_16x16.gif') right center no-repeat; }
+
+			/* *** Scrollable autocomplete *** */
+			.ui-autocomplete {
+				max-height: 100px;
+				overflow-y: auto;
+				/* prevent horizontal scrollbar */
+				overflow-x: hidden;
+				/* add padding to account for vertical scrollbar */
+				padding-right: 20px;
+			}
+			/* IE 6 doesn't support max-height
+			* we use height instead, but this forces the menu to always be this tall
+			*/
+			* html .ui-autocomplete {
+				height: 100px;
+			}
+
+			/* *** Categories autocomplete *** */
+			.ui-autocomplete-category {
+				font-weight: bold;
+				padding: .2em .4em;
+				margin: .8em 0 .2em;
+				line-height: 1.5;
+			}
+		</style>
+		<script>
+			/* 
+			I think that The code below creates a class extending ithe autocomplete class.
+			Thus, instead of invoking the autocomplete class, you must invoke mil_autocomplete.
+			*/
+			$.widget( "custom.mil_autocomplete", $.ui.autocomplete, {
+				_renderMenu: function( ul, items ) {
+					opts = this.options;
+
+					var self = this,
+					currentCategory = "";
+					$.each( items, function( index, item ) {
+						if (opts.mil_ac_categories === true)
+						{
+							if ( item.category != currentCategory ) {
+								ul.append( "<li class='ui-autocomplete-category'>" + item.category + "</li>" );
+								currentCategory = item.category;
+							}
+						}
+						self._renderItem( ul, item );
+					});
+				}
+			});
+
+			/*
+			VERY IMPORTANT: 
+			- it seems that the filtering (sending the $_GET['term'] via ajax) filters on labels.
+			- Then, by default, if there is a "value" this value populates the input.
+			*/
+			$(function() {
+				var data = [
+				{category: "Actors", label: "Redford", db_store: "1"},
+				{category: "Actors", label: "Pitt", db_store: "2"},
+				{category: "Actors", label: "Wayne", db_store: "3"},
+				{category: "Actors", label: "Dujardin", db_store: "4"},
+				{category: "Actors", label: "Selec", db_store: "5"},
+				{category: "Actors", label: "Costner", db_store: "6"},
+				{category: "Actress", label: "Johanson", db_store: "6"},
+				{category: "Actress", label: "Monroe", db_store: "8"},
+				{category: "Actress", label: "Dunst", db_store: "9"},
+				{category: "Singer", label: "Jaeger", db_store: "10"},
+				{category: "Singer", label: "Mae", db_store: "11"},
+				{category: "Singer", label: "Willem", db_store: "12"}
+				];
+
+				//var cache = {};
+				$( "#field_display" ).mil_autocomplete({
+					autoFocus: true
+					//minLength: 0,	// number of char to input before starting autocomplete.
+					//, delay: 0
+					//, source: data
+					//, source: "search.php"
+					//, source: "mil_server.ajax.php"
+					//, source: "http://dev.operationdecoration.fr/1001_addon/assets/templates/common/jquery-ui-1.8.23.custom/development-bundle/demos_tophe/autocomplete/mil_server.ajax.php"
+					//, source: "http://dev.operationdecoration.fr/1001_addon/library/datamalico/frontend_access/autocomplete/simple_example_to_keep/mil_server.ajax.php"
+					, source: function( request, response ) {
+						console.log ("source");
+						var ajaxReturn;
+						//console.log (request); // {term: "word"}
+						$.ajax({
+							dataType: "json"
+							, url: "http://dev.operationdecoration.fr/1001_addon/library/datamalico/frontend_access/autocomplete/simple_example_to_keep/mil_server.ajax.php"
+							, data: request
+							, success: function (data, textStatus, jqXHR) {
+								//console.log ("ON_SUCCESS");
+								response( data );
+								//console.log (data);
+								if (data !== null) console.log (data.length);
+								else console.log("no proposition");
+								//console.log (status);
+								ajaxReturn = data;
+							}
+							, beforeSend: $.noop()
+							, complete : $.noop()
+						});
+
+						//console.log ("$(this):");
+						//console.log($(this));
+
+						/*$.getJSON( "http://dev.operationdecoration.fr/1001_addon/library/datamalico/frontend_access/autocomplete/server.find_someone.ajax.php", request, function( data, status, xhr ) {
+							response( data );
+							console.log (data);
+							if (data !== null) console.log (data.length);
+							else console.log("no proposition");
+							console.log (status);
+							});*/
+						}					
+						, select: function ( event, ui ) {
+							//console.log("select");
+							//console.log(ui.item);
+							//console.log(ui);
+							$(this).mil_autocomplete("option", "mil_ac_selected_value", ui.item.label);
+							$(this).siblings('.db_store').val(ui.item.db_store);
+						}
+						, change: function( event, ui ){
+							console.log("change");
+							ac_box_force_to_select($(this))
+						}
+						//, close: function( event, ui ) {console.log ("close");}
+						//, create: function( event, ui ) {console.log ("create");}
+						//, focus: function( event, ui ) {console.log ("focus");}
+						//, open: function( event, ui ) {console.log ("open");}
+						//, response: function( event, ui ) {console.log ("response");} // added to the jquery-ui version 1.9.2 but still bugs...
+						, search: function( event, ui ) {
+							//console.log("search");
+
+							// reset the field as long as  it is not set by a select event:
+							$(this).mil_autocomplete("option", "mil_ac_selected_value", "");
+							$(this).siblings('.db_store').val("");
+						}
+
+						// ##############
+						// Public mil_autocoplete special vars:
+						, mil_ac_force_to_select: true	// forces the user to select a value from the list (or nothing) but not anything else of the list.
+						, mil_ac_categories: true	// Specifies if you want categories to be displayed.
+						// Private mil_autocoplete special vars:
+						, mil_ac_selected_value: ""	// force to select a vlaue from the the menu
+					});
+
+
+					// force_to_select:
+					//$( "#field_display" ).on("focusout", ac_box_force_to_select);
+					function ac_box_force_to_select (ac_box) {
+						//console.log("focusout");
+						//var ac_box = $(this);
+
+						if (ac_box.mil_autocomplete("option", "mil_ac_force_to_select") === true)
+						{
+							var fts = setInterval( function() { // This force_to_select function is done afterward, so setInterval().
+							//console.log("force_to_select");
+							//console.log(ac_box);
+							//console.log(ac_box.mil_autocomplete( "option" ));
+
+							// Correction of a side effect of focusing out via a tab:
+							var delete_lonely_tab_value = ac_box.val().replace(/\t/g, '');
+							ac_box.val(delete_lonely_tab_value);
+
+							// If you focus out without having choosed the value by select:
+							if (
+							ac_box.val() !== ""
+							&& ac_box.mil_autocomplete("option", "mil_ac_selected_value") !== ac_box.val() 
+							)
+							{
+								ac_box.val("");
+								ac_box.focus();
+								alert ("Stop ! Vous devez selectionner une valeur de la liste de saisie, ou vider le champ.");
+							}
+
+							clearInterval(fts); // Call this present function only once, so clearInterval()
+							return;
+						}, 300);
+					}
+				}
+
+
+			});
+		</script>
+	</head>
+	<body>
+		<form accept-charset="utf-8" id="select_objects_form" method="post" action="[+this_relative_file_path+]/server.select_empty.ajax.php">
+			<div class="demo">
+				<label for="field_display">Search: </label>
+				<input type="text" id="field_display" />
+				<input type="hidden" class="db_store" />
+			</div><!-- End demo -->
+
+
+			<div class="demo-description">
+				<p>A categorized search result. Try typing "a" or "n".</p>
+			</div><!-- End demo-description -->
+		</form>
+	</body>
+</html>

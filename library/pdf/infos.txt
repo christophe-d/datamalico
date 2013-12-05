@@ -1,0 +1,2 @@
+http://www.fpdf.org/
+http://jc-cornic.developpez.com/tutoriels/php/pdf/index.php
