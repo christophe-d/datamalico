@@ -187,6 +187,8 @@ $GLOBALS['mil_lang_common']['jquery_lib'] = $jquery.$extension;
 $GLOBALS['mil_lang_common']['jquery_ui_lib'] = $jquery_ui.$extension;
 
 $GLOBALS['config_ini']['JS']['link_to_functional_JS_libs_publicsite'] = '
+	
+<!--For datamalico and mil_ libraries: =============================== -->
 
 	<!--For jquery =============================== -->
 	<script type="text/javascript" src="1001_addon/assets/templates/common/js/'.$jquery.$extension.'"></script>
