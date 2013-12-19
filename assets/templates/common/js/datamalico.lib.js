@@ -15,15 +15,15 @@
 * @code
 * // The following line is going to write in the HTML element #firstname, the content of the field 'firstname' of the 
 * // 	record number 1 of the 'ajaxReturn' result set got through an ajax request.
-* $("#firstname").datamalico(ajaxReturn).display({field_name : "firstname", row_num: 1});
+* $jq1001("#firstname").datamalico(ajaxReturn).display({field_name : "firstname", row_num: 1});
 * 
 * // Other writting:
-* $("#firstname")						// jquery selector
+* $jq1001("#firstname")						// jquery selector
 * 	.datamalico(ajaxReturn)					// datamalico obj creation with the server result set (json).
 * 	.display({field_name : "firstname", row_num: 1});	// display action with a simple configuration
 *
 * // The following instruction will do the same but for the field called lastname.
-* $("#lastname").datamalico(ajaxReturn).display({field_name : "lastname", row_num: 1});
+* $jq1001("#lastname").datamalico(ajaxReturn).display({field_name : "lastname", row_num: 1});
 * @endcode
 * 
 * @warning
@@ -35,7 +35,7 @@
 * 		, even_row: "even_row"
 * 	}
 * };
-* $("#page_content").datamalico(ajaxReturn).display_datatable(display);
+* $jq1001("#page_content").datamalico(ajaxReturn).display_datatable(display);
 * @endcode
 *
 * @warning
@@ -48,7 +48,7 @@
 * 	}
 *	, optgroup: [{field: "group_id"}]
 * };
-* $("#multiselist_content").datamalico(ajaxReturn).display_multiselist(display);
+* $jq1001("#multiselist_content").datamalico(ajaxReturn).display_multiselist(display);
 * @endcode
 *
 * Most of the functions of this library recieve a parameter called params.
@@ -79,7 +79,7 @@
 * an easy access extending jquery and providing chaining in order to append the datamalico call, with a method call, like that:
 *
 * @code
-$("#firstname")			// what HTML element to fill
+$jq1001("#firstname")			// what HTML element to fill
 .datamalico(ajaxReturn)		// ajaxReturn is the server response
 .display({				// call the display method
 field_name : "firstname"	// specify that you display the "firstname" column of the sql results returned in ajaxReturn
@@ -99,10 +99,10 @@ field_name : "firstname"	// specify that you display the "firstname" column of t
 * Example of best practice:
 * @code
 * // Chained style: (recommended)
-* $("#firstname").datamalico(ajaxReturn).display({field_name : "firstname", row_num: 1}); // this instruction is going to display in the #firstname HTML element
+* $jq1001("#firstname").datamalico(ajaxReturn).display({field_name : "firstname", row_num: 1}); // this instruction is going to display in the #firstname HTML element
 *
 * // Standard object style:
-* var dco = new datamalico(ajaxReturn, $("#firstname"));
+* var dco = new datamalico(ajaxReturn, $jq1001("#firstname"));
 * dco.display({field_name : "firstname", row_num: 1});
 * @endcode
 *
@@ -118,9 +118,9 @@ field_name : "firstname"	// specify that you display the "firstname" column of t
 *
 * @todo Prevent potential jQuery version conflicts with other versions which could be loaded in any CMS you could use surrounding your datamalico features. See jQuery.noConflict().
 */
-$.fn.datamalico = function (ajaxReturn)
+$jq1001.fn.datamalico = function (ajaxReturn)
 {
-	//$("#div_debug_display").append(debugDisplayTable (arguments, "arguments"));
+	//$jq1001("#div_debug_display").append(debugDisplayTable (arguments, "arguments"));
 
 	//console.log("arguments:");
 	//console.log(arguments);
@@ -149,7 +149,7 @@ $.fn.datamalico = function (ajaxReturn)
 
 		return config;
 	}
-	config.html_container_obj = $(this);
+	config.html_container_obj = $jq1001(this);
 
 	//console.log("config:");
 	//console.log(config);
@@ -183,10 +183,10 @@ function datamalico_client (ajaxReturn, html_container_obj)
 {
 	// ############################
 	// Params and config
-	if ($.type(ajaxReturn) === "undefined") return;
+	if ($jq1001.type(ajaxReturn) === "undefined") return;
 	else this.ajaxReturn = ajaxReturn;
 
-	if ($.type(html_container_obj) === "undefined")
+	if ($jq1001.type(html_container_obj) === "undefined")
 	{
 		return;
 	} else {
@@ -213,17 +213,17 @@ function datamalico_client (ajaxReturn, html_container_obj)
 *
 * Example of use:
 * @code
-* $("#firstname").datamalico(ajaxReturn).display({field_name : "firstname", row_num: 1});
+* $jq1001("#firstname").datamalico(ajaxReturn).display({field_name : "firstname", row_num: 1});
 * 
 * // Other writting:
-* $("#firstname")						// jquery selector
+* $jq1001("#firstname")						// jquery selector
 * 	.datamalico(ajaxReturn)					// datamalico obj creation with the server result set (json).
 * 	.display({field_name : "firstname", row_num: 1});	// display action with a simple configuration
 * @endcode
 *
 * Example of one research field with operator choice:
 * @code
-* $('#jetest').datamalico(ajaxReturn).display({
+* $jq1001('#jetest').datamalico(ajaxReturn).display({
 * 	field_name : "ET_supposedServicePrice"
 * 	, row_num: 1
 * 	, manipulation: "research"
@@ -233,9 +233,9 @@ function datamalico_client (ajaxReturn, html_container_obj)
 * @todo The setting of params.display.html_container is wrong in this function. Actually, there must be a bigger work area to solve this:
 * 	instead of passing data via arguments for each function, store data at the level of the first elem found by the selector used to create the datamalico structure.
 * 	- Eg: 
-* 		- if you use: $('.class_toto').datamalico(ajaxReturn.totoresults).display({field_name : "toto_field", row_num: 1});
-* 		- thus strore the datamalico.ajaxReturn object via data() at the level of the first elem of $('.class_toto')
-* 		- and store each datamalico.html_container_obj object at the level of the $('.class_toto').get(x) itself.
+* 		- if you use: $jq1001('.class_toto').datamalico(ajaxReturn.totoresults).display({field_name : "toto_field", row_num: 1});
+* 		- thus strore the datamalico.ajaxReturn object via data() at the level of the first elem of $jq1001('.class_toto')
+* 		- and store each datamalico.html_container_obj object at the level of the $jq1001('.class_toto').get(x) itself.
 *
 */
 datamalico_client.prototype.display = function(display)
@@ -245,23 +245,23 @@ datamalico_client.prototype.display = function(display)
 	//console.log(params);
 	// ############################
 	// Params and config
-	if ($.type(params.ajaxReturn) === "undefined") return;
+	if ($jq1001.type(params.ajaxReturn) === "undefined") return;
 
 	// ###########################
 	// work
-	//console.log($(this).get(0).html_container_obj);
+	//console.log($jq1001(this).get(0).html_container_obj);
 	//console.log(this.html_container_obj);
 	//return;
 
-	$.each (this.html_container_obj, function( index, html_element )
+	$jq1001.each (this.html_container_obj, function( index, html_element )
 	{
-		var jelem = $(html_element);
-		var id = $(html_element).attr("id");
+		var jelem = $jq1001(html_element);
+		var id = $jq1001(html_element).attr("id");
 
 		// if no id for this element:
 		if (!isset_notempty_notnull (id))
 		{
-			id = $(html_element).set_unique_id_generator ();	// or create and set a unique_id
+			id = $jq1001(html_element).set_unique_id_generator ();	// or create and set a unique_id
 		}
 		params.display.html_container = id;
 	});
@@ -334,7 +334,7 @@ datamalico_client.prototype.display = function(display)
 *
 * Example of use:
 * @code
-* $('#services_raw_results').datamalico(ajaxReturn).display_datagrid({
+* $jq1001('#services_raw_results').datamalico(ajaxReturn).display_datagrid({
 * 	template: {
 * 		grid: '<table></table>'
 * 		, row: '<tr></tr>' // '<div></div>'
@@ -446,7 +446,7 @@ datamalico_client.prototype.display_datagrid = function(display)
 
 	// ############################
 	// Params and config
-	if ($.type(this.ajaxReturn) === "undefined") return;
+	if ($jq1001.type(this.ajaxReturn) === "undefined") return;
 
 	// ###########################
 	// work
@@ -454,7 +454,7 @@ datamalico_client.prototype.display_datagrid = function(display)
 	// if no id for this element:
 	if (!isset_notempty_notnull (id))
 	{
-		if ($.type(display.html_container) === "string")	id = display.html_container; 	// get the one from an optional param.html_container
+		if ($jq1001.type(display.html_container) === "string")	id = display.html_container; 	// get the one from an optional param.html_container
 		if (!isset_notempty_notnull (id)) id = this.html_container_obj.set_unique_id_generator ();	// or create and set a unique_id
 	}
 
@@ -470,12 +470,12 @@ datamalico_client.prototype.display_datagrid = function(display)
 * Public method of the datamalico object.
 *
 * @code
-* $(".pagination").datamalico(ajaxReturn).paginate(display);
+* $jq1001(".pagination").datamalico(ajaxReturn).paginate(display);
 * @endcode
 *
 *
 * It uses dco_paginate_procedural(), but serves as a jquery extension. So you can note that the following lines do the same:
-* 	- $(".any_class_dedicated_to_pagination").datamalico(ajaxReturn).paginate ({...})
+* 	- $jq1001(".any_class_dedicated_to_pagination").datamalico(ajaxReturn).paginate ({...})
 * 	- dco_paginate_procedural (... display: {html_container: "any_class_dedicated_to_pagination"}})
 *
 *
@@ -550,7 +550,7 @@ datamalico_client.prototype.display_datagrid = function(display)
 * 			function render_this_inner_page (page_num) // This page_num, is necessary for the jquery paging
 * 			//   extension. This is the number of the rendered page.
 * 			{
-* 				$("#results_book").find("#page_content").datamalico(ajaxReturn).display_datagrid({
+* 				$jq1001("#results_book").find("#page_content").datamalico(ajaxReturn).display_datagrid({
 * 					template: {
 * 						grid: '<table></table>'
 * 						, row: '<tr></tr>'
@@ -571,35 +571,35 @@ datamalico_client.prototype.display_datagrid = function(display)
 * 				//
 * 
 * 				// Transform text of a row into a clickable element (not good for crawler indexations):
-* 				$("#results_book").find('#page_content table tr').click (function ()
+* 				$jq1001("#results_book").find('#page_content table tr').click (function ()
 * 				{
 * 					// Retrieve the object_id displayed in the the first column of the row:
-* 					var object_id = $(this).find('.cell_class').eq(0).find('.element_into_display_mode').html();
+* 					var object_id = $jq1001(this).find('.cell_class').eq(0).find('.element_into_display_mode').html();
 * 
 * 					go2_TABS_ACTION_DATA (object_id);
 * 				});
 * 
 * 
 * 				// Transform text of a row into a real hypertext link and add a button to open the demand details:
-* 				$("#results_book").find('#page_content table tr').each (function ()
+* 				$jq1001("#results_book").find('#page_content table tr').each (function ()
 * 				{
 * 					var open_link_text = "[+open_link_text+]";	// HTML placeholder
 * 
-* 					var row_id = $(this).find('.cell_class').first().find('.element_into_display_mode').html();
-* 					var type_rapido = $(this).find('.cell_class').eq(1).find('.element_into_display_mode').html();
+* 					var row_id = $jq1001(this).find('.cell_class').first().find('.element_into_display_mode').html();
+* 					var type_rapido = $jq1001(this).find('.cell_class').eq(1).find('.element_into_display_mode').html();
 * 
-* 					$(this).data('identifier', {row_id: row_id, type_rapido: type_rapido});
+* 					$jq1001(this).data('identifier', {row_id: row_id, type_rapido: type_rapido});
 * 
-* 					var cellTag = $(this).find(':nth-child(1)').tagname();
+* 					var cellTag = $jq1001(this).find(':nth-child(1)').tagname();
 * 					var href = "demande-" + row_id;
 * 
 * 					// Transform text of a row into a clickable link
 * 					if (cellTag === "td")
 * 					{
-* 						$(this)
+* 						$jq1001(this)
 * 						.find(cellTag)
 * 						.wrapInner(
-* 							$('<a></a>')
+* 							$jq1001('<a></a>')
 * 							.attr('href', href)
 * 							.attr('target', "_BLANK")
 * 						);
@@ -607,24 +607,24 @@ datamalico_client.prototype.display_datagrid = function(display)
 * 
 * 					// add a button to open the demand details
 * 					var open_link = ''; 
-* 					if ($.type(row_id) !== "undefined")
+* 					if ($jq1001.type(row_id) !== "undefined")
 * 					{
-* 						open_link = $('<a></a>')
+* 						open_link = $jq1001('<a></a>')
 * 						.attr('href', href)
 * 						.attr('target', "_BLANK")
 * 						.html(open_link_text)
 * 						.button();
 * 					}
 * 
-* 					$('<'+cellTag+'></'+cellTag+'>')
+* 					$jq1001('<'+cellTag+'></'+cellTag+'>')
 * 					.append(open_link)
-* 					.appendTo($(this));
+* 					.appendTo($jq1001(this));
 * 				});
 * 				// Remove cols with ids if necessary:
-* 				$("#results_book").find('#page_content table tr').each (function ()
+* 				$jq1001("#results_book").find('#page_content table tr').each (function ()
 * 				{
-* 					$(this).find('.header_cell_class').first().remove();	// remove the 1st cell of the header line
-* 					$(this).find('.cell_class').first().remove();		// remove all first cells
+* 					$jq1001(this).find('.header_cell_class').first().remove();	// remove the 1st cell of the header line
+* 					$jq1001(this).find('.cell_class').first().remove();		// remove all first cells
 * 				});
 * 				// ##########################################################################################
 * 				// ##########################################################################################
@@ -636,14 +636,14 @@ datamalico_client.prototype.display_datagrid = function(display)
 * 			function require_another_page (page_num) // This page_num, is necessary for the jquery paging
 * 			//     extension. This is the number of the clicked page.
 * 			{
-* 				// $("#page").val(page_num);    // only if this hidden form elem exists in the HTML page.
+* 				// $jq1001("#page").val(page_num);    // only if this hidden form elem exists in the HTML page.
 * 				pagination.page = page_num;     // Think also that the following datamalico_server_dbquery::
 * 				//      select(), must specify the pagination param
 * 				results_refresh ();             // recall the function where all this chunk takes place, so 
 * 				//      that a this paginate() can be run again.
 * 			}
 * 
-* 			$("#results_book").find(".pagination").datamalico(ajaxReturn).paginate({
+* 			$jq1001("#results_book").find(".pagination").datamalico(ajaxReturn).paginate({
 * 				report_ctnr: "report"
 * 				, render_this_inner_page: render_this_inner_page
 * 				, require_another_page: require_another_page // null // use null for a normal HTML link (Read the whole documentation of this method).
@@ -671,21 +671,21 @@ datamalico_client.prototype.paginate = function(display)
 	config = check_params(params);
 	function check_params(params)
 	{
-		if ($.type(params.ajaxReturn) === "undefined") return;
-		if ($.type(params.display) === "undefined") params.display = {};
+		if ($jq1001.type(params.ajaxReturn) === "undefined") return;
+		if ($jq1001.type(params.display) === "undefined") params.display = {};
 		return params;
 	}
 
 
 	// ###########################
 	// work
-	//var id = $(this).attr("id");
+	//var id = $jq1001(this).attr("id");
 	var id = this.html_container_obj.attr("class");
 	// if no id for this element:
 	if (!isset_notempty_notnull (id))
 	{
-		if ($.type(params.display.html_container) === "string")	id = params.display.html_container; // get from an hypotetic param.display.html_container
-		if (!isset_notempty_notnull (id))	id = $(this).set_unique_id_generator ();	// or create and set a unique_id
+		if ($jq1001.type(params.display.html_container) === "string")	id = params.display.html_container; // get from an hypotetic param.display.html_container
+		if (!isset_notempty_notnull (id))	id = $jq1001(this).set_unique_id_generator ();	// or create and set a unique_id
 	}
 
 	config.display.html_container = id;
@@ -728,9 +728,9 @@ datamalico_client.prototype.paginate = function(display)
 * }
 * else if (ajaxReturn.metadata.returnCode === "THERE_ARE_INVALID_DATA")
 * {
-* 	//$(document).datamalico(ajaxReturn).display_errors (ajaxReturn);
+* 	//$jq1001(document).datamalico(ajaxReturn).display_errors (ajaxReturn);
 * 	
-* 	$("body")		// body, in order to find all potential error message zones within it.
+* 	$jq1001("body")		// body, in order to find all potential error message zones within it.
 * 	.datamalico(ajaxReturn)	// datamalico object creation.
 * 	.display_errors({
 * 		display_error_msg: "before" // displays the error message before the field.
@@ -767,14 +767,14 @@ datamalico_client.prototype.display_errors = function(params)
 // ################################################################################
 
 /**
-* $("#kryzaBloc").tagname()
+* $jq1001("#kryzaBloc").tagname()
 */
-$.fn.tagname = function()
+$jq1001.fn.tagname = function()
 {
-	//console.log($(this));
-	//console.log($(this).get(0));
-	//console.log($(this)[0]);
-	return $(this).get(0).tagName.toLowerCase();
+	//console.log($jq1001(this));
+	//console.log($jq1001(this).get(0));
+	//console.log($jq1001(this)[0]);
+	return $jq1001(this).get(0).tagName.toLowerCase();
 };
 
 
@@ -786,13 +786,13 @@ $.fn.tagname = function()
 *
 * @return It returns the jquery select element, so that it is still chainable.
 */
-$.fn.do_selection = function(option_value)
+$jq1001.fn.do_selection = function(option_value)
 {
-	if ($(this).tagname() === "select")
+	if ($jq1001(this).tagname() === "select")
 	{
-		$(this).find('option[value="' + option_value + '"]').attr("selected", "selected");
+		$jq1001(this).find('option[value="' + option_value + '"]').attr("selected", "selected");
 	}
-	return $(this);
+	return $jq1001(this);
 };
 
 /**
@@ -802,20 +802,20 @@ $.fn.do_selection = function(option_value)
 *
 * @return It returns the jquery select element, so that it is still chainable.
 */
-$.fn.do_deselection = function(option_value)
+$jq1001.fn.do_deselection = function(option_value)
 {
-	if ($(this).tagname() === "select")
+	if ($jq1001(this).tagname() === "select")
 	{
-		$(this).find(' option[value="' + option_value + '"]').attr("selected", false);
+		$jq1001(this).find(' option[value="' + option_value + '"]').attr("selected", false);
 	}
-	return $(this);
+	return $jq1001(this);
 };
 
 
 // http://stackoverflow.com/questions/499126/jquery-set-cursor-position-in-text-area
-// $("texteare").selectRange(3,5);
+// $jq1001("texteare").selectRange(3,5);
 // has a bug so far I remember.
-$.fn.selectRange = function(start, end)
+$jq1001.fn.selectRange = function(start, end)
 {
 	return this.each(function() {
 		if (this.setSelectionRange) {
@@ -927,13 +927,13 @@ function dco_get_temp_insert_id ()
 *
 * fjdksql fjdkslm
 */
-$.fn.set_unique_id_generator = function ()
+$jq1001.fn.set_unique_id_generator = function ()
 {
-	$(this).each (function( index ) {
-		var unique_id = get_unique_id_generator ($(this));
-		$(this).attr("id", unique_id);
+	$jq1001(this).each (function( index ) {
+		var unique_id = get_unique_id_generator ($jq1001(this));
+		$jq1001(this).attr("id", unique_id);
 	});
-	return $(this);
+	return $jq1001(this);
 };
 
 /**
@@ -975,15 +975,15 @@ function get_unique_id_generator (elem)
 *
 * Example of use:
 * @code
-* $('any_selector').on_click_or_dblclick ({click: row_selection
+* $jq1001('any_selector').on_click_or_dblclick ({click: row_selection
 * 		, dblclick: row_dblclick
 * 		});
 * function row_selection ()
 * {
 * 	alert("row_click");
 * 	selected_row = "selected_row";
-* 	$('.' + selected_row).removeClass (selected_row);
-* 	$(this).addClass(selected_row);
+* 	$jq1001('.' + selected_row).removeClass (selected_row);
+* 	$jq1001(this).addClass(selected_row);
 * }
 * function row_dblclick ()
 * {
@@ -991,13 +991,13 @@ function get_unique_id_generator (elem)
 * }
 * @endcode
 */
-$.fn.on_click_or_dblclick = function (params)
+$jq1001.fn.on_click_or_dblclick = function (params)
 {	
-	//$(this).off_click_or_dblclick ({event_namespace: params.event_namespace});
-	$(this).off_click_or_dblclick ();
+	//$jq1001(this).off_click_or_dblclick ({event_namespace: params.event_namespace});
+	$jq1001(this).off_click_or_dblclick ();
 	params.clicks = 0;
-	//$(this).on ("click." + params.event_namespace, params, _click_or_dblclick);
-	$(this).on ("click", params, _click_or_dblclick);
+	//$jq1001(this).on ("click." + params.event_namespace, params, _click_or_dblclick);
+	$jq1001(this).on ("click", params, _click_or_dblclick);
 };
 
 /**
@@ -1005,13 +1005,13 @@ $.fn.on_click_or_dblclick = function (params)
 *
 * Example of use:
 * @code
-* $('any_selector').off_click_or_dblclick ();
+* $jq1001('any_selector').off_click_or_dblclick ();
 * @endcode
 */
-$.fn.off_click_or_dblclick = function ()
+$jq1001.fn.off_click_or_dblclick = function ()
 {
-	//$(this).off ("click." + params.event_namespace, _click_or_dblclick);
-	$(this).off ("click", _click_or_dblclick);
+	//$jq1001(this).off ("click." + params.event_namespace, _click_or_dblclick);
+	$jq1001(this).off ("click", _click_or_dblclick);
 };
 
 /**
@@ -1031,20 +1031,20 @@ function _click_or_dblclick (event)
 		, dblclick: function () {}
 	};
 
-	if ($.type(params.dblclick_time) !== "undefined") config.dblclick_time = params.dblclick_time;
+	if ($jq1001.type(params.dblclick_time) !== "undefined") config.dblclick_time = params.dblclick_time;
 
-	if ($.type(params.click) === "function") config.click = params.click;
-	//if ($.type(params.click.params) === "object") config.click.params = params.click.params;
+	if ($jq1001.type(params.click) === "function") config.click = params.click;
+	//if ($jq1001.type(params.click.params) === "object") config.click.params = params.click.params;
 
-	if ($.type(params.dblclick) === "function") config.dblclick = params.dblclick;
-	//if ($.type(params.dblclick.params) === "object") config.dblclick.params = params.dblclick.params;
+	if ($jq1001.type(params.dblclick) === "function") config.dblclick = params.dblclick;
+	//if ($jq1001.type(params.dblclick.params) === "object") config.dblclick.params = params.dblclick.params;
 
 	config.clickss = params.clickss;
 
 
 	// ############################
 	// work
-	//node = $(this);
+	//node = $jq1001(this);
 	//eval(params.event_namespace).clicks++; //clicks++;
 	//console.log("global: " + params.event_namespace + ".clicks = " + eval(params.event_namespace).clicks);
 	params.clicks++;
@@ -1116,18 +1116,18 @@ function dco_display_procedural (params)
 	// Params and config
 	var config = {};
 
-	if ($.type(params.ajaxReturn) === "undefined") return;
+	if ($jq1001.type(params.ajaxReturn) === "undefined") return;
 	else config.ajaxReturn = params.ajaxReturn;
 
 	if (isset_notempty_notnull(params.display)) config.display = params.display;
 
-	if ($.type(params.display.field_name) === "undefined") return;
+	if ($jq1001.type(params.display.field_name) === "undefined") return;
 	else config.display.field_name = params.display.field_name;
 
-	if ($.type(params.display.row_num) === "undefined") config.display.row_num = 1;
+	if ($jq1001.type(params.display.row_num) === "undefined") config.display.row_num = 1;
 	else config.display.row_num = params.display.row_num;
 
-	if ($.type(params.display.html_container) === "undefined") return;
+	if ($jq1001.type(params.display.html_container) === "undefined") return;
 	else config.display.html_container = params.display.html_container;
 
 	if (!isset_notempty_notnull(config.ajaxReturn.results.field_structure[config.display.field_name]))
@@ -1161,7 +1161,7 @@ function dco_display_procedural (params)
 	{
 		//console.log("--> "+ config.display.html_container);
 		//console.log("config.display.row_num: " + config.display.row_num);
-		//console.log($.type(config.ajaxReturn.results.records[config.display.row_num].selected_in_multiselist_in_db));
+		//console.log($jq1001.type(config.ajaxReturn.results.records[config.display.row_num].selected_in_multiselist_in_db));
 		//console.log(config.ajaxReturn.results.records[config.display.row_num].selected_in_multiselist_in_db);
 
 		// selected_in_multiselist_in_db is the memory to help to know further, if one will do an insert (without conditions) or an update (with conditions)
@@ -1186,7 +1186,7 @@ function dco_display_procedural (params)
 			config.ajaxReturn.results.records[config.display.row_num].selected_in_multiselist_in_interface =
 			config.ajaxReturn.results.records[config.display.row_num].selected_in_multiselist_in_db;
 		}
-		//console.log($.type(config.ajaxReturn.results.records[config.display.row_num].selected_in_multiselist_in_db));
+		//console.log($jq1001.type(config.ajaxReturn.results.records[config.display.row_num].selected_in_multiselist_in_db));
 		//console.log(config.ajaxReturn.results.records[config.display.row_num].selected_in_multiselist_in_db);
 	}
 	else
@@ -1197,15 +1197,15 @@ function dco_display_procedural (params)
 	//console.log(config.ajaxReturn.results.records);
 
 
-	//$("#div_ajax_serverScript2").append(debugDisplayTable (params, "params"));
-	//$("#div_ajax_serverScript2").append(debugDisplayTable (config, "params-config"));
+	//$jq1001("#div_ajax_serverScript2").append(debugDisplayTable (params, "params"));
+	//$jq1001("#div_ajax_serverScript2").append(debugDisplayTable (config, "params-config"));
 
 	//console.log("--> " + params.display.field_name);
 	//console.log("params: " + params.ajaxReturn.results.records[params.display.row_num][params.display.field_name]);
 	//console.log("params-config: " + config.ajaxReturn.results.records[config.display.row_num][config.display.field_name]);
 
 
-	if ($.type(params.display.manipulation) === "undefined") config.display.manipulation = "delupsert";
+	if ($jq1001.type(params.display.manipulation) === "undefined") config.display.manipulation = "delupsert";
 	else if (
 		params.display.manipulation === "delupsert"
 		|| params.display.manipulation === "research"
@@ -1219,7 +1219,7 @@ function dco_display_procedural (params)
 	//console.log(config.display.html_container + " = " + config.display.manipulation);
 
 
-	$('#'+config.display.html_container).data('display', config.display);
+	$jq1001('#'+config.display.html_container).data('display', config.display);
 
 
 
@@ -1245,9 +1245,9 @@ function dco_display_procedural (params)
 
 	var db_stored_value = config.ajaxReturn.results.records[config.display.row_num][config.display.field_name];
 
-	$('#' + config.display.html_container).empty();
-	//$('#' + config.display.html_container).append('<div id="' + config.display.container + '"></div>');
-	$('<div></div>')
+	$jq1001('#' + config.display.html_container).empty();
+	//$jq1001('#' + config.display.html_container).append('<div id="' + config.display.container + '"></div>');
+	$jq1001('<div></div>')
 	.attr('id', config.display.container)
 	.appendTo('#' + config.display.html_container);
 
@@ -1259,7 +1259,7 @@ function dco_display_procedural (params)
 
 		//console.log('valuelist is NOT set: ' + config.display.html_container + " - " + config.display.field_name + " - " + config.edition.old_value_to_be_displayed);
 
-		if ($.type(config.edition.old_value_to_be_displayed) === "null") config.edition.old_value_to_be_displayed = "";
+		if ($jq1001.type(config.edition.old_value_to_be_displayed) === "null") config.edition.old_value_to_be_displayed = "";
 
 
 		// For 
@@ -1271,7 +1271,7 @@ function dco_display_procedural (params)
 			if (config.ajaxReturn.results.records[config.display.row_num].selected_in_multiselist_in_db === true)
 			{
 				//console.log(config.ajaxReturn.results.field_structure[config.display.field_name]);
-				$('<div></div>')
+				$jq1001('<div></div>')
 				.addClass("checkBox")
 				.html(" ")
 				.appendTo('#' + config.display.container);
@@ -1279,7 +1279,7 @@ function dco_display_procedural (params)
 			else
 			{
 				//console.log(config.ajaxReturn.results.field_structure[config.display.field_name]);
-				$('<div></div>')
+				$jq1001('<div></div>')
 				.addClass("checkBoxClear")
 				.html(" ")
 				.appendTo('#' + config.display.container);
@@ -1287,8 +1287,8 @@ function dco_display_procedural (params)
 		}
 		else
 		{
-			//$('#' + config.display.container).append('<div class="element_into_display_mode">' + config.edition.old_value_to_be_displayed + '</div>');
-			$('<div></div>')
+			//$jq1001('#' + config.display.container).append('<div class="element_into_display_mode">' + config.edition.old_value_to_be_displayed + '</div>');
+			$jq1001('<div></div>')
 			.addClass("element_into_display_mode")
 			.html(config.edition.old_value_to_be_displayed)
 			.appendTo('#' + config.display.container);
@@ -1316,8 +1316,8 @@ function dco_display_procedural (params)
 
 		//console.log('valuelist is set: ' + config.display.html_container + " - " + config.display.field_name + " - " + config.edition.old_value_to_be_displayed);
 
-		//$('#' + config.display.container).append('<div class="element_into_display_mode">' + config.edition.old_value_to_be_displayed + '</div>');
-		$('<div></div>')
+		//$jq1001('#' + config.display.container).append('<div class="element_into_display_mode">' + config.edition.old_value_to_be_displayed + '</div>');
+		$jq1001('<div></div>')
 		.addClass("element_into_display_mode")
 		.html(config.edition.old_value_to_be_displayed)
 		.appendTo('#' + config.display.container);
@@ -1355,19 +1355,19 @@ function dco_display_procedural (params)
 				if (behavior === "onmouseenter")
 				{
 					config.edition.onevent = "mouseenter";
-					$('#' + config.display.container).on("mouseenter", config, dco_edition_event);
-					$('#' + config.display.container).on("mouseleave", config, dco_focusout_and_save_event);
+					$jq1001('#' + config.display.container).on("mouseenter", config, dco_edition_event);
+					$jq1001('#' + config.display.container).on("mouseleave", config, dco_focusout_and_save_event);
 				}
 				if (behavior === "onclick")
 				{
-					//$(document).on("click", "#" + config.display.container, {config : config}, dco_on_cell_click);
-					//$(document).on("click", "#" + config.display.container, {config : config, edition_event : "click"}, dco_edition_event);
+					//$jq1001(document).on("click", "#" + config.display.container, {config : config}, dco_on_cell_click);
+					//$jq1001(document).on("click", "#" + config.display.container, {config : config, edition_event : "click"}, dco_edition_event);
 					config.edition.onevent = "click";
-					//$('#' + config.display.container).on_click_or_dblclick ({event_namespace: "dco_edition_namespace"
+					//$jq1001('#' + config.display.container).on_click_or_dblclick ({event_namespace: "dco_edition_namespace"
 						//		, click: container_onclick
 					//		});
 
-					$('#' + config.display.container).on_click_or_dblclick ({click: container_onclick});
+					$jq1001('#' + config.display.container).on_click_or_dblclick ({click: container_onclick});
 					function container_onclick ()
 					{
 						dco_edition_event ({data : config});
@@ -1375,12 +1375,12 @@ function dco_display_procedural (params)
 				}
 				if (behavior === "ondblclick")
 				{
-					//$(document).on("dblclick", "#" + config.display.container, {config : config, edition_event : "dblclick"}, dco_edition_event);
+					//$jq1001(document).on("dblclick", "#" + config.display.container, {config : config, edition_event : "dblclick"}, dco_edition_event);
 					config.edition.onevent = "dblclick";
-					//$('#' + config.display.container).on_click_or_dblclick ({event_namespace: "dco_edition_namespace"
+					//$jq1001('#' + config.display.container).on_click_or_dblclick ({event_namespace: "dco_edition_namespace"
 						//		, dblclick: container_ondblclick
 					//		});
-					$('#' + config.display.container).on_click_or_dblclick ({dblclick: container_ondblclick});
+					$jq1001('#' + config.display.container).on_click_or_dblclick ({dblclick: container_ondblclick});
 					function container_ondblclick ()
 					{
 						dco_edition_event ({data : config});
@@ -1400,7 +1400,7 @@ function dco_display_datagrid_procedural (params)
 	// Params and config
 	var config = {};
 
-	if ($.type(params.ajaxReturn) === "undefined") return;
+	if ($jq1001.type(params.ajaxReturn) === "undefined") return;
 	else config.ajaxReturn = params.ajaxReturn;
 
 	if (isset_notempty_notnull(params.display)) config.display = params.display;
@@ -1414,10 +1414,10 @@ function dco_display_datagrid_procedural (params)
 		, header_cell: '<th></th>' //'<i></i>'		
 	};
 
-	if ($.type(params.display.html_container) === "undefined") return;
+	if ($jq1001.type(params.display.html_container) === "undefined") return;
 	else config.display.html_container = params.display.html_container;
 
-	if ($.type(params.display.manipulation) === "undefined") config.display.manipulation = "delupsert";
+	if ($jq1001.type(params.display.manipulation) === "undefined") config.display.manipulation = "delupsert";
 	else if (
 		params.display.manipulation === "delupsert"
 		|| params.display.manipulation === "research"
@@ -1431,7 +1431,7 @@ function dco_display_datagrid_procedural (params)
 
 	// ###########################
 	// work
-	$('#' + config.display.html_container).empty();
+	$jq1001('#' + config.display.html_container).empty();
 	//var table_element_id = "grid_" + get_unique_time_id ();
 
 	var grid = "";
@@ -1445,11 +1445,11 @@ function dco_display_datagrid_procedural (params)
 		grid = "<div></div>";
 	}
 
-	//$(grid).attr('id', table_element_id).appendTo($('#' + config.display.html_container));
-	//var table_element = $('#' + table_element_id);
+	//$jq1001(grid).attr('id', table_element_id).appendTo($jq1001('#' + config.display.html_container));
+	//var table_element = $jq1001('#' + table_element_id);
 	//console.log('Grid:');
 	//console.log(table_element);
-	//console.log($('#' + config.display.html_container));
+	//console.log($jq1001('#' + config.display.html_container));
 
 	// columns_order, the goal of the following part is to reorder columns according to the parameter: columns_order sent to this function.
 	if (
@@ -1462,7 +1462,7 @@ function dco_display_datagrid_procedural (params)
 			config.ajaxReturn.results.records[i] = columns_reordering (config.ajaxReturn.results.records[i], config.display.columns_order);
 		}
 	}
-	//$("#div_debug_display").append(debugDisplayTable (config.ajaxReturn.results.records, "config.ajaxReturn.results.records"));
+	//$jq1001("#div_debug_display").append(debugDisplayTable (config.ajaxReturn.results.records, "config.ajaxReturn.results.records"));
 
 
 
@@ -1473,21 +1473,21 @@ function dco_display_datagrid_procedural (params)
 	{
 		// ###################################
 		// For each record of the datagrid:
-		//$('#' + config.display.html_container + " div").append("");
+		//$jq1001('#' + config.display.html_container + " div").append("");
 
 		for (row_num in config.ajaxReturn.results.records)
 		{
 			//var optgroup_current_hierarchy_selector = "#" + config.display.html_container + " ";
 			// build row:
 			var table_row_element_id = "row_" + row_num;
-			//$('#' + config.display.html_container + " table tbody").append('<tr id="' + table_row_element_id + '"></tr>\n\n');
+			//$jq1001('#' + config.display.html_container + " table tbody").append('<tr id="' + table_row_element_id + '"></tr>\n\n');
 
-			$(config.display.template.row+'\n\n')
+			$jq1001(config.display.template.row+'\n\n')
 			.attr('id', table_row_element_id)
 			.addClass('row_class')
 			.appendTo('#'+config.display.html_container);
 
-			var table_row_element = $('#' + config.display.html_container + " #" + table_row_element_id);
+			var table_row_element = $jq1001('#' + config.display.html_container + " #" + table_row_element_id);
 
 			//table_row_element.html(table_row_element_id);
 
@@ -1565,16 +1565,16 @@ function dco_display_datagrid_procedural (params)
 							var key_container = optgroup_name + "_" + db_stored_value;
 
 							// if the optgroup container doesn't exist, then create it 
-							if ($(optgroup_current_hierarchy_selector + ' #'+optgroup_containers[key_container].optgroup_id).length === 0)
+							if ($jq1001(optgroup_current_hierarchy_selector + ' #'+optgroup_containers[key_container].optgroup_id).length === 0)
 							{
-								$("<div></div>")
+								$jq1001("<div></div>")
 								.addClass("optgroup_" + optgroup_containers[key_container].optgroup_level)
 								.attr("id", optgroup_containers[key_container].optgroup_id)
 								.appendTo(optgroup_current_hierarchy_selector);
 
 								optgroup_current_hierarchy_selector += ' #'+optgroup_containers[key_container].optgroup_id + ' ';
 
-								$("<div>" + optgroup_containers[key_container].value_to_be_displayed + "</div>")
+								$jq1001("<div>" + optgroup_containers[key_container].value_to_be_displayed + "</div>")
 								.addClass("optgroup_title_" + optgroup_containers[key_container].optgroup_level)
 								.appendTo(optgroup_current_hierarchy_selector);
 							}
@@ -1587,12 +1587,12 @@ function dco_display_datagrid_procedural (params)
 
 
 					// wrap in the grid
-					var existing_grids = $(optgroup_current_hierarchy_selector + ' [id^="grid_"]').length;
+					var existing_grids = $jq1001(optgroup_current_hierarchy_selector + ' [id^="grid_"]').length;
 					if (existing_grids === 0) // grid creation
 					{
 						var grid_element_id = "grid_" + get_unique_time_id ();
 
-						$(grid)
+						$jq1001(grid)
 						.attr('id', grid_element_id)
 						.addClass('grid_class')
 						.appendTo(optgroup_current_hierarchy_selector);
@@ -1613,11 +1613,11 @@ function dco_display_datagrid_procedural (params)
 							var table_cell_element_id = row_num + '_' + field_name + "_" + get_unique_time_id ();
 							//table_row_element.append('<td id="' + table_cell_element_id + '"></td>\n');
 
-							$(config.display.template.cell+'\n\n')
+							$jq1001(config.display.template.cell+'\n\n')
 							.attr('id', table_cell_element_id)
 							.addClass('cell_class')
 							.appendTo(table_row_element);
-							var table_cell_element = $('#' + table_cell_element_id);
+							var table_cell_element = $jq1001('#' + table_cell_element_id);
 
 							//console.log("Cell:");
 							//console.log(table_cell_element);
@@ -1646,11 +1646,11 @@ function dco_display_datagrid_procedural (params)
 	if (isset_notempty_notnull(config.display.template.header_cell))
 	{
 		//console.log(config.display.template.header_cell);
-		$(config.display.template.row+'\n\n')
+		$jq1001(config.display.template.row+'\n\n')
 		.addClass("row_header_class")
 		.prependTo('#' + config.display.html_container + ' [id^="grid_"]');
 
-		//console.log($('#' + config.display.html_container + ' [id^="grid_"]'));
+		//console.log($jq1001('#' + config.display.html_container + ' [id^="grid_"]'));
 
 		// Here we parse the first record in order to get all its field_name
 		var record = 1;
@@ -1688,8 +1688,8 @@ function dco_display_datagrid_procedural (params)
 								if (isset_notempty_notnull(config.ajaxReturn.results.field_structure[field_name].frontend_access.field_label))
 									column_label = config.ajaxReturn.results.field_structure[field_name].frontend_access.field_label;
 
-								//$('#' + config.display.html_container + " table thead tr").append('<th id="th_"' + field_name + '>' + column_label + '</th>');
-								$(config.display.template.header_cell+'\n\n')
+								//$jq1001('#' + config.display.html_container + " table thead tr").append('<th id="th_"' + field_name + '>' + column_label + '</th>');
+								$jq1001(config.display.template.header_cell+'\n\n')
 								.text(column_label)
 								.addClass('header_cell_class')
 								.appendTo('#' + config.display.html_container + ' [id^="grid_"] [class*="row_header_class"]');
@@ -1717,7 +1717,7 @@ function dco_display_datagrid_procedural (params)
 */
 function columns_reordering (record, columns_order)
 {
-	//$("#div_debug_display").append(debugDisplayTable (record, "record"));
+	//$jq1001("#div_debug_display").append(debugDisplayTable (record, "record"));
 	var reordered_record = {};
 
 	// put columns specified in the columns_order array:
@@ -1737,7 +1737,7 @@ function columns_reordering (record, columns_order)
 		}
 	}
 
-	//$("#div_debug_display").append(debugDisplayTable (reordered_record, "reordered_record"));
+	//$jq1001("#div_debug_display").append(debugDisplayTable (reordered_record, "reordered_record"));
 	return reordered_record;
 }
 
@@ -1748,7 +1748,7 @@ function get_function_name (function_as_string)
 	var definition_line;
 	for (i in lines)
 	{
-		var current_line = $.trim(lines[i]);
+		var current_line = $jq1001.trim(lines[i]);
 
 		var pattern = /^function/gi;
 		var is_definition_line = pattern.test(current_line);
@@ -1764,7 +1764,7 @@ function get_function_name (function_as_string)
 
 	definition_line = definition_line.replace(/function/gi, "");
 	definition_line = definition_line.replace(/\(.*/gi, "");
-	handler_name = $.trim(definition_line);
+	handler_name = $jq1001.trim(definition_line);
 
 	return handler_name;
 }
@@ -1781,7 +1781,7 @@ function dco_edition_event (event)
 	//console.log(config.display.field_name);
 	//console.log(config.ajaxReturn.results.field_structure[config.display.field_name]);
 
-	$('#' + config.display.container).empty();
+	$jq1001('#' + config.display.container).empty();
 	config.edition.onevent = config.edition.onevent.toString().toLowerCase();
 	var this_field_structure = config.ajaxReturn.results.field_structure[config.display.field_name];
 	//var table_name = config.ajaxReturn.results.field_structure[config.display.field_name].field_direct.orgtable;
@@ -1797,41 +1797,41 @@ function dco_edition_event (event)
 	// #######################################
 	// creating the new config.edition.elem_in_edit_mode
 
-	//$('#' + config.display.container).append('<span></span>'); // helps to wrap with a form on atomic upsert
+	//$jq1001('#' + config.display.container).append('<span></span>'); // helps to wrap with a form on atomic upsert
 
 
 	// ##############################################################################
 	// with an HTML input text element :
 	if (this_field_structure.frontend_access.form_field_type.toString().toLowerCase() === "text")		
 	{
-		//$('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][tn]" value="' + config.org_table_name + '" />');
-		//$('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][fn][]" value="' + config.org_field_name + '" />');
-		//$('#' + config.display.container).append('<input type="text" name="'+manip+'[' + html_ctnr + '][fv][]" value="' + config.edition.old_value_to_be_displayed + '" />');
-		$('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][t]" value="' + config.org_table_name + '" />');
+		//$jq1001('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][tn]" value="' + config.org_table_name + '" />');
+		//$jq1001('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][fn][]" value="' + config.org_field_name + '" />');
+		//$jq1001('#' + config.display.container).append('<input type="text" name="'+manip+'[' + html_ctnr + '][fv][]" value="' + config.edition.old_value_to_be_displayed + '" />');
+		$jq1001('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][t]" value="' + config.org_table_name + '" />');
 
 		if (manip === "delupsert")
 		{
-			//$('#' + config.display.container)
+			//$jq1001('#' + config.display.container)
 			//.append('<input type="text" name="'+manip+'[' + html_ctnr + '][f]['+
 				//config.org_field_name+']" value="' + config.edition.old_value_to_be_displayed + '" />');
 
-			$('<input type="text" />')
+			$jq1001('<input type="text" />')
 			.attr('name', manip + '[' + html_ctnr + '][f][' + config.org_field_name + ']')
 			.attr('value', config.edition.old_value_to_be_displayed)
 			.appendTo('#' + config.display.container);
 
 			// condition on primary keys
 			var primary_keys = config.ajaxReturn.results.primary_keys[config.org_table_name];
-			//$.each(primary_keys, text_iterate_through_primkeys);
+			//$jq1001.each(primary_keys, text_iterate_through_primkeys);
 			//function text_iterate_through_primkeys (index, primkey)
 			for (index in primary_keys)
 			{
 				var condition_name = primary_keys[index]; //primkey;
 				var condition_value = config.ajaxReturn.results.records[config.display.row_num][condition_name];
 
-				//$('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][cdn][]" value="' + condition_name + '" />');
-				//$('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][cdv][]" value="' + condition_value + '" />');
-				$('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][c]['+condition_name+']" value="' + condition_value + '" />');
+				//$jq1001('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][cdn][]" value="' + condition_name + '" />');
+				//$jq1001('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][cdv][]" value="' + condition_value + '" />');
+				$jq1001('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][c]['+condition_name+']" value="' + condition_value + '" />');
 			}
 		}
 		else if (manip === "select[where]")
@@ -1839,7 +1839,7 @@ function dco_edition_event (event)
 			var html_op = display_search_operator (config);
 			manip = "select[where]";
 
-			$('<input type="text" />')
+			$jq1001('<input type="text" />')
 			.attr('name', manip + '[' + html_ctnr + '][c][' + config.org_field_name + ']')
 			.attr('value', config.edition.old_value_to_be_displayed)
 			.appendTo('#' + config.display.container);
@@ -1847,31 +1847,31 @@ function dco_edition_event (event)
 			html_op.trigger("change");
 
 			// WHERE Grouping info:
-			$('<input type="hidden" />')
+			$jq1001('<input type="hidden" />')
 			.attr('name', manip + '[' + html_ctnr + '][g][name]')
 			.attr('value', this_field_structure.frontend_access.research_operators.cond_group.name)
 			.appendTo('#' + config.display.container);
 
-			$('<input type="hidden" />')
+			$jq1001('<input type="hidden" />')
 			.attr('name', manip + '[' + html_ctnr + '][g][parent]')
 			.attr('value', this_field_structure.frontend_access.research_operators.cond_group.parent)
 			.appendTo('#' + config.display.container);
 
-			$('<input type="hidden" />')
+			$jq1001('<input type="hidden" />')
 			.attr('name', manip + '[' + html_ctnr + '][g][join_op]')
 			.attr('value', this_field_structure.frontend_access.research_operators.cond_group.join_op)
 			.appendTo('#' + config.display.container);
 
 			// add the client data validator
-			//$('#' + html_ctnr + ' input[name|="'+manip+'[' + html_ctnr + '][c]['+config.org_field_name+']"]')
+			//$jq1001('#' + html_ctnr + ' input[name|="'+manip+'[' + html_ctnr + '][c]['+config.org_field_name+']"]')
 			//.dco_add_DVIC (this_field_structure);
 
 		}
 
-		//$('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][ctnr]" value="' + config.display.container + '" />');
+		//$jq1001('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][ctnr]" value="' + config.display.container + '" />');
 
-		//config.edition.elem_in_edit_mode = $('#' + html_ctnr + ' input[name|="'+manip+'[' + html_ctnr + '][f]['+config.org_field_name+']"]');
-		config.edition.elem_in_edit_mode = $('#' + html_ctnr + ' input[name^="'+manip+'[' + html_ctnr + ']["]').filter('[name$="]['+config.org_field_name+']"]');
+		//config.edition.elem_in_edit_mode = $jq1001('#' + html_ctnr + ' input[name|="'+manip+'[' + html_ctnr + '][f]['+config.org_field_name+']"]');
+		config.edition.elem_in_edit_mode = $jq1001('#' + html_ctnr + ' input[name^="'+manip+'[' + html_ctnr + ']["]').filter('[name$jq1001="]['+config.org_field_name+']"]');
 		config.edition.elem_in_edit_mode.addClass("ui-corner-all");
 
 		if (isset_notempty_notnull (this_field_structure.frontend_access.maxlength))
@@ -1903,36 +1903,36 @@ function dco_edition_event (event)
 else if (this_field_structure.frontend_access.form_field_type.toString().toLowerCase() === "textarea")
 {
 
-	//$('#' + config.display.container).append('<textarea name="' + config.org_field_name + '">' + config.edition.old_value_to_be_displayed + '</textarea>');
-	//$('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][tn]" value="' + config.org_table_name + '" />');
-	//$('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][fn][]" value="' + config.org_field_name + '" />');
-	//$('#' + config.display.container).append('<textarea name="'+manip+'[' + html_ctnr + '][fv][]">' + config.edition.old_value_to_be_displayed + '</textarea>');
+	//$jq1001('#' + config.display.container).append('<textarea name="' + config.org_field_name + '">' + config.edition.old_value_to_be_displayed + '</textarea>');
+	//$jq1001('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][tn]" value="' + config.org_table_name + '" />');
+	//$jq1001('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][fn][]" value="' + config.org_field_name + '" />');
+	//$jq1001('#' + config.display.container).append('<textarea name="'+manip+'[' + html_ctnr + '][fv][]">' + config.edition.old_value_to_be_displayed + '</textarea>');
 
-	$('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][t]" value="' + config.org_table_name + '" />');
+	$jq1001('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][t]" value="' + config.org_table_name + '" />');
 
 	if (manip === "delupsert")
 	{
-		//$('#' + config.display.container)
+		//$jq1001('#' + config.display.container)
 		//.append('<textarea name="'+manip+'[' + html_ctnr + '][f]['+config.org_field_name+']">' 
 			//+ config.edition.old_value_to_be_displayed + '</textarea>');
 
-			$('<textarea></textarea>')
+			$jq1001('<textarea></textarea>')
 			.attr('name', manip + '[' + html_ctnr + '][f][' + config.org_field_name + ']')
 			.html(config.edition.old_value_to_be_displayed)
 			.appendTo('#' + config.display.container);
 
 			// condition on primary keys
 			var primary_keys = config.ajaxReturn.results.primary_keys[config.org_table_name];
-			//$.each(primary_keys, textarea_iterate_through_primkeys);
+			//$jq1001.each(primary_keys, textarea_iterate_through_primkeys);
 			//function textarea_iterate_through_primkeys (index, primkey)
 			for (index in primary_keys)
 			{
 				var condition_name = primary_keys[index]; //primkey;
 				var condition_value = config.ajaxReturn.results.records[config.display.row_num][condition_name];
 
-				//$('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][cdn][]" value="' + condition_name + '" />');
-				//$('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][cdv][]" value="' + condition_value + '" />');
-				$('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][c]['+condition_name+']" value="' + condition_value + '" />');
+				//$jq1001('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][cdn][]" value="' + condition_name + '" />');
+				//$jq1001('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][cdv][]" value="' + condition_value + '" />');
+				$jq1001('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][c]['+condition_name+']" value="' + condition_value + '" />');
 			}
 	}
 	else if (manip === "select[where]")
@@ -1940,7 +1940,7 @@ else if (this_field_structure.frontend_access.form_field_type.toString().toLower
 		var html_op = display_search_operator (config);
 		manip = "select[where]";
 
-		$('<textarea></textarea>')
+		$jq1001('<textarea></textarea>')
 		.attr('name', manip + '[' + html_ctnr + '][c][' + config.org_field_name + ']')
 		.html(config.edition.old_value_to_be_displayed)
 		.appendTo('#' + config.display.container);
@@ -1948,26 +1948,26 @@ else if (this_field_structure.frontend_access.form_field_type.toString().toLower
 		html_op.trigger("change");
 
 		// WHERE Grouping info:
-		$('<input type="hidden" />')
+		$jq1001('<input type="hidden" />')
 		.attr('name', manip + '[' + html_ctnr + '][g][name]')
 		.attr('value', this_field_structure.frontend_access.research_operators.cond_group.name)
 		.appendTo('#' + config.display.container);
 
-		$('<input type="hidden" />')
+		$jq1001('<input type="hidden" />')
 		.attr('name', manip + '[' + html_ctnr + '][g][parent]')
 		.attr('value', this_field_structure.frontend_access.research_operators.cond_group.parent)
 		.appendTo('#' + config.display.container);
 
-		$('<input type="hidden" />')
+		$jq1001('<input type="hidden" />')
 		.attr('name', manip + '[' + html_ctnr + '][g][join_op]')
 		.attr('value', this_field_structure.frontend_access.research_operators.cond_group.join_op)
 		.appendTo('#' + config.display.container);
 	}
 
-	//$('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][ctnr]" value="' + config.display.container + '" />');
+	//$jq1001('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][ctnr]" value="' + config.display.container + '" />');
 
 
-	config.edition.elem_in_edit_mode = $('#' + html_ctnr + " textarea");
+	config.edition.elem_in_edit_mode = $jq1001('#' + html_ctnr + " textarea");
 	config.edition.elem_in_edit_mode.addClass("ui-corner-all");
 
 	if (isset_notempty_notnull (this_field_structure.frontend_access.maxlength))
@@ -2004,18 +2004,18 @@ else if (this_field_structure.frontend_access.form_field_type.toString().toLower
 // with a datepicker element:
 else if (this_field_structure.frontend_access.form_field_type.toString().toLowerCase() === "datepicker")
 {
-	//$('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][tn]" value="' + config.org_table_name + '" />');
-	//$('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][fn][]" value="' + config.org_field_name + '" />');
-	//$('#' + config.display.container).append('<input type="text" name="'+manip+'[' + html_ctnr + '][fv][]" value="' + config.edition.old_value_to_be_displayed + '" />');
-	$('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][t]" value="' + config.org_table_name + '" />');
+	//$jq1001('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][tn]" value="' + config.org_table_name + '" />');
+	//$jq1001('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][fn][]" value="' + config.org_field_name + '" />');
+	//$jq1001('#' + config.display.container).append('<input type="text" name="'+manip+'[' + html_ctnr + '][fv][]" value="' + config.edition.old_value_to_be_displayed + '" />');
+	$jq1001('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][t]" value="' + config.org_table_name + '" />');
 
 	if (manip === "delupsert")
 	{
-		//$('#' + config.display.container)
+		//$jq1001('#' + config.display.container)
 		//.append('<input type="text" name="'+manip+'[' + html_ctnr + '][f]['+
 			//config.org_field_name+']" value="' + config.edition.old_value_to_be_displayed + '" />');
 
-		$('<input type="text" />')
+		$jq1001('<input type="text" />')
 		.attr('name', manip + '[' + html_ctnr + '][f][' + config.org_field_name + ']')
 		.attr('value', config.edition.old_value_to_be_displayed)
 		.set_unique_id_generator()
@@ -2023,26 +2023,26 @@ else if (this_field_structure.frontend_access.form_field_type.toString().toLower
 
 		// condition on primary keys
 		var primary_keys = config.ajaxReturn.results.primary_keys[config.org_table_name];
-		//$.each(primary_keys, text_iterate_through_primkeys);
+		//$jq1001.each(primary_keys, text_iterate_through_primkeys);
 		//function text_iterate_through_primkeys (index, primkey)
 		for (index in primary_keys)
 		{
 			var condition_name = primary_keys[index]; //primkey;
 			var condition_value = config.ajaxReturn.results.records[config.display.row_num][condition_name];
 
-			//$('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][cdn][]" value="' + condition_name + '" />');
-			//$('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][cdv][]" value="' + condition_value + '" />');
-			$('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][c]['+condition_name+']" value="' + condition_value + '" />');
+			//$jq1001('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][cdn][]" value="' + condition_name + '" />');
+			//$jq1001('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][cdv][]" value="' + condition_value + '" />');
+			$jq1001('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][c]['+condition_name+']" value="' + condition_value + '" />');
 		}
 
-		//var datepicker_id = $('#' + html_ctnr + ' input[name|="'+manip+'[' + html_ctnr + '][f]['+config.org_field_name+']"]').attr('id');
+		//var datepicker_id = $jq1001('#' + html_ctnr + ' input[name|="'+manip+'[' + html_ctnr + '][f]['+config.org_field_name+']"]').attr('id');
 
 		//console.log('#' + html_ctnr + ' input[name|="'+manip+'[' + html_ctnr + '][f]['+config.org_field_name+']"]');
-		//console.log($('#' + html_ctnr + ' input[name|="'+manip+'[' + html_ctnr + '][f]['+config.org_field_name+']"]').attr('id'));
+		//console.log($jq1001('#' + html_ctnr + ' input[name|="'+manip+'[' + html_ctnr + '][f]['+config.org_field_name+']"]').attr('id'));
 		//alert("Before datepicker creation");
-		$('#' + html_ctnr + ' input[name|="'+manip+'[' + html_ctnr + '][f]['+config.org_field_name+']"]')
+		$jq1001('#' + html_ctnr + ' input[name|="'+manip+'[' + html_ctnr + '][f]['+config.org_field_name+']"]')
 		//.get(0)
-		//$('#' + datepicker_id)
+		//$jq1001('#' + datepicker_id)
 		.datepicker({
 			dateFormat: "yy-mm-dd"
 			// For menus
@@ -2053,7 +2053,7 @@ else if (this_field_structure.frontend_access.form_field_type.toString().toLower
 			, buttonImage: window.location.protocol + "//" + window.location.hostname + "/1001_addon/assets/templates/common/img/calendar.gif"
 			, buttonImageOnly: true
 		});
-		//console.log($('#' + datepicker_id));
+		//console.log($jq1001('#' + datepicker_id));
 		//alert("After datepicker creation");
 	}
 	else if (manip === "select[where]")
@@ -2061,7 +2061,7 @@ else if (this_field_structure.frontend_access.form_field_type.toString().toLower
 		var html_op = display_search_operator (config);
 		manip = "select[where]";
 
-		$('<input type="text" />')
+		$jq1001('<input type="text" />')
 		.attr('name', manip + '[' + html_ctnr + '][c][' + config.org_field_name + ']')
 		.attr('value', config.edition.old_value_to_be_displayed)
 		.appendTo('#' + config.display.container);
@@ -2069,11 +2069,11 @@ else if (this_field_structure.frontend_access.form_field_type.toString().toLower
 		html_op.trigger("change");
 
 		// add the client data validator
-		//$('#' + html_ctnr + ' input[name|="'+manip+'[' + html_ctnr + '][c]['+config.org_field_name+']"]')
+		//$jq1001('#' + html_ctnr + ' input[name|="'+manip+'[' + html_ctnr + '][c]['+config.org_field_name+']"]')
 		//.dco_add_DVIC (this_field_structure);
 
 		// init the jqueryui datepicker
-		$('#' + html_ctnr + ' input[name|="'+manip+'[' + html_ctnr + '][c]['+config.org_field_name+']"]')
+		$jq1001('#' + html_ctnr + ' input[name|="'+manip+'[' + html_ctnr + '][c]['+config.org_field_name+']"]')
 		.datepicker({
 			dateFormat: "yy-mm-dd"
 			// For menus
@@ -2086,26 +2086,26 @@ else if (this_field_structure.frontend_access.form_field_type.toString().toLower
 		});
 
 		// WHERE Grouping info:
-		$('<input type="hidden" />')
+		$jq1001('<input type="hidden" />')
 		.attr('name', manip + '[' + html_ctnr + '][g][name]')
 		.attr('value', this_field_structure.frontend_access.research_operators.cond_group.name)
 		.appendTo('#' + config.display.container);
 
-		$('<input type="hidden" />')
+		$jq1001('<input type="hidden" />')
 		.attr('name', manip + '[' + html_ctnr + '][g][parent]')
 		.attr('value', this_field_structure.frontend_access.research_operators.cond_group.parent)
 		.appendTo('#' + config.display.container);
 
-		$('<input type="hidden" />')
+		$jq1001('<input type="hidden" />')
 		.attr('name', manip + '[' + html_ctnr + '][g][join_op]')
 		.attr('value', this_field_structure.frontend_access.research_operators.cond_group.join_op)
 		.appendTo('#' + config.display.container);
 	}
 
-	//$('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][ctnr]" value="' + config.display.container + '" />');
+	//$jq1001('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][ctnr]" value="' + config.display.container + '" />');
 
-	//config.edition.elem_in_edit_mode = $('#' + html_ctnr + ' input[name|="'+manip+'[' + html_ctnr + '][f]['+config.org_field_name+']"]');
-	config.edition.elem_in_edit_mode = $('#' + html_ctnr + ' input[name^="'+manip+'[' + html_ctnr + ']["]').filter('[name$="]['+config.org_field_name+']"]');
+	//config.edition.elem_in_edit_mode = $jq1001('#' + html_ctnr + ' input[name|="'+manip+'[' + html_ctnr + '][f]['+config.org_field_name+']"]');
+	config.edition.elem_in_edit_mode = $jq1001('#' + html_ctnr + ' input[name^="'+manip+'[' + html_ctnr + ']["]').filter('[name$jq1001="]['+config.org_field_name+']"]');
 	config.edition.elem_in_edit_mode.addClass("ui-corner-all");
 
 	if (isset_notempty_notnull (this_field_structure.frontend_access.maxlength))
@@ -2137,15 +2137,15 @@ else if (this_field_structure.frontend_access.form_field_type.toString().toLower
 else if (this_field_structure.frontend_access.form_field_type.toString().toLowerCase() === "select")
 {
 	// add select element and its options
-	//$('#' + config.display.container).append('<select name="' + config.org_field_name + '"></select>');
-	//$('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][tn]" value="' + config.org_table_name + '" />');
-	//$('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][fn][]" value="' + config.org_field_name + '" />');
-	//$('#' + config.display.container).append('<select name="'+manip+'[' + html_ctnr + '][fv][]">' + config.edition.old_value_to_be_displayed + '</select>');
+	//$jq1001('#' + config.display.container).append('<select name="' + config.org_field_name + '"></select>');
+	//$jq1001('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][tn]" value="' + config.org_table_name + '" />');
+	//$jq1001('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][fn][]" value="' + config.org_field_name + '" />');
+	//$jq1001('#' + config.display.container).append('<select name="'+manip+'[' + html_ctnr + '][fv][]">' + config.edition.old_value_to_be_displayed + '</select>');
 
 	//console.log("---------------------------");
 	//console.log(config.display.container);
 	//console.log(config);
-	$('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][t]" value="' + config.org_table_name + '" />');
+	$jq1001('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][t]" value="' + config.org_table_name + '" />');
 
 	var html_op;
 	var field_or_criteria;
@@ -2153,26 +2153,26 @@ else if (this_field_structure.frontend_access.form_field_type.toString().toLower
 	if (manip === "delupsert")
 	{
 		field_or_criteria = "f";
-		//$('#' + config.display.container).append('<select name="'+manip+'[' + html_ctnr + '][f]['+config.org_field_name+']" />');
+		//$jq1001('#' + config.display.container).append('<select name="'+manip+'[' + html_ctnr + '][f]['+config.org_field_name+']" />');
 
-		$('<select></select>')
+		$jq1001('<select></select>')
 		.attr('name', manip +'[' + html_ctnr + '][' + field_or_criteria + '][' + config.org_field_name + ']')
 		.appendTo('#' + config.display.container);
 
 		// condition on primary keys
 		var primary_keys = config.ajaxReturn.results.primary_keys[config.org_table_name];
-		//$.each(primary_keys, iterate_through_primkeys);
+		//$jq1001.each(primary_keys, iterate_through_primkeys);
 		//function iterate_through_primkeys (index, primkey)
 		for (index in primary_keys)
 		{
 			var condition_name = primary_keys[index]; //primkey;
 			var condition_value = config.ajaxReturn.results.records[config.display.row_num][condition_name];
 
-			//$('#' + config.display.container)
+			//$jq1001('#' + config.display.container)
 			//.append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][cdn][]" value="' + condition_name + '" />');
-			//$('#' + config.display.container)
+			//$jq1001('#' + config.display.container)
 			//.append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][cdv][]" value="' + condition_value + '" />');
-			$('#' + config.display.container)
+			$jq1001('#' + config.display.container)
 			.append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][c]['+condition_name+']" value="' + condition_value + '" />');
 		}
 	}
@@ -2182,43 +2182,43 @@ else if (this_field_structure.frontend_access.form_field_type.toString().toLower
 		html_op = display_search_operator (config);
 		manip = "select[where]";
 
-		//$('#' + config.display.container).append('<select name="'+manip+'[' + html_ctnr + '][c]['+config.org_field_name+']" />');
+		//$jq1001('#' + config.display.container).append('<select name="'+manip+'[' + html_ctnr + '][c]['+config.org_field_name+']" />');
 
-		$('<select></select>')
+		$jq1001('<select></select>')
 		.attr('name', manip +'[' + html_ctnr + '][' + field_or_criteria + '][' + config.org_field_name + ']')
 		.appendTo('#' + config.display.container);
 
 		// WHERE Grouping info:
-		$('<input type="hidden" />')
+		$jq1001('<input type="hidden" />')
 		.attr('name', manip + '[' + html_ctnr + '][g][name]')
 		.attr('value', this_field_structure.frontend_access.research_operators.cond_group.name)
 		.appendTo('#' + config.display.container);
 
-		$('<input type="hidden" />')
+		$jq1001('<input type="hidden" />')
 		.attr('name', manip + '[' + html_ctnr + '][g][parent]')
 		.attr('value', this_field_structure.frontend_access.research_operators.cond_group.parent)
 		.appendTo('#' + config.display.container);
 
-		$('<input type="hidden" />')
+		$jq1001('<input type="hidden" />')
 		.attr('name', manip + '[' + html_ctnr + '][g][join_op]')
 		.attr('value', this_field_structure.frontend_access.research_operators.cond_group.join_op)
 		.appendTo('#' + config.display.container);
 	}
 
-	$.each(this_field_structure.frontend_access.valuelist, select_iterate_through_valuelist);
+	$jq1001.each(this_field_structure.frontend_access.valuelist, select_iterate_through_valuelist);
 	function select_iterate_through_valuelist (db_stored_value, value_to_be_displayed)
 	//for (db_stored_value in this_field_structure.frontend_access.valuelist)	// using this for loop adds problems: $family... javascript elements.
 	{
 		//console.log("db_stored_value: " + db_stored_value);
 		var value_to_be_displayed = this_field_structure.frontend_access.valuelist[db_stored_value];
 		var selected = "";
-		//console.log("db_stored_value type: " + $.type(db_stored_value) + " - db_stored_value: " + db_stored_value);
-		//console.log("config.edition.old_db_val type: " + $.type(config.edition.old_db_val) + " - config.edition.old_db_val: " + config.edition.old_db_val);
+		//console.log("db_stored_value type: " + $jq1001.type(db_stored_value) + " - db_stored_value: " + db_stored_value);
+		//console.log("config.edition.old_db_val type: " + $jq1001.type(config.edition.old_db_val) + " - config.edition.old_db_val: " + config.edition.old_db_val);
 		//console.log(db_stored_value+" === "+config.edition.old_db_val);
 		if (db_stored_value === config.edition.old_db_val.toString()) selected = 'selected="selected" ';
 		//console.log("selected: " + selected);
 
-		$('#' + config.display.container + " select")
+		$jq1001('#' + config.display.container + " select")
 		.filter('[name="' + manip +'[' + html_ctnr + '][' + field_or_criteria + '][' + config.org_field_name + ']' + '"]')
 		.append('<option value="' + db_stored_value + '" ' + selected + '>' + value_to_be_displayed + '</option>');
 	}
@@ -2228,9 +2228,9 @@ else if (this_field_structure.frontend_access.form_field_type.toString().toLower
 		html_op.trigger("change");
 	}
 
-	//$('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][ctnr]" value="' + config.display.container + '" />');
+	//$jq1001('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][ctnr]" value="' + config.display.container + '" />');
 
-	config.edition.elem_in_edit_mode = $('#' + html_ctnr + ' select');
+	config.edition.elem_in_edit_mode = $jq1001('#' + html_ctnr + ' select');
 
 	// ########################
 	// Behaviors
@@ -2251,26 +2251,26 @@ else if (this_field_structure.frontend_access.form_field_type.toString().toLower
 // with an autocomplete element:
 else if (this_field_structure.frontend_access.form_field_type.toString().toLowerCase() === "autocomplete")
 {
-	//$('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][tn]" value="' + config.org_table_name + '" />');
-	//$('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][fn][]" value="' + config.org_field_name + '" />');
-	//$('#' + config.display.container).append('<input type="text" name="'+manip+'[' + html_ctnr + '][fv][]" value="' + config.edition.old_value_to_be_displayed + '" />');
-	$('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][t]" value="' + config.org_table_name + '" />');
+	//$jq1001('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][tn]" value="' + config.org_table_name + '" />');
+	//$jq1001('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][fn][]" value="' + config.org_field_name + '" />');
+	//$jq1001('#' + config.display.container).append('<input type="text" name="'+manip+'[' + html_ctnr + '][fv][]" value="' + config.edition.old_value_to_be_displayed + '" />');
+	$jq1001('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][t]" value="' + config.org_table_name + '" />');
 
 	if (manip === "delupsert")
 	{
-		//$('#' + config.display.container)
+		//$jq1001('#' + config.display.container)
 		//.append('<input type="text" name="'+manip+'[' + html_ctnr + '][f]['+
 			//config.org_field_name+']" value="' + config.edition.old_value_to_be_displayed + '" />');
 
 		// hidden field with db_store value:
-		$('<input type="hidden" />')
+		$jq1001('<input type="hidden" />')
 		.attr('name', manip + '[' + html_ctnr + '][f][' + config.org_field_name + ']')
 		.attr('value', config.edition.old_value_to_be_displayed)
 		.addClass("db_store")
 		.appendTo('#' + config.display.container);
 
 		// Menu autocomplete field:
-		$('<input type="text" />')
+		$jq1001('<input type="text" />')
 		.attr('name', manip + '[' + html_ctnr + '][ac_box][' + config.org_field_name + ']')
 		.attr('value', config.edition.old_value_to_be_displayed)
 		.mil_autocomplete({
@@ -2281,7 +2281,7 @@ else if (this_field_structure.frontend_access.form_field_type.toString().toLower
 			, source: function( request, response ) {
 				//console.log ("source");
 				//console.log (request); // {term: "fran"}
-				$.ajax({
+				$jq1001.ajax({
 					dataType: "json"
 					, url: this_field_structure.frontend_access.autocomplete_vars.source
 					, data: request
@@ -2293,28 +2293,28 @@ else if (this_field_structure.frontend_access.form_field_type.toString().toLower
 						//else console.log("no proposition");
 						//console.log (status);
 					}
-					, beforeSend: $.noop()
-					, complete : $.noop()
+					, beforeSend: $jq1001.noop()
+					, complete : $jq1001.noop()
 				});
 			}
 			, select: function ( event, ui ) {
 				//console.log("select");
 				//console.log(ui.item);
 				//console.log(ui);
-				$(this).mil_autocomplete("option", "mil_ac_selected_value", ui.item.label);
-				//$('#field_display').val(ui.item.label);
-				$(this).siblings('.db_store').val(ui.item.db_store);
+				$jq1001(this).mil_autocomplete("option", "mil_ac_selected_value", ui.item.label);
+				//$jq1001('#field_display').val(ui.item.label);
+				$jq1001(this).siblings('.db_store').val(ui.item.db_store);
 			}
 			, change: function( event, ui ){
 				//console.log("change");
-				ac_box_force_to_select($(this))
+				ac_box_force_to_select($jq1001(this))
 			}
 			, search: function( event, ui ) {
 				//console.log("search");
 
 				// reset the field as long as  it is not set by a select event:
-				$(this).mil_autocomplete("option", "mil_ac_selected_value", "");
-				$(this).siblings('.db_store').val("");
+				$jq1001(this).mil_autocomplete("option", "mil_ac_selected_value", "");
+				$jq1001(this).siblings('.db_store').val("");
 			}
 
 			// ##############
@@ -2329,16 +2329,16 @@ else if (this_field_structure.frontend_access.form_field_type.toString().toLower
 
 		// condition on primary keys
 		var primary_keys = config.ajaxReturn.results.primary_keys[config.org_table_name];
-		//$.each(primary_keys, text_iterate_through_primkeys);
+		//$jq1001.each(primary_keys, text_iterate_through_primkeys);
 		//function text_iterate_through_primkeys (index, primkey)
 		for (index in primary_keys)
 		{
 			var condition_name = primary_keys[index]; //primkey;
 			var condition_value = config.ajaxReturn.results.records[config.display.row_num][condition_name];
 
-			//$('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][cdn][]" value="' + condition_name + '" />');
-			//$('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][cdv][]" value="' + condition_value + '" />');
-			$('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][c]['+condition_name+']" value="' + condition_value + '" />');
+			//$jq1001('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][cdn][]" value="' + condition_name + '" />');
+			//$jq1001('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][cdv][]" value="' + condition_value + '" />');
+			$jq1001('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][c]['+condition_name+']" value="' + condition_value + '" />');
 		}
 	}
 	else if (manip === "select[where]")
@@ -2347,14 +2347,14 @@ else if (this_field_structure.frontend_access.form_field_type.toString().toLower
 		manip = "select[where]";
 
 		// hidden field with db_store value:
-		$('<input type="hidden" />')
+		$jq1001('<input type="hidden" />')
 		.attr('name', manip + '[' + html_ctnr + '][c][' + config.org_field_name + ']')
 		.attr('value', config.edition.old_value_to_be_displayed)
 		.addClass("db_store")
 		.appendTo('#' + config.display.container);
 
 		// Menu autocomplete field:
-		$('<input type="text" />')
+		$jq1001('<input type="text" />')
 		.attr('name', manip + '[' + html_ctnr + '][ac_box][' + config.org_field_name + ']')
 		.attr('value', config.edition.old_value_to_be_displayed)
 		.mil_autocomplete({
@@ -2365,7 +2365,7 @@ else if (this_field_structure.frontend_access.form_field_type.toString().toLower
 			, source: function( request, response ) {
 				//console.log ("source");
 				//console.log (request); // {term: "fran"}
-				$.ajax({
+				$jq1001.ajax({
 					dataType: "json"
 					, url: this_field_structure.frontend_access.autocomplete_vars.source
 					, data: request
@@ -2377,28 +2377,28 @@ else if (this_field_structure.frontend_access.form_field_type.toString().toLower
 						//else console.log("no proposition");
 						//console.log (status);
 					}
-					, beforeSend: $.noop()
-					, complete : $.noop()
+					, beforeSend: $jq1001.noop()
+					, complete : $jq1001.noop()
 				});
 			}
 			, select: function ( event, ui ) {
 				//console.log("select");
 				//console.log(ui.item);
 				//console.log(ui);
-				$(this).mil_autocomplete("option", "mil_ac_selected_value", ui.item.label);
-				//$('#field_display').val(ui.item.label);
-				$(this).siblings('.db_store').val(ui.item.db_store);
+				$jq1001(this).mil_autocomplete("option", "mil_ac_selected_value", ui.item.label);
+				//$jq1001('#field_display').val(ui.item.label);
+				$jq1001(this).siblings('.db_store').val(ui.item.db_store);
 			}
 			, change: function( event, ui ){
 				//console.log("change");
-				ac_box_force_to_select($(this))
+				ac_box_force_to_select($jq1001(this))
 			}
 			, search: function( event, ui ) {
 				//console.log("search");
 
 				// reset the field as long as  it is not set by a select event:
-				$(this).mil_autocomplete("option", "mil_ac_selected_value", "");
-				$(this).siblings('.db_store').val("");
+				$jq1001(this).mil_autocomplete("option", "mil_ac_selected_value", "");
+				$jq1001(this).siblings('.db_store').val("");
 			}
 
 			// ##############
@@ -2414,31 +2414,31 @@ else if (this_field_structure.frontend_access.form_field_type.toString().toLower
 		html_op.trigger("change");
 
 		// WHERE Grouping info:
-		$('<input type="hidden" />')
+		$jq1001('<input type="hidden" />')
 		.attr('name', manip + '[' + html_ctnr + '][g][name]')
 		.attr('value', this_field_structure.frontend_access.research_operators.cond_group.name)
 		.appendTo('#' + config.display.container);
 
-		$('<input type="hidden" />')
+		$jq1001('<input type="hidden" />')
 		.attr('name', manip + '[' + html_ctnr + '][g][parent]')
 		.attr('value', this_field_structure.frontend_access.research_operators.cond_group.parent)
 		.appendTo('#' + config.display.container);
 
-		$('<input type="hidden" />')
+		$jq1001('<input type="hidden" />')
 		.attr('name', manip + '[' + html_ctnr + '][g][join_op]')
 		.attr('value', this_field_structure.frontend_access.research_operators.cond_group.join_op)
 		.appendTo('#' + config.display.container);
 
 		// add the client data validator
-		//$('#' + html_ctnr + ' input[name|="'+manip+'[' + html_ctnr + '][c]['+config.org_field_name+']"]')
+		//$jq1001('#' + html_ctnr + ' input[name|="'+manip+'[' + html_ctnr + '][c]['+config.org_field_name+']"]')
 		//.dco_add_DVIC (this_field_structure);
 
 	}
 
-	//$('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][ctnr]" value="' + config.display.container + '" />');
+	//$jq1001('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][ctnr]" value="' + config.display.container + '" />');
 
-	//config.edition.elem_in_edit_mode = $('#' + html_ctnr + ' input[name|="'+manip+'[' + html_ctnr + '][f]['+config.org_field_name+']"]');
-	config.edition.elem_in_edit_mode = $('#' + html_ctnr + ' input[name^="'+manip+'[' + html_ctnr + ']["]').filter('[name$="]['+config.org_field_name+']"]');
+	//config.edition.elem_in_edit_mode = $jq1001('#' + html_ctnr + ' input[name|="'+manip+'[' + html_ctnr + '][f]['+config.org_field_name+']"]');
+	config.edition.elem_in_edit_mode = $jq1001('#' + html_ctnr + ' input[name^="'+manip+'[' + html_ctnr + ']["]').filter('[name$jq1001="]['+config.org_field_name+']"]');
 	config.edition.elem_in_edit_mode.addClass("ui-corner-all");
 
 	if (isset_notempty_notnull (this_field_structure.frontend_access.maxlength))
@@ -2473,9 +2473,9 @@ else if (this_field_structure.frontend_access.form_field_type.toString().toLower
 	// if global_save, then put a fields in order to delete all records related to the object_id before upserting rows input by this global_save
 	var checked;
 
-	$('#' + config.display.container).append('<input type="checkbox" name="inmulsel[' + html_ctnr + ']" value="1" />');
-	//$('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][tn]" value="' + config.org_table_name + '" />');
-	$('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][t]" value="' + config.org_table_name + '" />');
+	$jq1001('#' + config.display.container).append('<input type="checkbox" name="inmulsel[' + html_ctnr + ']" value="1" />');
+	//$jq1001('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][tn]" value="' + config.org_table_name + '" />');
+	$jq1001('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][t]" value="' + config.org_table_name + '" />');
 
 	if (manip === "delupsert")
 	{
@@ -2485,7 +2485,7 @@ else if (this_field_structure.frontend_access.form_field_type.toString().toLower
 		if (config.ajaxReturn.results.records[config.display.row_num].selected_in_multiselist_in_interface === true)
 		{
 			checked = true;
-			$('#' + config.display.container + ' input[type="checkbox"]').attr('checked', true);
+			$jq1001('#' + config.display.container + ' input[type="checkbox"]').attr('checked', true);
 
 			// in order to insert, fields, and no condition
 			var primary_keys = config.ajaxReturn.results.primary_keys[config.org_table_name];
@@ -2494,22 +2494,22 @@ else if (this_field_structure.frontend_access.form_field_type.toString().toLower
 				var condition_name = primary_keys[i]; //primkey;
 				var condition_value = config.ajaxReturn.results.records[config.display.row_num][condition_name];
 
-				//$('#' + config.display.container)
+				//$jq1001('#' + config.display.container)
 				//.append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][fn][]" value="' + condition_name + '" />');
-				//$('#' + config.display.container)
+				//$jq1001('#' + config.display.container)
 				//.append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][fv][]" value="' + condition_value + '" />');
-				$('#' + config.display.container)
+				$jq1001('#' + config.display.container)
 				.append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][f]['+condition_name+']" value="' + condition_value + '" />');
 
 				// update, so let's add conditions
 				//console.log("selected_in_multiselist_in_db: " + config.ajaxReturn.results.records[config.display.row_num].selected_in_multiselist_in_db);
 				if (config.ajaxReturn.results.records[config.display.row_num].selected_in_multiselist_in_db === true)
 				{
-					//$('#' + config.display.container)
+					//$jq1001('#' + config.display.container)
 					//.append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][cdn][]" value="' + condition_name + '" />');
-					//$('#' + config.display.container)
+					//$jq1001('#' + config.display.container)
 					//.append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][cdv][]" value="' + condition_value + '" />');
-					$('#' + config.display.container)
+					$jq1001('#' + config.display.container)
 					.append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][c]['+condition_name+']" value="' + condition_value + '" />');
 				}
 				else
@@ -2517,7 +2517,7 @@ else if (this_field_structure.frontend_access.form_field_type.toString().toLower
 				{
 				}
 			}
-			//$('#' + config.display.container)
+			//$jq1001('#' + config.display.container)
 			//.append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][ctnr]" value="' + config.display.container + '" />');
 		}
 
@@ -2525,7 +2525,7 @@ else if (this_field_structure.frontend_access.form_field_type.toString().toLower
 			// if not selected in interface then, order a delete (if already exists in db) or order nothing
 		{
 			checked = false;
-			$('#' + config.display.container + ' input[type="checkbox"]').attr('checked', false);
+			$jq1001('#' + config.display.container + ' input[type="checkbox"]').attr('checked', false);
 
 			// in order to delete, conditions but no fields
 			var primary_keys = config.ajaxReturn.results.primary_keys[config.org_table_name];
@@ -2538,15 +2538,15 @@ else if (this_field_structure.frontend_access.form_field_type.toString().toLower
 				//console.log("selected_in_multiselist_in_db: " + config.ajaxReturn.results.records[config.display.row_num].selected_in_multiselist_in_db);
 				if (config.ajaxReturn.results.records[config.display.row_num].selected_in_multiselist_in_db === true)
 				{
-					//$('#' + config.display.container)
+					//$jq1001('#' + config.display.container)
 					//.append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][cdn][]" value="' + condition_name + '" />');
-					//$('#' + config.display.container)
+					//$jq1001('#' + config.display.container)
 					//.append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][cdv][]" value="' + condition_value + '" />');
-					$('#' + config.display.container)
+					$jq1001('#' + config.display.container)
 					.append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][c]['+condition_name+']" value="' + condition_value + '" />');
 				}
 			}
-			//$('#' + config.display.container)
+			//$jq1001('#' + config.display.container)
 			//.append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][ctnr]" value="' + config.display.container + '" />');
 		}
 	}
@@ -2560,7 +2560,7 @@ else if (this_field_structure.frontend_access.form_field_type.toString().toLower
 		{
 			//html_op = display_search_operator (config);
 			manip = "select[where]";
-			$('#' + config.display.container + ' input[type="checkbox"]').attr('checked', true);
+			$jq1001('#' + config.display.container + ' input[type="checkbox"]').attr('checked', true);
 
 			// in order to insert, fields, and no condition
 			var primary_keys = config.ajaxReturn.results.primary_keys[config.org_table_name];
@@ -2569,32 +2569,32 @@ else if (this_field_structure.frontend_access.form_field_type.toString().toLower
 				var condition_name = primary_keys[i]; //primkey;
 				var condition_value = config.ajaxReturn.results.records[config.display.row_num][condition_name];
 
-				$('<input type="hidden" />')
+				$jq1001('<input type="hidden" />')
 				.attr('name', manip + '[' + html_ctnr + '][c][' + condition_name + ']')
 				.attr('value', condition_value)
 				.appendTo('#' + config.display.container);					
 			}
 
 			// WHERE Grouping info:
-			$('<input type="hidden" />')
+			$jq1001('<input type="hidden" />')
 			.attr('name', manip + '[' + html_ctnr + '][g][name]')
 			.attr('value', this_field_structure.frontend_access.research_operators.cond_group.name)
 			.appendTo('#' + config.display.container);
 
-			$('<input type="hidden" />')
+			$jq1001('<input type="hidden" />')
 			.attr('name', manip + '[' + html_ctnr + '][g][parent]')
 			.attr('value', this_field_structure.frontend_access.research_operators.cond_group.parent)
 			.appendTo('#' + config.display.container);
 
-			$('<input type="hidden" />')
+			$jq1001('<input type="hidden" />')
 			.attr('name', manip + '[' + html_ctnr + '][g][join_op]')
 			.attr('value', this_field_structure.frontend_access.research_operators.cond_group.join_op)
 			.appendTo('#' + config.display.container);
 		}
 	}
 
-	config.edition.elem_in_edit_mode = $('#' + config.display.container + ' input[name="inmulsel[' + html_ctnr + ']"]');
-	//config.edition.elem_in_edit_mode = $('#' + config.display.container + ' input[type="checkbox"]');
+	config.edition.elem_in_edit_mode = $jq1001('#' + config.display.container + ' input[name="inmulsel[' + html_ctnr + ']"]');
+	//config.edition.elem_in_edit_mode = $jq1001('#' + config.display.container + ' input[type="checkbox"]');
 
 	// ########################
 	// Behaviors
@@ -2620,9 +2620,9 @@ else if (this_field_structure.frontend_access.form_field_type.toString().toLower
 	// if global_save, then put a fields in order to delete all records related to the object_id before upserting rows input by this global_save
 	var checked;
 
-	$('#' + config.display.container).append('<input type="radio" name="insinglesel[' + config.display.field_name + ']" value="'+config.display.row_num+'" />');
-	//$('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][tn]" value="' + config.org_table_name + '" />');
-	$('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][t]" value="' + config.org_table_name + '" />');
+	$jq1001('#' + config.display.container).append('<input type="radio" name="insinglesel[' + config.display.field_name + ']" value="'+config.display.row_num+'" />');
+	//$jq1001('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][tn]" value="' + config.org_table_name + '" />');
+	$jq1001('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][t]" value="' + config.org_table_name + '" />');
 
 	if (manip === "delupsert")
 	{
@@ -2630,7 +2630,7 @@ else if (this_field_structure.frontend_access.form_field_type.toString().toLower
 		if (config.ajaxReturn.results.records[config.display.row_num].selected_in_multiselist_in_interface === true)
 		{
 			checked = true;
-			$('#' + config.display.container + ' input[type="radio"]').attr('checked', true);
+			$jq1001('#' + config.display.container + ' input[type="radio"]').attr('checked', true);
 
 			// in order to insert, fields, and no condition
 			var primary_keys = config.ajaxReturn.results.primary_keys[config.org_table_name];
@@ -2639,21 +2639,21 @@ else if (this_field_structure.frontend_access.form_field_type.toString().toLower
 				var condition_name = primary_keys[i]; //primkey;
 				var condition_value = config.ajaxReturn.results.records[config.display.row_num][condition_name];
 
-				//$('#' + config.display.container)
+				//$jq1001('#' + config.display.container)
 				//.append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][fn][]" value="' + condition_name + '" />');
-				//$('#' + config.display.container)
+				//$jq1001('#' + config.display.container)
 				//.append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][fv][]" value="' + condition_value + '" />');
-				$('#' + config.display.container)
+				$jq1001('#' + config.display.container)
 				.append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][f]['+condition_name+']" value="' + condition_value + '" />');
 
 				// update, so let's add conditions
 				if (config.ajaxReturn.results.records[config.display.row_num].selected_in_multiselist_in_db === true)
 				{
-					//$('#' + config.display.container)
+					//$jq1001('#' + config.display.container)
 					//.append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][cdn][]" value="' + condition_name + '" />');
-					//$('#' + config.display.container)
+					//$jq1001('#' + config.display.container)
 					//.append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][cdv][]" value="' + condition_value + '" />');
-					$('#' + config.display.container)
+					$jq1001('#' + config.display.container)
 					.append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][c]['+condition_name+']" value="' + condition_value + '" />');
 				}
 				else
@@ -2661,7 +2661,7 @@ else if (this_field_structure.frontend_access.form_field_type.toString().toLower
 				{
 				}
 			}
-			//$('#' + config.display.container)
+			//$jq1001('#' + config.display.container)
 			//.append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][ctnr]" value="' + config.display.container + '" />');
 		}
 
@@ -2669,7 +2669,7 @@ else if (this_field_structure.frontend_access.form_field_type.toString().toLower
 			// if not selected in interface then, order a delete (if already exists in db) or order nothing
 		{
 			checked = false;
-			$('#' + config.display.container + ' input[type="radio"]').attr('checked', false);
+			$jq1001('#' + config.display.container + ' input[type="radio"]').attr('checked', false);
 
 			// in order to delete, conditions but no fields
 			var primary_keys = config.ajaxReturn.results.primary_keys[config.org_table_name];
@@ -2681,15 +2681,15 @@ else if (this_field_structure.frontend_access.form_field_type.toString().toLower
 				// order a delete only if the record already exist in db
 				if (config.ajaxReturn.results.records[config.display.row_num].selected_in_multiselist_in_db === true)
 				{
-					//$('#' + config.display.container)
+					//$jq1001('#' + config.display.container)
 					//.append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][cdn][]" value="' + condition_name + '" />');
-					//$('#' + config.display.container)
+					//$jq1001('#' + config.display.container)
 					//.append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][cdv][]" value="' + condition_value + '" />');
-					$('#' + config.display.container)
+					$jq1001('#' + config.display.container)
 					.append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][c]['+condition_name+']" value="' + condition_value + '" />');
 				}
 			}
-			//$('#' + config.display.container)
+			//$jq1001('#' + config.display.container)
 			//.append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][ctnr]" value="' + config.display.container + '" />');
 		}
 	}
@@ -2701,7 +2701,7 @@ else if (this_field_structure.frontend_access.form_field_type.toString().toLower
 		{
 			//html_op = display_search_operator (config);
 
-			$('#' + config.display.container + ' input[type="radio"]').attr('checked', true);
+			$jq1001('#' + config.display.container + ' input[type="radio"]').attr('checked', true);
 
 			// in order to insert, fields, and no condition
 			var primary_keys = config.ajaxReturn.results.primary_keys[config.org_table_name];
@@ -2715,32 +2715,32 @@ else if (this_field_structure.frontend_access.form_field_type.toString().toLower
 				//console.log(config.ajaxReturn.results.records[config.display.row_num]);
 				//console.log(config.ajaxReturn.results.records[config.display.row_num][condition_name]);
 
-				$('<input type="hidden" />')
+				$jq1001('<input type="hidden" />')
 				.attr('name', manip + '[' + html_ctnr + '][c][' + condition_name + ']')
 				.attr('value', condition_value)
 				.appendTo('#' + config.display.container);	
 			}
 
 			// WHERE Grouping info:
-			$('<input type="hidden" />')
+			$jq1001('<input type="hidden" />')
 			.attr('name', manip + '[' + html_ctnr + '][g][name]')
 			.attr('value', this_field_structure.frontend_access.research_operators.cond_group.name)
 			.appendTo('#' + config.display.container);
 
-			$('<input type="hidden" />')
+			$jq1001('<input type="hidden" />')
 			.attr('name', manip + '[' + html_ctnr + '][g][parent]')
 			.attr('value', this_field_structure.frontend_access.research_operators.cond_group.parent)
 			.appendTo('#' + config.display.container);
 
-			$('<input type="hidden" />')
+			$jq1001('<input type="hidden" />')
 			.attr('name', manip + '[' + html_ctnr + '][g][join_op]')
 			.attr('value', this_field_structure.frontend_access.research_operators.cond_group.join_op)
 			.appendTo('#' + config.display.container);
 		}
 	}
 
-	config.edition.elem_in_edit_mode = $('#' + config.display.container + ' input[name="insinglesel[' + config.display.field_name + ']"]');
-	//config.edition.elem_in_edit_mode = $('#' + config.display.container + ' input[type="radio"]');
+	config.edition.elem_in_edit_mode = $jq1001('#' + config.display.container + ' input[name="insinglesel[' + config.display.field_name + ']"]');
+	//config.edition.elem_in_edit_mode = $jq1001('#' + config.display.container + ' input[type="radio"]');
 
 	// ########################
 	// Behaviors
@@ -2757,7 +2757,7 @@ else if (this_field_structure.frontend_access.form_field_type.toString().toLower
 	// add the client data validator
 	config.edition.elem_in_edit_mode.dco_add_DVIC (this_field_structure);
 }
-//alert($('#' + config.display.container).html());
+//alert($jq1001('#' + config.display.container).html());
 }
 
 
@@ -2785,15 +2785,15 @@ function display_search_operator_debug (config)
 	var operator_name = manip + '[' + html_ctnr + '][o][' + config.org_field_name + ']'; 
 
 	//console.log(config.display.manipulation);
-	//console.log(this_field_structure.frontend_access.research_operators.advanced + " - " + $.type(this_field_structure.frontend_access.research_operators.advanced));
+	//console.log(this_field_structure.frontend_access.research_operators.advanced + " - " + $jq1001.type(this_field_structure.frontend_access.research_operators.advanced));
 	if (/*config.display.manipulation === "research" || */this_field_structure.frontend_access.research_operators.display.advanced === false )
 	{    
-		html_operators = $('#html_simple_operators').html();
+		html_operators = $jq1001('#html_simple_operators').html();
 		operator_class = "research_simple_operators";
 	}    
 	else if (/*config.display.manipulation === "research_advanced" || */this_field_structure.frontend_access.research_operators.display.advanced === true )
 	{    
-		html_operators = $('#html_advanced_operators').html();
+		html_operators = $jq1001('#html_advanced_operators').html();
 		operator_class = "research_advanced_operators";
 	}    
 
@@ -2855,27 +2855,27 @@ function display_search_operator_debug (config)
 	if (display_operator === true)
 	{
 		// Operator choice: null, LIKE, =, <, >, <>, .. (between)
-		$('<select></select>')
+		$jq1001('<select></select>')
 		.attr('name', operator_name)
 		.append(html_operators)
 		.addClass(operator_class)
 		.change(operator_changed)
 		.appendTo('#' + config.display.container);
 
-		//console.log($('[name="' + manip + '[' + html_ctnr + '][o][' + config.org_field_name + ']' + '"]'));
+		//console.log($jq1001('[name="' + manip + '[' + html_ctnr + '][o][' + config.org_field_name + ']' + '"]'));
 		//console.log(this_field_structure.frontend_access.research_operators.default);
-		//console.log("BEFORE: " + $('[name="' + manip + '[' + html_ctnr + '][o][' + config.org_field_name + ']' + '"]').val());
+		//console.log("BEFORE: " + $jq1001('[name="' + manip + '[' + html_ctnr + '][o][' + config.org_field_name + ']' + '"]').val());
 
-		$('[name="' + operator_name + '"]')
+		$jq1001('[name="' + operator_name + '"]')
 		.do_selection(this_field_structure.frontend_access.research_operators.default);
 
 		for (index in this_field_structure.frontend_access.research_operators.forbid_op)
 		{
 			var value = this_field_structure.frontend_access.research_operators.forbid_op[index];
-			$('[name="' + operator_name + '"]').find('[value="' + value + '"]').remove();
+			$jq1001('[name="' + operator_name + '"]').find('[value="' + value + '"]').remove();
 		}
 
-		//console.log("AFTER: " + $('[name="' + manip + '[' + html_ctnr + '][o][' + config.org_field_name + ']' + '"]').val());
+		//console.log("AFTER: " + $jq1001('[name="' + manip + '[' + html_ctnr + '][o][' + config.org_field_name + ']' + '"]').val());
 	}
 
 
@@ -2886,20 +2886,20 @@ function display_search_operator_debug (config)
 	{
 		//console.log("operator_changed");
 		//console.log(event);
-		var j_operator = $(event.target);
+		var j_operator = $jq1001(event.target);
 		var j_MIN_field = j_operator.next();
 		var j_MIN_field_name = j_MIN_field.attr("name");
 		var j_MAX_field_name = j_MIN_field_name.replace(/\]$/g,"_MAX\]");
 
 		// if between operator, add the MAX value input field:
-		if ($(event.target).val() === "betw")
+		if ($jq1001(event.target).val() === "betw")
 		{
-			if ($('[name="' + j_MAX_field_name + '"]').length === 0)
+			if ($jq1001('[name="' + j_MAX_field_name + '"]').length === 0)
 			{
 				if (this_field_structure.frontend_access.form_field_type.toString().toLowerCase() === "datepicker")
 				{
 					// Neutralize the first datepicker before cloning:
-					$('[name="' + j_MIN_field_name + '"]').datepicker("destroy");
+					$jq1001('[name="' + j_MIN_field_name + '"]').datepicker("destroy");
 					//console.log("betw");
 
 
@@ -2934,13 +2934,13 @@ function display_search_operator_debug (config)
 					.on("focusout", config, dco_focusout_and_save_event)
 					.dco_add_DVIC (this_field_structure);
 
-					//$('[name="' + j_MIN_field_name + '"]').datepicker("destroy");
+					//$jq1001('[name="' + j_MIN_field_name + '"]').datepicker("destroy");
 
 
 
 					// Restore the first datepicker after cloning:
 					//j_MIN_field
-					$('[name="' + j_MIN_field_name + '"]')
+					$jq1001('[name="' + j_MIN_field_name + '"]')
 					.datepicker({
 						dateFormat: "yy-mm-dd"
 						// For menus
@@ -2975,23 +2975,23 @@ function display_search_operator_debug (config)
 		{
 			if (this_field_structure.frontend_access.form_field_type.toString().toLowerCase() === "datepicker")
 			{
-				$('[name="' + j_MAX_field_name + '"]').datepicker("destroy");
+				$jq1001('[name="' + j_MAX_field_name + '"]').datepicker("destroy");
 			}
-			$('[name="' + j_MAX_field_name + '"]').remove();
+			$jq1001('[name="' + j_MAX_field_name + '"]').remove();
 
-			//$('[name="' + j_MAX_field_name + '"]')
+			//$jq1001('[name="' + j_MAX_field_name + '"]')
 			//.hide(function () 	// slideUp
 			//{
-				//console.log($(this));
-				//	($(this).remove();	// This calback should be executed... but is not.
+				//console.log($jq1001(this));
+				//	($jq1001(this).remove();	// This calback should be executed... but is not.
 			//});
 		}
 	}
 
-	return $('[name="' + operator_name + '"]');
+	return $jq1001('[name="' + operator_name + '"]');
 }
 
-$.fn.dco_add_DVIC = function (this_field_structure)
+$jq1001.fn.dco_add_DVIC = function (this_field_structure)
 {
 	//console.log("dco_add_DVIC");
 	//console.log(this_field_structure.field_direct.name);
@@ -3012,7 +3012,7 @@ $.fn.dco_add_DVIC = function (this_field_structure)
 				//console.log(this_field_structure.frontend_access.data_validator.input.client[event_name]);
 				var handler_name = get_function_name (this_field_structure.frontend_access.data_validator.input.client[event_name]);
 				eval(this_field_structure.frontend_access.data_validator.input.client[event_name]);	// declare the function
-				$(this).on(event_name, eval(handler_name));
+				$jq1001(this).on(event_name, eval(handler_name));
 
 				//console.log(event_name + ", " + handler_name);
 		}
@@ -3026,7 +3026,7 @@ $.fn.dco_add_DVIC = function (this_field_structure)
 */
 function ac_box_force_to_select (ac_box) {
 	//console.log("focusout");
-	//var ac_box = $(this);
+	//var ac_box = $jq1001(this);
 
 	if (ac_box.mil_autocomplete("option", "mil_ac_force_to_select") === true)
 	{
@@ -3087,7 +3087,7 @@ function dco_checkbox_multiselist_change (event)
 	}
 
 
-	if($(this).is(':checked'))
+	if($jq1001(this).is(':checked'))
 	{
 		// it is now selected
 		config.ajaxReturn.results.records[config.display.row_num].selected_in_multiselist_in_interface = true;
@@ -3130,16 +3130,16 @@ function dco_checkbox_multiselist_change (event)
 	// Other fields related to the listing 
 	for (index in joinTable_fields)
 	{
-		//$('#' + config.display.row_num + "_" + joinTable_field).html("Aller !!! On rempli !!!");
+		//$jq1001('#' + config.display.row_num + "_" + joinTable_field).html("Aller !!! On rempli !!!");
 		var joinTable_field = joinTable_fields[index];
-		//$('#' + config.display.row_num + "_" + joinTable_field).parent().attr('id');
+		//$jq1001('#' + config.display.row_num + "_" + joinTable_field).parent().attr('id');
 
-		var grid_jelem = $('#'+config.display.html_container).parents('[id^="grid_"]');
+		var grid_jelem = $jq1001('#'+config.display.html_container).parents('[id^="grid_"]');
 		var joinTable_field_jelem = grid_jelem.find('[id^="' + config.display.row_num + "_" + joinTable_field + '"]');
 		var html_container = joinTable_field_jelem.attr("id");
 
 		//console.log(html_container);
-		//$('#' + html_container).empty();
+		//$jq1001('#' + html_container).empty();
 		dco_display_procedural ({
 			ajaxReturn: config.ajaxReturn
 			, display: {
@@ -3150,13 +3150,13 @@ function dco_checkbox_multiselist_change (event)
 			}
 		});
 
-		if($(this).is(':checked'))
+		if($jq1001(this).is(':checked'))
 		{
-			$('#'+html_container).removeClass("will_be_deleted_from_DB");
+			$jq1001('#'+html_container).removeClass("will_be_deleted_from_DB");
 		}
 		else
 		{
-			$('#'+html_container).addClass("will_be_deleted_from_DB");
+			$jq1001('#'+html_container).addClass("will_be_deleted_from_DB");
 		}
 	}
 	//console.log("END:	dco_checkbox_multiselist_change");
@@ -3170,8 +3170,8 @@ function dco_radio_singleselist_change  (event)
 	//this_field_structure; config; config.edition.elem_in_edit_mode
 	var config = event.data;
 
-	var radio_set_selector = $(this).attr("name");
-	var form_selector = $( $(this).parents('form')[0] ).attr('id');	// get the id of the closest parent form
+	var radio_set_selector = $jq1001(this).attr("name");
+	var form_selector = $jq1001( $jq1001(this).parents('form')[0] ).attr('id');	// get the id of the closest parent form
 	var total_radio_set_selector;
 	if (isset_notempty_notnull(form_selector)) total_radio_set_selector = '#' + form_selector + ' input[name="'+radio_set_selector+'"]';
 	else total_radio_set_selector = 'input[name="'+radio_set_selector+'"]';
@@ -3179,14 +3179,14 @@ function dco_radio_singleselist_change  (event)
 	//console.log("total_radio_set_selector: " + total_radio_set_selector);
 	//console.log(config.ajaxReturn);
 
-	$(this).off("change", dco_radio_singleselist_change);
+	$jq1001(this).off("change", dco_radio_singleselist_change);
 
 	//console.log('Form: ' + form_selector);
 	//console.log('input[name="'+radio_set_selector+'"]');
-	$(total_radio_set_selector).each(function (index, Element)
+	$jq1001(total_radio_set_selector).each(function (index, Element)
 	{
-		//console.log($(this));
-		//console.log($(this).is(':checked'));
+		//console.log($jq1001(this));
+		//console.log($jq1001(this).is(':checked'));
 
 		var joinTable_fields = new Array();
 		var i = 0;
@@ -3206,17 +3206,17 @@ function dco_radio_singleselist_change  (event)
 		//console.log(config.display);
 		// ########################################
 		// Work on this field itself (the checkbox_multiselist) and then rerender it checked or not with all related good hidden fields	
-		var html_container = $(this).parent().parent().attr("id");
-		var row_num = $('#'+html_container).parent().attr("id"); //config.display.row_num; //parseInt(index) + parseInt(1);
+		var html_container = $jq1001(this).parent().parent().attr("id");
+		var row_num = $jq1001('#'+html_container).parent().attr("id"); //config.display.row_num; //parseInt(index) + parseInt(1);
 		row_num = row_num.replace("row_", "");
 
 		//console.log(config.display.field_name + ", " + row_num + ", " + html_container);
 
 		config.ajaxReturn.results.records[row_num].selected_in_multiselist_in_interface = false;
 
-		if($(this).is(':checked'))
+		if($jq1001(this).is(':checked'))
 		{
-			//console.log($(this).attr('name') + ': ' + $(this).attr('value'));
+			//console.log($jq1001(this).attr('name') + ': ' + $jq1001(this).attr('value'));
 			// it is now selected
 			config.ajaxReturn.results.records[row_num].selected_in_multiselist_in_interface = true;
 		}
@@ -3236,15 +3236,15 @@ function dco_radio_singleselist_change  (event)
 		// Other fields on the same row, related to the listing:
 		for (index in joinTable_fields)
 		{
-			//$('#' + row_num + "_" + joinTable_field).html("Aller !!! On rempli !!!");
+			//$jq1001('#' + row_num + "_" + joinTable_field).html("Aller !!! On rempli !!!");
 			var joinTable_field = joinTable_fields[index];
-			//$('#' + row_num + "_" + joinTable_field).parent().attr('id');
+			//$jq1001('#' + row_num + "_" + joinTable_field).parent().attr('id');
 
-			var grid_jelem = $('#'+config.display.html_container).parents('[id^="grid_"]');
+			var grid_jelem = $jq1001('#'+config.display.html_container).parents('[id^="grid_"]');
 			var joinTable_field_jelem = grid_jelem.find('[id^="' + row_num + "_" + joinTable_field + '"]');
 			var html_container = joinTable_field_jelem.attr("id");
 
-			//$('#' + html_container).empty();
+			//$jq1001('#' + html_container).empty();
 			dco_display_procedural ({
 				ajaxReturn: config.ajaxReturn
 				, display: {
@@ -3275,13 +3275,13 @@ function dco_on_keydown_on_edition_elem (event)
 
 		/*if (config.edition.onevent == "mouseenter")
 		{
-			$('#' + config.display.container).trigger("mouseleave");
+			$jq1001('#' + config.display.container).trigger("mouseleave");
 			}*/
 	}
 	if (event.which === 9)	// TAB
 	{
 		//console.log("keydown on TAB");
-		$('#' + config.display.container).focus();
+		$jq1001('#' + config.display.container).focus();
 		//dco_focusout_and_undo (event);
 	}
 }
@@ -3320,7 +3320,7 @@ function dco_focusout_and_save_event (event)
 	//console.log("dco_focusout_and_save_event");
 	//this_field_structure; config; config.edition.elem_in_edit_mode
 	var config = event.data;
-	var new_db_val = $(this).val();
+	var new_db_val = $jq1001(this).val();
 
 	if (config.edition.old_db_val === null) config.edition.old_db_val = "NULL"; // fix
 
@@ -3329,22 +3329,22 @@ function dco_focusout_and_save_event (event)
 		//	&& config.ajaxReturn.action.save_mode.toString().toLowerCase() === "generic_atomic_save"
 	//)
 	//{
-		//	//console.log($(this).tagname() + "#" + $(this).id);
+		//	//console.log($jq1001(this).tagname() + "#" + $jq1001(this).id);
 		//	var this_field_structure = config.ajaxReturn.results.field_structure[config.display.field_name];
 		//	
 		//	// if called from a form element:
 		//	if (
-			//		$(this).tagname() === "input"
-			//		|| $(this).tagname() === "textarea"
-			//		|| $(this).tagname() === "button"
-			//		|| $(this).tagname() === "select"
-			//		|| $(this).tagname() === "option"
-			//		|| $(this).tagname() === "optgroup"
-			//		|| $(this).tagname() === "fieldset"
-			//		|| $(this).tagname() === "label"
+			//		$jq1001(this).tagname() === "input"
+			//		|| $jq1001(this).tagname() === "textarea"
+			//		|| $jq1001(this).tagname() === "button"
+			//		|| $jq1001(this).tagname() === "select"
+			//		|| $jq1001(this).tagname() === "option"
+			//		|| $jq1001(this).tagname() === "optgroup"
+			//		|| $jq1001(this).tagname() === "fieldset"
+			//		|| $jq1001(this).tagname() === "label"
 	//	)
 	//	{
-		//		new_db_val = $(this).val();
+		//		new_db_val = $jq1001(this).val();
 		//	}
 		//
 		//	// if called by the mouseleave from the container
@@ -3352,11 +3352,11 @@ function dco_focusout_and_save_event (event)
 	//else
 	//{
 		//	//new_db_val = config.edition.old_db_val;
-		//	new_db_val = $(this).val();
+		//	new_db_val = $jq1001(this).val();
 		//}
 
-		//console.log("config.edition.old_db_val:" + config.edition.old_db_val.toString() + " - " + $.type(config.edition.old_db_val.toString()));
-		//console.log("new_db_val:" + new_db_val + " - " + $.type(new_db_val));
+		//console.log("config.edition.old_db_val:" + config.edition.old_db_val.toString() + " - " + $jq1001.type(config.edition.old_db_val.toString()));
+		//console.log("new_db_val:" + new_db_val + " - " + $jq1001.type(new_db_val));
 
 
 		//console.log(config.edition.old_db_val + " vs " + new_db_val);
@@ -3371,11 +3371,11 @@ function dco_focusout_and_save_event (event)
 					//var table_name = this_field_structure.field_direct.orgtable;
 					//var field_name = this_field_structure.field_direct.orgname;
 
-					//$(this).after('<form id="updateForm" accept-charset="utf-8"></form>');
-					//var content = $('#' + config.display.container).html();
+					//$jq1001(this).after('<form id="updateForm" accept-charset="utf-8"></form>');
+					//var content = $jq1001('#' + config.display.container).html();
 
-					$('#' + config.display.container).wrap('<form id="dco_ajax_atomic_update_form" accept-charset="utf-8"></form>');
-					//$('#' + config.display.container).html('bonjour');
+					$jq1001('#' + config.display.container).wrap('<form id="dco_ajax_atomic_update_form" accept-charset="utf-8"></form>');
+					//$jq1001('#' + config.display.container).html('bonjour');
 
 					config.ajaxReturn.results.records[config.display.row_num][config.display.field_name] = new_db_val;
 
@@ -3394,7 +3394,7 @@ function dco_focusout_and_save_event (event)
 				)
 				{
 					//console.log("custom_atomic_save - ajax save and rebuild new");
-					$('#' + config.display.container).wrap('<form id="dco_ajax_atomic_update_form" accept-charset="utf-8"></form>');
+					$jq1001('#' + config.display.container).wrap('<form id="dco_ajax_atomic_update_form" accept-charset="utf-8"></form>');
 					config.ajaxReturn.results.records[config.display.row_num][config.display.field_name] = new_db_val;
 					eval(config.ajaxReturn.action.custom_atomic_save_fn + "(config)");
 				}
@@ -3429,17 +3429,17 @@ function dco_maxlength_of_a_textarea_event (event)
 	var maxlength = event.data.maxlength;
 	var container = event.data.container;
 	//var length = 140;
-	var myComment = $('#' + container + " textarea").val();
+	var myComment = $jq1001('#' + container + " textarea").val();
 	var myTruncatedComment = myComment.substring(0, maxlength);
-	$('#' + container + " textarea").val(myTruncatedComment);
+	$jq1001('#' + container + " textarea").val(myTruncatedComment);
 }
 
 function dco_remove_edition (config)
 {
-	$('#' + config.display.container).empty();
-	//$('#' + config.display.container).off_click_or_dblclick ({event_namespace: "dco_edition_namespace"});
-	$('#' + config.display.container).off_click_or_dblclick ();
-	//$('#' + config.display.container).off ("dco_edition_namespace");
+	$jq1001('#' + config.display.container).empty();
+	//$jq1001('#' + config.display.container).off_click_or_dblclick ({event_namespace: "dco_edition_namespace"});
+	$jq1001('#' + config.display.container).off_click_or_dblclick ();
+	//$jq1001('#' + config.display.container).off ("dco_edition_namespace");
 }
 
 function dco_ajax_atomic_update (config)
@@ -3460,7 +3460,7 @@ function dco_ajax_atomic_update (config)
 		data = null;
 
 		mil_ajax_debug_and_see_raw_server_results (ajaxReturn, textStatus, jqXHR, "div_debug_display"); return;
-		$('#div_debug_display').html(""); mil_ajax_debug_and_see_object_server_results (ajaxReturn, textStatus, jqXHR, "div_debug_display");
+		$jq1001('#div_debug_display').html(""); mil_ajax_debug_and_see_object_server_results (ajaxReturn, textStatus, jqXHR, "div_debug_display");
 
 
 		// ####################
@@ -3478,7 +3478,7 @@ function dco_ajax_atomic_update (config)
 			// METATDATA INFO
 			//var metadata = debugDisplayTable (ajaxReturn, "ajaxReturn");
 			//metadata += print_r (ajaxReturn[0].metadata.sql_query);
-			//$('#'+div_debug_display).html(metadata);
+			//$jq1001('#'+div_debug_display).html(metadata);
 
 
 			// ACTION RESULTS
@@ -3507,24 +3507,24 @@ function dco_display_errors (ajaxReturn)
 			{
 				for (html_container in ajaxReturn[manipulation])
 				{
-					//console.log("html_container:[" + html_container + "] - " + $.type(html_container));
-					if ($.type(html_container) !== "undefined") // if the html_container is existing (may not exist if you have added some additional data at the server page level.)
+					//console.log("html_container:[" + html_container + "] - " + $jq1001.type(html_container));
+					if ($jq1001.type(html_container) !== "undefined") // if the html_container is existing (may not exist if you have added some additional data at the server page level.)
 					{
-						if ( $("#" + html_container).length !== 0) // if the HTML element $("#" + html_container) is existing:
+						if ( $jq1001("#" + html_container).length !== 0) // if the HTML element $jq1001("#" + html_container) is existing:
 						{
-							//$('#' + html_container + " .ui-state-highlight").remove();
-							//$('#' + html_container + " .ui-state-error").remove();
+							//$jq1001('#' + html_container + " .ui-state-highlight").remove();
+							//$jq1001('#' + html_container + " .ui-state-error").remove();
 							//console.log('REMOVE	#' + html_container + " .dco_error .remove()");
-							//console.log($('#' + html_container).find(".datamalicoerror").remove());
+							//console.log($jq1001('#' + html_container).find(".datamalicoerror").remove());
 
 							//console.log('#' + html_container + " .ui-state-highlight");
 							//console.log('#' + html_container + " .ui-state-error");
 
 							//delete the previous attention_msg if exists:
-							$('#' + html_container + ' div.datamalicoerror').remove();
+							$jq1001('#' + html_container + ' div.datamalicoerror').remove();
 
 							// and display a new attention message if necessary:
-							if ($.type(ajaxReturn[manipulation][html_container].metadata) !== "undefined")	// in case of no more errors
+							if ($jq1001.type(ajaxReturn[manipulation][html_container].metadata) !== "undefined")	// in case of no more errors
 							{
 								if (
 									ajaxReturn[manipulation][html_container].metadata.horizontal_access === false
@@ -3532,8 +3532,8 @@ function dco_display_errors (ajaxReturn)
 								)
 								{
 									// delete the form dco_ajax_atomic_update_form if necessary (when any standard or custom atomic_update)
-									var container = $('#'+html_container).find('#'+html_container+'_sub').attr('id');
-									if ($('#'+container).parent().attr('id') === "dco_ajax_atomic_update_form") $('#'+container).unwrap();
+									var container = $jq1001('#'+html_container).find('#'+html_container+'_sub').attr('id');
+									if ($jq1001('#'+container).parent().attr('id') === "dco_ajax_atomic_update_form") $jq1001('#'+container).unwrap();
 
 									//var ctnr = ajaxReturn[manipulation][html_container].metadata.ctnr;
 									var returnMessage = ajaxReturn[manipulation][html_container].metadata.returnMessage;
@@ -3542,7 +3542,7 @@ function dco_display_errors (ajaxReturn)
 
 									//console.log(html_container + " - " + ajaxReturn.display_error_msg + " - " + returnMessage);
 									//console.log('DISPLAY #' + html_container + " - " + ajaxReturn.display_error_msg + " - " + returnMessage);
-									$('#' + html_container).add_attention_msg({
+									$jq1001('#' + html_container).add_attention_msg({
 										type: "error"
 										, msg: returnMessage
 										, display_error_msg: ajaxReturn.display_error_msg
@@ -3565,7 +3565,7 @@ function dco_display_errors (ajaxReturn)
 *
 * @return Returns the HTML code of the field.
 */
-$.fn.add_attention_msg = function(params)
+$jq1001.fn.add_attention_msg = function(params)
 {	
 	if (!isset_notempty_notnull(params.type)) params.type = "highlight";
 
@@ -3582,7 +3582,7 @@ $.fn.add_attention_msg = function(params)
 		params.icon_class = "ui-icon-alert";
 	}
 
-	var attention_msg = $('<div />')
+	var attention_msg = $jq1001('<div />')
 	.addClass("datamalicoerror")
 	.addClass('ui-corner-all')
 	//.addClass(params.style_class)	// causes a problem
@@ -3591,9 +3591,9 @@ $.fn.add_attention_msg = function(params)
 	.css("color", "#CD0A0A")		// Is the remedy to the above problem
 	.css("padding", '0 .7em')
 	.wrapInner(
-		$('<p />')
+		$jq1001('<p />')
 		.wrapInner(
-			$('<span />')
+			$jq1001('<span />')
 			//.addClass('ui-icon')	// causes a problem
 			.addClass(params.icon_class)
 			.css('float', 'left; margin-right: .3em')
@@ -3605,15 +3605,15 @@ $.fn.add_attention_msg = function(params)
 
 	if (params.display_error_msg === "after")
 	{
-		$(this).append(attention_msg);
+		$jq1001(this).append(attention_msg);
 	}
 	else
 	{
-		$(this).prepend(attention_msg);
+		$jq1001(this).prepend(attention_msg);
 	}
 
-	//console.log($(this));
-	return $(this);
+	//console.log($jq1001(this));
+	return $jq1001(this);
 };
 
 
@@ -3650,7 +3650,7 @@ function  dco_paginate_procedural (params)
 		if (!isset_notempty_notnull (params.display.require_another_page)) params.display.require_another_page = null;
 		return params;
 	}
-	//$("#div_ajax_serverScript").html(debugDisplayTable (config, "config"));
+	//$jq1001("#div_ajax_serverScript").html(debugDisplayTable (config, "config"));
 
 
 	// ###########################
@@ -3659,13 +3659,13 @@ function  dco_paginate_procedural (params)
 	//console.log(config);
 
 	// report:
-	$('#' + config.display.report_ctnr).empty();
-	$('#' + config.display.report_ctnr).append(config.ajaxReturn.metadata.returnMessage);
+	$jq1001('#' + config.display.report_ctnr).empty();
+	$jq1001('#' + config.display.report_ctnr).append(config.ajaxReturn.metadata.returnMessage);
 
 
 	// create pagination:
 	var class_selector = "." + config.display.pages_className;
-	$(class_selector).paging(config.ajaxReturn.metadata.pagination.nbRes
+	jQuery(class_selector).paging(config.ajaxReturn.metadata.pagination.nbRes
 		, {page: config.ajaxReturn.metadata.pagination.page
 			, perpage: config.ajaxReturn.metadata.pagination.perpage
 			, onSelect: config.display.render_this_inner_page
@@ -3684,7 +3684,7 @@ function  dco_paginate_procedural (params)
 		function onSelect_example (page, obj_this)
 		{
 			//console.log("onSelect_example");
-			//$("#datatable").css('display', 'none');
+			//$jq1001("#datatable").css('display', 'none');
 
 			//console.log(obj_this);
 			var num_of_first_elem_on_page = obj_this.slice[0] + 1;	// + 1 because the first elem of the slice array is 0
@@ -3697,16 +3697,16 @@ function  dco_paginate_procedural (params)
 				html += "Demonstration item " + i + "<br />";
 			}
 
-			$("#datatable").html(html);
-			//$("#datatable").fadeIn("slow");
+			$jq1001("#datatable").html(html);
+			//$jq1001("#datatable").fadeIn("slow");
 		}
 
 		function onFormat (type)
 		{
 			var perpage_get_attr = "";
-			//if (isset_notempty_notnull ($("#perpage").val())) perpage_get_attr = "&perpage=" + $("#perpage").val();
-			//perpage_get_attr = pagination.perpage; //$("#page").val(page_num);
-			perpage_get_attr = config.ajaxReturn.metadata.pagination.perpage; //$("#page").val(page_num);
+			//if (isset_notempty_notnull ($jq1001("#perpage").val())) perpage_get_attr = "&perpage=" + $jq1001("#perpage").val();
+			//perpage_get_attr = pagination.perpage; //$jq1001("#page").val(page_num);
+			perpage_get_attr = config.ajaxReturn.metadata.pagination.perpage; //$jq1001("#page").val(page_num);
 
 			var request_uri = location.pathname; // "pagename-2-15" is rewritten by htaccess to pagename?page=2&perpage=15;
 			var pattern = new RegExp("^(.+)-([0-9]+)-([0-9]+)$", "gi");

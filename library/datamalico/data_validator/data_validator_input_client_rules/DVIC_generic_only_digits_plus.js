@@ -3,9 +3,9 @@ function DVIC_generic_only_digits_plus (event)
 {
 	event.stopPropagation();
 
-	var field = $(this).val();
+	var field = $jq1001(this).val();
 	field = only_digits_plus(field);
-	$(this).val(field);
+	$jq1001(this).val(field);
 
-	return $(this);
+	return $jq1001(this);
 }

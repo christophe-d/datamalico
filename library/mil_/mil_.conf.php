@@ -192,6 +192,12 @@ $GLOBALS['config_ini']['JS']['link_to_functional_JS_libs_publicsite'] = '
 
 	<!--For jquery =============================== -->
 	<script type="text/javascript" src="1001_addon/assets/templates/common/js/'.$jquery.$extension.'"></script>
+	<script>
+	$jq1001 = jQuery.noConflict( true ); // Links $jq1001 to the last loaded jQuery version and restore $ and jQuery to the previous loaded version.
+	</script>
+
+	<script type="text/javascript" src="1001_addon/assets/templates/common/js/'.$jquery.$extension.'"></script><!-- Set $ and jQuery to this jQuery version -->
+
 
 <!--For jqueryui =============================== -->
 <link type="text/css" href="1001_addon/assets/templates/common/'.$jquery_ui.'/css/custom-theme-1/'.$jquery_ui.'.css" rel="stylesheet" />

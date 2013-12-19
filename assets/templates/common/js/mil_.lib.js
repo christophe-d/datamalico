@@ -10,11 +10,11 @@
 
 
 
-$(document).ready(mil_init);
+$jq1001(document).ready(mil_init);
 function mil_init () 
 {
-	$('#mil_alert_box').hide();
-	$('#mil_problem_notification_box').hide();
+	$jq1001('#mil_alert_box').hide();
+	$jq1001('#mil_problem_notification_box').hide();
 }
 
 
@@ -47,7 +47,7 @@ function mil_init ()
 *
 * // Thus you have to do:
 * mil_alert ("Any message");
-* $( "#mil_alert_box" ).on( "dialogclose", function( event, ui ) {
+* $jq1001( "#mil_alert_box" ).on( "dialogclose", function( event, ui ) {
 * 	window.location.href = "anotherpage.html";
 * });
 * @endcode
@@ -61,10 +61,10 @@ function mil_alert ()
 
 	// ########################	
 	// Work
-	//$('#mil_alert_box').attr('title', title);
-	$('#mil_alert_box #msg').html(msg);
+	//$jq1001('#mil_alert_box').attr('title', title);
+	$jq1001('#mil_alert_box #msg').html(msg);
 
-	$( "#mil_alert_box" ).dialog({
+	$jq1001( "#mil_alert_box" ).dialog({
 		title: title
 		, modal: true
 		, draggable: false
@@ -74,7 +74,7 @@ function mil_alert ()
 		, position: { my: "center bottom", at: "center center", of: window }
 		, buttons: {
 			Ok: function() {
-				$( this ).dialog( "close" ); // closes the box
+				$jq1001( this ).dialog( "close" ); // closes the box
 			}
 		}
 		, show: {
@@ -87,7 +87,7 @@ function mil_alert ()
 		}
 	});
 
-	var JQUERY_ok_button = $('#mil_alert_box').parent().find('.ui-dialog-buttonpane').find('span:contains("Ok")').parent();
+	var JQUERY_ok_button = $jq1001('#mil_alert_box').parent().find('.ui-dialog-buttonpane').find('span:contains("Ok")').parent();
 	var HTML_ok_button = JQUERY_ok_button.get(0);
 	HTML_ok_button.focus();
 }
@@ -121,10 +121,10 @@ function mil_problem_notification (type)
 
 	// ########################	
 	// Work
-	//$('#mil_alert_box').attr('title', title);
-	//$('#mil_alert_box #msg').html(msg);
+	//$jq1001('#mil_alert_box').attr('title', title);
+	//$jq1001('#mil_alert_box #msg').html(msg);
 
-	$( "#mil_problem_notification_box" ).dialog({	
+	$jq1001( "#mil_problem_notification_box" ).dialog({	
 		modal: true
 		, draggable: true
 		, resizable: true
@@ -133,7 +133,7 @@ function mil_problem_notification (type)
 		, position: { my: "right bottom", at: "right bottom", of: window }
 		, buttons: {
 			"Envoyer": function() {
-				var dialog_obj = $(this);
+				var dialog_obj = $jq1001(this);
 				mil_ajax ({
 					form_id: "problem_form"
 					, url: "1001_addon/assets/snippets/mil_problem_notification/server.email.ajax.php"
@@ -173,13 +173,13 @@ function mil_problem_notification (type)
 		}
 	});
 
-	$("#mil_problem_notification_box").attr('title', mil_problem_notification_box_title);
-	$("#ui-dialog-title-mil_problem_notification_box").html(mil_problem_notification_box_title);
+	$jq1001("#mil_problem_notification_box").attr('title', mil_problem_notification_box_title);
+	$jq1001("#ui-dialog-title-mil_problem_notification_box").html(mil_problem_notification_box_title);
 
 
-	$("#mil_problem_notification_box #problem_msg_id").val("");
-	$("#mil_problem_notification_box #problem_page_url_id").val(window.location.href);
-	$("#mil_problem_notification_box #problem_page_pathname_id").val(window.location.pathname);
+	$jq1001("#mil_problem_notification_box #problem_msg_id").val("");
+	$jq1001("#mil_problem_notification_box #problem_page_url_id").val(window.location.href);
+	$jq1001("#mil_problem_notification_box #problem_page_pathname_id").val(window.location.pathname);
 }
 
 
@@ -203,11 +203,11 @@ function mil_problem_notification (type)
 function makeup_rows (selector)
 {
 	// Display:
-	$(selector).filter(':odd').addClass("odd_row");
-	$(selector).filter(':even').addClass("even_row");
+	$jq1001(selector).filter(':odd').addClass("odd_row");
+	$jq1001(selector).filter(':even').addClass("even_row");
 	// datagrid mouseover row management:
-	$(selector).mouseenter( function () { $(this).addClass("over_row"); } );
-	$(selector).mouseleave( function () { $(this).removeClass("over_row"); } );
+	$jq1001(selector).mouseenter( function () { $jq1001(this).addClass("over_row"); } );
+	$jq1001(selector).mouseleave( function () { $jq1001(this).removeClass("over_row"); } );
 }
 
 
@@ -229,8 +229,8 @@ function default_tab_selection (params)
 	)
 	{
 		// switch to tab specified in hyperlink:
-		//$('[id^="'+params.level+'"]').tabs('select', eval(params.tabid)); // jQuery UI http://api.jqueryui.com/1.8/tabs/#method-select
-		$('[id^="'+params.level+'"]').tabs('select', params.tabid);
+		//$jq1001('[id^="'+params.level+'"]').tabs('select', eval(params.tabid)); // jQuery UI http://api.jqueryui.com/1.8/tabs/#method-select
+		$jq1001('[id^="'+params.level+'"]').tabs('select', params.tabid);
 	}	
 	else
 	{
@@ -284,13 +284,13 @@ $("#accordion").accordion({ active: false });
 * 	- unmoveable: (optional, default is []) {numerical array} Define unmoveable panels. Unmoveable means: cannot be opened or closed.
 *
 * @code
-* $("#action_panel").mil_panel({
+* $jq1001("#action_panel").mil_panel({
 * 	active: [0]
 * 	, unmoveable: [0]
 * });
 * @endcode
 */
-$.fn.mil_panel = function (params)
+$jq1001.fn.mil_panel = function (params)
 {
 	var classes = {
 		panel_ctnr: "ui-accordion ui-accordion-icons ui-widget ui-helper-reset"
@@ -338,44 +338,44 @@ $.fn.mil_panel = function (params)
 	/**
 	* For any h3 element (that is to say the bar of a panel)
 	*/
-	$.fn.panelToggle = function ()
+	$jq1001.fn.panelToggle = function ()
 	{
-		//console.log ($(this).next().css("display"));
-		//console.log ($(this).next());
+		//console.log ($jq1001(this).next().css("display"));
+		//console.log ($jq1001(this).next());
 
-		$(this).toggleClass(classes.header.toggle)
+		$jq1001(this).toggleClass(classes.header.toggle)
 		.find("> .ui-icon").toggleClass(classes.icon.toggle).end()
 		.next().slideToggle().toggleClass(classes.content.toggle); //slideToggle
 
 		/*
 		// Here a simple toggle should do the trick. But there is a bug from the original code, so I use the value css dipsplay to to know if show or hide.
-		var state = $(this).next().css("display"); // display state of the content
+		var state = $jq1001(this).next().css("display"); // display state of the content
 
-		$(this).toggleClass(classes.header.toggle);
-		$(this).find("> .ui-icon").toggleClass(classes.icon.toggle);
+		$jq1001(this).toggleClass(classes.header.toggle);
+		$jq1001(this).find("> .ui-icon").toggleClass(classes.icon.toggle);
 
 		if (state === "none")
 		{
-		$(this).next()
+		$jq1001(this).next()
 		.slideDown()
 		.removeClass(classes.content.inactive + " " + classes.content.active)
 		.addClass(classes.content.active); //slideToggle
 		}
 	else
 		{
-		$(this).next()
+		$jq1001(this).next()
 		.slideUp()
 		.removeClass(classes.content.inactive + " " + classes.content.active)
 		.addClass(classes.content.inactive); //slideToggle
 		}
 		*/
-		//console.log ($(this).next().css("display"));
-		//console.log ($(this).next());
+		//console.log ($jq1001(this).next().css("display"));
+		//console.log ($jq1001(this).next());
 	};
 
 	var config = get_config (params);
 
-	$(this).addClass(classes.panel_ctnr)
+	$jq1001(this).addClass(classes.panel_ctnr)
 	.find("h3").addClass(classes.header.inactive)
 	.next().addClass(classes.content.inactive)
 	.hide();		// keep this hide, otherwise there is a motion bug
@@ -383,40 +383,40 @@ $.fn.mil_panel = function (params)
 
 	// ##############
 	// What panel should be unmoveable?
-	$(this).find("h3").each(function (index, element)
+	$jq1001(this).find("h3").each(function (index, element)
 	{
 		//console.log(index);
-		var in_unmoveable_at_position = $.inArray(index, config.unmoveable);
+		var in_unmoveable_at_position = $jq1001.inArray(index, config.unmoveable);
 
 		// collapsible panels
 		if (in_unmoveable_at_position === -1)
 		{
 			//console.log("Not in unmoveable: " + index);
-			$(this)
-			.hover(function() { $(this).toggleClass(classes.header.hover); })
+			$jq1001(this)
+			.hover(function() { $jq1001(this).toggleClass(classes.header.hover); })
 			.prepend('<span class="' + classes.icon.inactive + '"></span>')
 			.click(function() {
-				$(this).panelToggle();
+				$jq1001(this).panelToggle();
 				return false;
-				$(this)
+				$jq1001(this)
 				.toggleClass(classes.header.toggle)
 				.find("> .ui-icon").toggleClass(classes.icon.toggle).end()
 				.next().toggleClass(classes.content.toggle).slideToggle();
 
-			}); //.on("click", $(this), panelToggle)
+			}); //.on("click", $jq1001(this), panelToggle)
 
 		}
 		else
 			// unmoveable panels
 		{
 			//console.log("In unmoveable: " + index);
-			//$(this).prepend('<span class="' + classes.icon.unmoveable + '"></span>');
-			$(this)
+			//$jq1001(this).prepend('<span class="' + classes.icon.unmoveable + '"></span>');
+			$jq1001(this)
 			.click(function () { return false; })
 			.toggleClass(classes.header.unmoveable)
 			.find("a").css("cursor", "text");
 
-			var in_active_at_position = $.inArray(index, config.active);
+			var in_active_at_position = $jq1001.inArray(index, config.active);
 			if (in_active_at_position === -1)
 			{
 				//console.log("But not in active: " + index + ", so we add it in active.");
@@ -427,26 +427,26 @@ $.fn.mil_panel = function (params)
 
 	// ##############
 	// What panel should be active?
-	$(this).find("h3").each(function (index, element)
+	$jq1001(this).find("h3").each(function (index, element)
 	{
-		var in_active_at_position = $.inArray(index, config.active);
+		var in_active_at_position = $jq1001.inArray(index, config.active);
 		if (in_active_at_position !== -1)
 		{
-			//$(this).show();
-			//console.log($(this));
-			$(this).panelToggle();
+			//$jq1001(this).show();
+			//console.log($jq1001(this));
+			$jq1001(this).panelToggle();
 		}
 	});
 
 	return;
 
 	// OK
-	$(this).addClass(classes.panel_ctnr)
+	$jq1001(this).addClass(classes.panel_ctnr)
 	.find("h3").addClass(classes.header.inactive)
-	.hover(function() { $(this).toggleClass(classes.header.hover); })
+	.hover(function() { $jq1001(this).toggleClass(classes.header.hover); })
 	.prepend('<span class="' + classes.icon.inactive + '"></span>')
 	.click(function() {
-		$(this)
+		$jq1001(this)
 		.toggleClass(classes.header.toggle)
 		.find("> .ui-icon").toggleClass(classes.icon.toggle).end()
 		.next().toggleClass(classes.content.toggle).slideToggle();
@@ -459,9 +459,9 @@ $.fn.mil_panel = function (params)
 /**
 * Create a button
 */
-$.fn.mil_create_button = function ()
+$jq1001.fn.mil_create_button = function ()
 {
-	$(this).wrap('<span class="mil_button_bg"><span class="mil_button_leftandright"></span></span>');
+	$jq1001(this).wrap('<span class="mil_button_bg"><span class="mil_button_leftandright"></span></span>');
 };
 
 
@@ -469,17 +469,17 @@ $.fn.mil_create_button = function ()
 * Center a div on a screen
 *
 * @code
-* $(element).center();
+* $jq1001(element).center();
 * @endcode
 *
 * @todo The good thing should be to center any element (and keep its content as it is) in its direct parent. Think alos to add params for horizontally and vertically centering.
 */
 jQuery.fn.center = function () {
 	this.css("position","absolute");
-	this.css("top", Math.max(0, (($(window).height() - $(this).outerHeight()) / 2) + 
-		$(window).scrollTop()) + "px");
-	this.css("left", Math.max(0, (($(window).width() - $(this).outerWidth()) / 2) + 
-		$(window).scrollLeft()) + "px");
+	this.css("top", Math.max(0, (($jq1001(window).height() - $jq1001(this).outerHeight()) / 2) + 
+		$jq1001(window).scrollTop()) + "px");
+	this.css("left", Math.max(0, (($jq1001(window).width() - $jq1001(this).outerWidth()) / 2) + 
+		$jq1001(window).scrollLeft()) + "px");
 	return this;
 }
 
@@ -493,18 +493,18 @@ jQuery.fn.center = function () {
 *
 * Usage:
 * @code
-* To center along both x and y axes: $(el).centerToParent();
-* To center along the x axis only: $(el).centerToParent("x");
-* To center along the y axis only: $(el).centerToParent("y");
+* To center along both x and y axes: $jq1001(el).centerToParent();
+* To center along the x axis only: $jq1001(el).centerToParent("x");
+* To center along the y axis only: $jq1001(el).centerToParent("y");
 * @endcode
 *
 * For information about window and sizes:
 * @code
-* $(window).width()
-* $(this).outerWidth()
+* $jq1001(window).width()
+* $jq1001(this).outerWidth()
 * @endcode
 */
-$.fn.centerToParent = function( method )
+$jq1001.fn.centerToParent = function( method )
 {
 	var css = {
 		position: 'relative'
@@ -512,26 +512,26 @@ $.fn.centerToParent = function( method )
 
 	var methods = {
 		init : function() { 
-			return private_methods.center($(this));
+			return private_methods.center($jq1001(this));
 		},
 		x : function() {
-			return private_methods.center($(this), true, false);
+			return private_methods.center($jq1001(this), true, false);
 		},
 		y : function() { 
-			return private_methods.center($(this), false, true);
+			return private_methods.center($jq1001(this), false, true);
 		}
 	}
 
 	var private_methods = {
 		center : function(els, x, y) {
 			els.each(function(i){
-				var el = $(this);
+				var el = $jq1001(this);
 				var p = el.parent();
-				p = p.is('body') ? $(window) : p;
+				p = p.is('body') ? $jq1001(window) : p;
 				x = (typeof(x)==='undefined') ? true : x;
 				y = (typeof(y)==='undefined') ? true : y;
 				if(p.height() <= el.height()) {
-					$.error("Selected element is larger than it's parent");
+					$jq1001.error("Selected element is larger than it's parent");
 				} else if(y && x) {
 					css['top'] = ((p.height() / 2) - (el.height() / 2)) + "px";
 					css['left'] = ((p.width() / 2) - (el.width() / 2)) + "px";
@@ -552,7 +552,7 @@ $.fn.centerToParent = function( method )
 	} else if ( typeof method === 'object' || ! method ) {
 		return methods.init.apply( this, arguments );
 	} else {
-		$.error( 'Method ' +  method + ' does not exist on jQuery.centerToParent' );
+		$jq1001.error( 'Method ' +  method + ' does not exist on jQuery.centerToParent' );
 	}
 };
 
@@ -616,7 +616,7 @@ function debugDisplayTable2 (params)
 	// work
 	var html = "";
 
-	html += $.each(params.array_or_object, iterate_through_records);
+	html += $jq1001.each(params.array_or_object, iterate_through_records);
 	function iterate_through_records (key, value)
 	{
 		if (
@@ -673,13 +673,13 @@ function print_r(obj)
 
 function isset (param)
 {
-	return (param !== undefined && $.type(param) !== "undefined");
+	return (param !== undefined && $jq1001.type(param) !== "undefined");
 }
 
 function isitnull (param)
 {
 	var is_it_null;
-	var type = $.type (param);
+	var type = $jq1001.type (param);
 
 	if (type === "null")
 	{
@@ -696,7 +696,7 @@ function isitnull (param)
 function isitempty (param)
 {
 	var is_it_empty;
-	var type = $.type (param);
+	var type = $jq1001.type (param);
 
 	if (type === "string")
 	{
@@ -725,18 +725,18 @@ function exists_and_not_empty (param)
 //	exists {isset:1, notempty:1, notnull:1; notzero:1, notfalse:0}
 function isset_notempty_notnull (param)
 {
-	//console.log("type: " + $.type (param));
+	//console.log("type: " + $jq1001.type (param));
 	var is_it_set = isset (param);
 	var is_it_empty = isitempty (param);
 	var is_it_null = isitnull (param);
 	/*var notempty = (param !== "") && (param.length !== 0);
 	var notnull = (param !== null);
-	if ($.type (param) === "string")
+	if ($jq1001.type (param) === "string")
 	{
 	notnull = notnull && (param.toLowerCase() !== "null");
 	notempty = notempty && (param !== "0");
 	}
-else if ($.type (param) === "number")
+else if ($jq1001.type (param) === "number")
 	{
 	notnull = notnull && (param !== 0);
 	}*/
@@ -950,7 +950,7 @@ BrowserDetect.init();
 	{
 		alert (browserMessage);
 		//alert(BrowserDetect.browser + " " + BrowserDetect.version + " " + BrowserDetect.OS);
-		//alert($.type(BrowserDetect.browser) + " " + $.type(BrowserDetect.version) + " " + $.type(BrowserDetect.OS));
+		//alert($jq1001.type(BrowserDetect.browser) + " " + $jq1001.type(BrowserDetect.version) + " " + $jq1001.type(BrowserDetect.OS));
 	}	
 })();
 
@@ -966,7 +966,7 @@ BrowserDetect.init();
 // ################################################################################
 
 /**
-* It eases the ajax handling. It uses the jquery $.ajax() function.
+* It eases the ajax handling. It uses the jquery $jq1001.ajax() function.
 *
 * @param params: {object} Is an associative array, containing params for the ajax transaction.
 * 	- form_id: (REQUIRED AND OPTIONAL: you must specify at least, form_id or data, both are possible too) {string} Id of the form you want to submit.
@@ -1042,9 +1042,9 @@ function mil_ajax (params)
 	config = check_params(params);
 	function check_params(params)
 	{
-		//console.log($.type(params));
-		//console.log($.type(params.form_id));
-		//console.log($.type(params.data));
+		//console.log($jq1001.type(params));
+		//console.log($jq1001.type(params.form_id));
+		//console.log($jq1001.type(params.data));
 		if (
 			!isset_notempty_notnull (params.form_id)
 			&& !isset_notempty_notnull (params.data)
@@ -1055,8 +1055,8 @@ function mil_ajax (params)
 		}
 		if (isset_notempty_notnull (params.form_id))
 		{
-			if (!isset_notempty_notnull (params.url)) params.url = $('#' + params.form_id).attr("action");
-			if (!isset_notempty_notnull (params.method)) params.method = $('#' + params.form_id).attr("method");
+			if (!isset_notempty_notnull (params.url)) params.url = $jq1001('#' + params.form_id).attr("action");
+			if (!isset_notempty_notnull (params.method)) params.method = $jq1001('#' + params.form_id).attr("method");
 		}
 		else
 		{
@@ -1074,12 +1074,12 @@ function mil_ajax (params)
 
 	// ############################
 	// Work
-	config.data = $('#' + config.form_id).serialize () + '&' + $.param (config.data);
+	config.data = $jq1001('#' + config.form_id).serialize () + '&' + $jq1001.param (config.data);
 
 	//console.log(config);
 	//console.log("mil_ajax (), data to be sent:" + config.data);
 
-	var request = $.ajax({url: config.url
+	var request = $jq1001.ajax({url: config.url
 		, type : config.method
 		, data: config.data
 		, success : config.success
@@ -1201,11 +1201,11 @@ function mil_Exception (params)
 function mil_ajax_debug (ajaxReturn, textStatus, jqXHR, div_debug_display)
 {
 
-	reset = arguments[4]; if ($.type(reset) === "undefined") reset = true;
+	reset = arguments[4]; if ($jq1001.type(reset) === "undefined") reset = true;
 
 	var is_json = false;
 	// if the server has returned a string, that is to say a non ajax well formed object:
-	if ($.type (ajaxReturn) === "string")
+	if ($jq1001.type (ajaxReturn) === "string")
 	{
 		mil_ajax_debug_and_see_raw_server_results (ajaxReturn, textStatus, jqXHR, div_debug_display, reset); //return;
 		is_json = false;
@@ -1225,13 +1225,13 @@ function mil_ajax_debug (ajaxReturn, textStatus, jqXHR, div_debug_display)
 //mil_ajax_debug_and_see_raw_server_results (ajaxReturn, textStatus, jqXHR, div_debug_display); return;
 function mil_ajax_debug_and_see_raw_server_results (ajaxReturn, textStatus, jqXHR, div_debug_display)
 {
-	reset = arguments[4]; if ($.type(reset) === "undefined") reset = true;
+	reset = arguments[4]; if ($jq1001.type(reset) === "undefined") reset = true;
 
 	//console.log("DEBUG RAW (string) ajaxReturn from server:");
 	//console.log(ajaxReturn);
-	//console.log($.type(ajaxReturn));
-	if (reset === true) $('#' + div_debug_display).html("");
-	$("#"+div_debug_display).append (ajaxReturn);	// if the //console.log works and displays the object, but not this line, then it means that a JSON object is returned, and not a string. That means that the server page has not error. In order to display something into the div_debug_display, then, do echo into server page, so that the output will be a string and not a JSON object.
+	//console.log($jq1001.type(ajaxReturn));
+	if (reset === true) $jq1001('#' + div_debug_display).html("");
+	$jq1001("#"+div_debug_display).append (ajaxReturn);	// if the //console.log works and displays the object, but not this line, then it means that a JSON object is returned, and not a string. That means that the server page has not error. In order to display something into the div_debug_display, then, do echo into server page, so that the output will be a string and not a JSON object.
 }
 
 // ####################
@@ -1239,14 +1239,14 @@ function mil_ajax_debug_and_see_raw_server_results (ajaxReturn, textStatus, jqXH
 //mil_ajax_debug_and_see_object_server_results (ajaxReturn, textStatus, jqXHR, div_debug_display);
 function mil_ajax_debug_and_see_object_server_results (ajaxReturn, textStatus, jqXHR, div_debug_display)
 {
-	reset = arguments[4]; if ($.type(reset) === "undefined") reset = true;
+	reset = arguments[4]; if ($jq1001.type(reset) === "undefined") reset = true;
 
 	//console.log("OBJECT JSON ajaxReturn from server:");
 	//console.log(ajaxReturn);
 
-	if (reset === true) $('#' + div_debug_display).html("");
+	if (reset === true) $jq1001('#' + div_debug_display).html("");
 
-	//$("#"+div_debug_display).empty();
+	//$jq1001("#"+div_debug_display).empty();
 	if (!isset_notempty_notnull(ajaxReturn)) ajaxReturn = {};
 	if (!isset_notempty_notnull(ajaxReturn.metadata)) ajaxReturn.metadata = {};
 
@@ -1255,10 +1255,10 @@ function mil_ajax_debug_and_see_object_server_results (ajaxReturn, textStatus, j
 		if (!isset_notempty_notnull(ajaxReturn.metadata.sql)) ajaxReturn.metadata.sql = "";
 		if (isset_notempty_notnull(ajaxReturn.metadata.sql_query))
 		{
-			$("#"+div_debug_display).append(print_r (ajaxReturn.metadata.sql_query));
+			$jq1001("#"+div_debug_display).append(print_r (ajaxReturn.metadata.sql_query));
 		}
 	}
-	$("#"+div_debug_display).append(debugDisplayTable (ajaxReturn, "OBJECT JSON ajaxReturn from server:"));
+	$jq1001("#"+div_debug_display).append(debugDisplayTable (ajaxReturn, "OBJECT JSON ajaxReturn from server:"));
 }
 
 /**
@@ -1266,12 +1266,12 @@ function mil_ajax_debug_and_see_object_server_results (ajaxReturn, textStatus, j
 */
 function are_mil_ajax_running ()
 {
-	if ($.mil_xhrPool.length <= 0) return false;
+	if ($jq1001.mil_xhrPool.length <= 0) return false;
 	else return true;
 }
 
 /*
-$.ajaxSetup({
+$jq1001.ajaxSetup({
 beforeSend: mil_xhrPool_beforeSend
 , complete : mil_xhrPool_complete
 });
@@ -1279,32 +1279,32 @@ beforeSend: mil_xhrPool_beforeSend
 
 function mil_xhrPool_beforeSend (jqXHR)
 {
-	$.mil_xhrPool.push(jqXHR);
-	//console.log("ajaxSetup.beforeSend, $.mil_xhrPool.length: " + $.mil_xhrPool.length);
-	//console.log($.mil_xhrPool);
+	$jq1001.mil_xhrPool.push(jqXHR);
+	//console.log("ajaxSetup.beforeSend, $jq1001.mil_xhrPool.length: " + $jq1001.mil_xhrPool.length);
+	//console.log($jq1001.mil_xhrPool);
 
-	if ($.mil_xhrPool.length === 1)
+	if ($jq1001.mil_xhrPool.length === 1)
 	{
 		mil_display_waitingModalBox (); // activate the modal wainting box only for the first ajax request
-		//$(document).on ("keydown", mil_listen_to_ESC_down);
+		//$jq1001(document).on ("keydown", mil_listen_to_ESC_down);
 	}
 }
 function mil_xhrPool_complete (jqXHR)
 {
 	//console.log("mil_xhrPool_complete");
-	//var index = $.mil_xhrPool.indexOf(jqXHR);	// http://stackoverflow.com/questions/3629183/why-doesnt-indexof-work-on-an-array-ie8
-	var index = $.inArray (jqXHR, $.mil_xhrPool);
+	//var index = $jq1001.mil_xhrPool.indexOf(jqXHR);	// http://stackoverflow.com/questions/3629183/why-doesnt-indexof-work-on-an-array-ie8
+	var index = $jq1001.inArray (jqXHR, $jq1001.mil_xhrPool);
 
 	if (index > -1) {
-		$.mil_xhrPool.splice(index, 1);
+		$jq1001.mil_xhrPool.splice(index, 1);
 	}
-	//console.log("ajaxSetup.complete, $.mil_xhrPool.length: " + $.mil_xhrPool.length);
-	//console.log($.mil_xhrPool);
+	//console.log("ajaxSetup.complete, $jq1001.mil_xhrPool.length: " + $jq1001.mil_xhrPool.length);
+	//console.log($jq1001.mil_xhrPool);
 
-	if ($.mil_xhrPool.length <= 0)
+	if ($jq1001.mil_xhrPool.length <= 0)
 	{
 		mil_hide_waitingModalBox (); // deactivate the modal wainting box only for the last ajax request
-		//$(document).off ("keydown", mil_listen_to_ESC_down);
+		//$jq1001(document).off ("keydown", mil_listen_to_ESC_down);
 	}
 }
 
@@ -1423,16 +1423,16 @@ function mil_display_waitingModalBox ()
 function mil_hide_waitingModalBox ()
 {
 	//console.log("mil_hide_waitingModalBox");
-	$("#dialog-modal").dialog("close");
-	$("#dialog-modal").parent("div").remove();
-	$("#dialog-modal").remove();	// necessary, because, the .dialog("close") doesn't destroy my original container "#dialog-modal"
-	//console.log("#dialog-modal type: " + $.type($("#dialog-modal")));
-	//console.log($("#dialog-modal"));
+	jQuery("#dialog-modal").dialog("close");
+	$jq1001("#dialog-modal").parent("div").remove();
+	$jq1001("#dialog-modal").remove();	// necessary, because, the .dialog("close") doesn't destroy my original container "#dialog-modal"
+	//console.log("#dialog-modal type: " + $jq1001.type($jq1001("#dialog-modal")));
+	//console.log($jq1001("#dialog-modal"));
 	return;
 	//console.log("mil_hide_waitingModalBox");
-	//$("#mil_xhrPool_abortAll").off ("click");
+	//$jq1001("#mil_xhrPool_abortAll").off ("click");
 	//popdown('loadingWheel');
-	$('#waitingModalBox').remove();
+	$jq1001('#waitingModalBox').remove();
 }
 
 
@@ -1441,17 +1441,17 @@ function mil_listen_to_ESC_down (event)
 	if (event.which === 27)	// ESC
 	{
 		//console.log("listen_to_ESC_down");
-		$.mil_xhrPool.abortAll ();
+		$jq1001.mil_xhrPool.abortAll ();
 	}
 }
 
 
-$.mil_xhrPool = [];
-$.mil_xhrPool.abortAll = function() {
-	$(this).each(function(idx, jqXHR) {
+$jq1001.mil_xhrPool = [];
+$jq1001.mil_xhrPool.abortAll = function() {
+	$jq1001(this).each(function(idx, jqXHR) {
 		jqXHR.abort();
 	});
-	$.mil_xhrPool.length = 0
+	$jq1001.mil_xhrPool.length = 0
 };
 
 // }}}
@@ -1500,7 +1500,7 @@ function mixed_rawurldecode (mixed)
 	{
 		var function_return;
 		//foreach (mixed as $key => $val)
-		$.each(mixed, iterate_through_array);
+		$jq1001.each(mixed, iterate_through_array);
 		function iterate_through_array (key, value)
 		{
 			function_return[key] = mixed_rawurldecode(value);
@@ -1535,7 +1535,7 @@ function mixed_convert_uudecode (mixed)
 	{
 		var function_return;
 		//foreach (mixed as $key => $val)
-		$.each(mixed, iterate_through_array);
+		$jq1001.each(mixed, iterate_through_array);
 		function iterate_through_array (key, value)
 		{
 			function_return[key] = mixed_convert_uudecode(value);
@@ -1759,14 +1759,14 @@ function get_today ()
 *
 * Example of use:
 * @code
-* $myjson = $('#formid').serializeArray();
+* $jq1001myjson = $jq1001('#formid').serializeArray();
 * @endcode 
 */
-$.fn.serializeObject = function()
+$jq1001.fn.serializeObject = function()
 {
 	var o = {};
 	var a = this.serializeArray();
-	$.each(a, function() {
+	$jq1001.each(a, function() {
 		if (o[this.name] !== undefined) {
 			if (!o[this.name].push) {
 				o[this.name] = [o[this.name]];
@@ -1787,11 +1787,11 @@ $.fn.serializeObject = function()
 *
 * Example of use:
 * @code
-* $myjson = $('#formid').serializeArray();
+* $jq1001myjson = $jq1001('#formid').serializeArray();
 * @endcode 
 */
-(function($){
-	$.fn.serializeObject2 = function(){
+(function($jq1001){
+	$jq1001.fn.serializeObject2 = function(){
 
 		var self = this,
 		json = {},
@@ -1817,7 +1817,7 @@ $.fn.serializeObject = function()
 			return push_counters[key]++;
 		};
 
-		$.each($(this).serializeArray(), function(){
+		$jq1001.each($jq1001(this).serializeArray(), function(){
 
 			// skip invalid keys
 			if(!patterns.validate.test(this.name)){
@@ -1850,7 +1850,7 @@ $.fn.serializeObject = function()
 				}
 			}
 
-			json = $.extend(true, json, merge);
+			json = $jq1001.extend(true, json, merge);
 		});
 
 		return json;
@@ -1978,11 +1978,11 @@ function check_zipcode(input_id, select_country_id)
 }
 
 /**
-* This function formats the $(this) jquery element, according to the parameter country_id_jelem
+* This function formats the $jq1001(this) jquery element, according to the parameter country_id_jelem
 *
 * @param country_id_jelem (mandatory) {jquery element} Must be the 'select' element where the country is specifyed.
 */
-$.fn.phone_format = function (country_id_jelem)
+$jq1001.fn.phone_format = function (country_id_jelem)
 {
 	var frequency_separator;
 	var separator;
@@ -1990,9 +1990,9 @@ $.fn.phone_format = function (country_id_jelem)
 	frequency_separator = 2;
 	separator = " ";
 
-	var num = $(this).val();
+	var num = $jq1001(this).val();
 	var num_only_digits = num.replace(/\D/g,"");
-	$(this).val(num);
+	$jq1001(this).val(num);
 
 	var country_id_element_value = parseInt ( country_id_jelem.val() );
 
@@ -2011,13 +2011,13 @@ $.fn.phone_format = function (country_id_jelem)
 		separator = " ";
 
 		//Le principe de cette expression est d'insérer un espace tous les frequency_separator caractères (sauf à la fin)
-		var num = $(this).val();
+		var num = $jq1001(this).val();
 		var pattern = new RegExp("(.{" + frequency_separator + "})(?!$)", "g"); // /(.{2})(?!$)/g
 		var replacement = "$1" + separator;
 		var new_val = num.replace(/[ .-\/\D]/g,"");
 		new_val = new_val.replace(pattern, replacement);
 
-		$(this).val(new_val);
+		$jq1001(this).val(new_val);
 
 		return;
 
@@ -2096,11 +2096,11 @@ function check_country(select_country_id)
 
 //delupsert[country_id][f][country_id]
 /**
-* This function formats the $(this) jquery element, according to the parameter country_id_jelem
+* This function formats the $jq1001(this) jquery element, according to the parameter country_id_jelem
 *
 * @param country_id_jelem (mandatory) {jquery element} Must be the 'select' element where the country is specifyed.
 */
-$.fn.companynum_format = function (country_id_jelem)
+$jq1001.fn.companynum_format = function (country_id_jelem)
 {
 	var frequency_separator;
 	var separator;
@@ -2121,7 +2121,7 @@ $.fn.companynum_format = function (country_id_jelem)
 		frequency_separator = 3;
 		separator = " ";
 
-		var num = $(this).val();
+		var num = $jq1001(this).val();
 		num = num.replace(/\D/g,"");
 
 		//Le principe de cette expression est d'insérer un espace tous les frequency_separator caractères (sauf à la fin)
@@ -2136,10 +2136,10 @@ $.fn.companynum_format = function (country_id_jelem)
 		if (num_part_2 == "") new_val = num_part_1;
 		else new_val = num_part_1 + separator + num_part_2;
 
-		$(this).val(new_val);
+		$jq1001(this).val(new_val);
 	}
 
-	return $(this);
+	return $jq1001(this);
 }
 
 /**

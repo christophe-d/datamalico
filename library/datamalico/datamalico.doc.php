@@ -184,11 +184,36 @@
  *
  * All these files are loaded in library/datamalico/datamalico_server_dbquery.lib.php
  *
+ * @section dependencies Dependencies
+ * @subsection mil_-dependency mil_ help library (embedded)
+ * Datamalico uses an embedded library called "mil_". This library is separated of datamalico in order to keep datamalico easily readable.
+ *
+ * Anyway, just keep the mil_ folder (provided with datamalico), and this will be transparent for you.
+ *
+ * See the official documentation of the mil_ help library.
+ *
+ * @subsection jquery-dependency jQuery (external)
+ * In its beta earlier version, datamalico uses the jQuery library.
+ *
+ * Is it relevant to you? Would you like to remove this dependency, feel free to open a request and to come and contribute by coding.
+ *
+ * See the official jQuery website.
+ *
+ * @subsubsection jquery-version Important remark regarding the jQuery version
+ * You may have noticed that datamalico uses jQuery not only with the $ sign, but with the $jq1001 variable (jq = jquery, 1001 = datamalico logo.)
+ * 
+ * This $jq1001 variable is defined and added in library/mil_/mil_.conf.php via $GLOBALS['config_ini']['JS']['link_to_functional_JS_libs_publicsite']
+ *
+ * This is to make no conflict with any other jquery version you may load in your HTML template.
+ *
+ * @warning the jQuery-UI don't still use the $ sign or th jQuery variable in order to use jQuery.
+ *
  * 
  *
  * @todo
  * 	- Optimize code.
  * 	- Clean the code in order to make a lightweight version.
  * 	- Make a minimized version.
+ * 	- Make clearer what version of jQuery to use with the jQuery-UI
  */
 ?>

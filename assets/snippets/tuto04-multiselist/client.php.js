@@ -7,13 +7,13 @@
 // ############################################################
 // ############################################################
 // Init:
-$(document).ready(init_document);	// when the document is ready (using the jquery library)
+$jq1001(document).ready(init_document);	// when the document is ready (using the jquery library)
 function init_document ()
 {
 	// Input action
 	var temp_insert_id = dco_get_temp_insert_id ();
 	select_empty_ajax(temp_insert_id);
-	$("#insert_button")
+	$jq1001("#insert_button")
 	.button()			// uses the jQueryUI in order to create a nice button.
 	.click(insert_ajax);	// attach a function to the click event.
 
@@ -21,12 +21,12 @@ function init_document ()
 	select_ajax();
 
 	// Write action
-	$("#update_button")
+	$jq1001("#update_button")
 	.button()			// uses the jQueryUI in order to create a nice button.
 	.click(update_ajax);	// attach a function to the click event.
 
 	// Delete action
-	$("#delete_button")
+	$jq1001("#delete_button")
 	.button()			// uses the jQueryUI in order to create a nice button.
 	.click(delete_ajax);	// attach a function to the click event.
 }
@@ -67,7 +67,7 @@ function select_empty_ajax(temp_insert_id)
 			ajaxReturn.character.metadata.returnCode == "X_RESULTS_DISPLAYED"
 		)
 		{
-			$("#input_div")
+			$jq1001("#input_div")
 			.datamalico(ajaxReturn.character)	// warning, here you must give the result of the datamalico_server_dbquery::output resulting of the datamalico_server_dbquery::select_empty()
 			.display({
 				field_name : "fullname"
@@ -75,7 +75,7 @@ function select_empty_ajax(temp_insert_id)
 			});
 
 			/*
-			$("#input_div")
+			$jq1001("#input_div")
 			.datamalico(ajaxReturn.character)	// warning, here you must give the result of the datamalico_server_dbquery::output resulting of the datamalico_server_dbquery::select_empty()
 			.display_datagrid({			// display_datagrid action with a simple configuration See the documentation for more information.
 			template: {
@@ -99,9 +99,9 @@ function select_empty_ajax(temp_insert_id)
 			ajaxReturn.attribute.metadata.returnCode == "X_RESULTS_DISPLAYED"
 		)
 		{
-			//$("#input_multiselist_div").datamalico(ajaxReturn.attribute).display({field_name : "fullname", row_num: 1});
+			//$jq1001("#input_multiselist_div").datamalico(ajaxReturn.attribute).display({field_name : "fullname", row_num: 1});
 
-			$("#input_multiselist_div")
+			$jq1001("#input_multiselist_div")
 			.datamalico(ajaxReturn.attribute)	// warning, here you must give the result of the datamalico_server_dbquery::output resulting of the datamalico_server_dbquery::select_empty()
 			.display_datagrid({			// display_datagrid action with a simple configuration See the documentation for more information.
 				template: {
@@ -143,11 +143,11 @@ function insert_ajax ()
 		{
 			select_ajax (); // refresh the grid from the DB itself
 
-			$("body").datamalico(ajaxReturn).display_errors(); // displays, but alos hides previous errors if no more error.
+			$jq1001("body").datamalico(ajaxReturn).display_errors(); // displays, but alos hides previous errors if no more error.
 		}
 		else if (ajaxReturn.metadata.returnCode === "THERE_ARE_INVALID_DATA")
 		{
-			$("body")		// body, in order to find all potential error message zones within it.
+			$jq1001("body")		// body, in order to find all potential error message zones within it.
 			.datamalico(ajaxReturn)	// datamalico object creation.
 			.display_errors({
 				display_error_msg: "before" // displays the error message before the field.
@@ -181,7 +181,7 @@ function select_ajax ()
 
 			// #######################################
 			// display_datagrid()
-			$('#write_div')			// jquery selector
+			$jq1001('#write_div')			// jquery selector
 			.datamalico(ajaxReturn.character)		// datamalico obj creation with the server result set (json)
 			.display_datagrid({		// display_datagrid action with a simple configuration See the documentation for more information.
 				template: {
@@ -203,9 +203,9 @@ function select_ajax ()
 			ajaxReturn.attribute.metadata.returnCode == "X_RESULTS_DISPLAYED"
 		)
 		{
-			//$("#input_multiselist_div").datamalico(ajaxReturn.attribute).display({field_name : "fullname", row_num: 1});
+			//$jq1001("#input_multiselist_div").datamalico(ajaxReturn.attribute).display({field_name : "fullname", row_num: 1});
 
-			$("#write_multiselist_div")
+			$jq1001("#write_multiselist_div")
 			.datamalico(ajaxReturn.attribute)	// warning, here you must give the result of the datamalico_server_dbquery::output resulting of the datamalico_server_dbquery::select_empty()
 			.display_datagrid({			// display_datagrid action with a simple configuration See the documentation for more information.
 				template: {
@@ -297,7 +297,7 @@ function delete_ajax ()
 */
 function get_update_form_data_and_prepare_for_deletion()
 {
-	var data = $('#update_form').serializeObject();
+	var data = $jq1001('#update_form').serializeObject();
 
 	for (i in data)
 	{

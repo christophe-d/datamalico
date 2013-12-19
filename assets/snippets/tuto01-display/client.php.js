@@ -8,7 +8,7 @@
 // ############################################################
 // Init:
 var pagination; // only for the paginate() method. Must be global in order to work with require_another_page()
-$(document).ready(init_document);	// when the document is ready (using the jquery library)
+$jq1001(document).ready(init_document);	// when the document is ready (using the jquery library)
 function init_document ()
 {
 	select_ajax();
@@ -46,7 +46,7 @@ function select_ajax ()
 
 			// #######################################
 			// display()
-			$("#display_div_1")			// jquery selector
+			$jq1001("#display_div_1")			// jquery selector
 			.datamalico(ajaxReturn)		// datamalico obj creation with the server result set (json)
 			.display({			// display action with a simple configuration
 				field_name : "fullname"	// what column name you want to display (from your ajax sql result)
@@ -55,7 +55,7 @@ function select_ajax ()
 
 			// #######################################
 			// display_datagrid()
-			$('#display_div_2')			// jquery selector
+			$jq1001('#display_div_2')			// jquery selector
 			.datamalico(ajaxReturn)		// datamalico obj creation with the server result set (json)
 			.display_datagrid({		// display_datagrid action with a simple configuration See the documentation for more information.
 				template: {
@@ -104,7 +104,7 @@ function select_ajax_with_pagination ()
 		{
 			// #######################################
 			// paginate()
-			$("#display_div_3 #results_book")
+			$jq1001("#display_div_3 #results_book")
 			.find(".pagination")
 			.datamalico(ajaxReturn)
 			.paginate({
@@ -117,7 +117,7 @@ function select_ajax_with_pagination ()
 
 			function render_this_inner_page (page_num) // This page_num, is necessary for the jquery paging extension. This is the number of the rendered page.
 			{
-				$("#results_book").find("#page_content").datamalico(ajaxReturn).display_datagrid({
+				$jq1001("#results_book").find("#page_content").datamalico(ajaxReturn).display_datagrid({
 					template: {
 						grid: '<table></table>'
 						, row: '<tr></tr>'

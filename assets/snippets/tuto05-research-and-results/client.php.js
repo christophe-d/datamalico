@@ -7,16 +7,16 @@
 // ############################################################
 // ############################################################
 // Init:
-$(document).ready(init_document);
+$jq1001(document).ready(init_document);
 function init_document () 
 {
 	//console.log(page_params);
-	$("#div_debug_display").empty();
+	$jq1001("#div_debug_display").empty();
 
-	//$("#selectbutton").button().click(select_empty_ajax);	
-	//$("#global_save_button").button().click(global_save_ajax);
-	//$("#reset_button").button().click(reset_form);
-	$("#research_button").button().click(select_ajax);
+	//$jq1001("#selectbutton").button().click(select_empty_ajax);	
+	//$jq1001("#global_save_button").button().click(global_save_ajax);
+	//$jq1001("#reset_button").button().click(reset_form);
+	$jq1001("#research_button").button().click(select_ajax);
 
 	/*
 	pagination = {		// If you use the mil_help library and the mil_page class, per default this variable is set to $GLOBALS['pagination']['page'] and $GLOBALS['pagination']['perpage'] in library/datamalico/datamalico.conf.php
@@ -59,7 +59,7 @@ function get_from_ajax ()
 			ajaxReturn.character.metadata.returnCode == "X_RESULTS_DISPLAYED"
 		)
 		{
-			$('#research_panel').datamalico(ajaxReturn.character).display_datagrid({
+			$jq1001('#research_panel').datamalico(ajaxReturn.character).display_datagrid({
 				template: {
 					grid: '<table></table>'
 					, row: '<tr></tr>'
@@ -82,7 +82,7 @@ function get_from_ajax ()
 			ajaxReturn.attribute.metadata.returnCode === "X_RESULTS_DISPLAYED"
 		)
 		{
-			$('#data_form_div_attribute').datamalico(ajaxReturn.attribute).display_datagrid({
+			$jq1001('#data_form_div_attribute').datamalico(ajaxReturn.attribute).display_datagrid({
 				columns_order: ["char_id", "attribute"]	
 				, template: {
 					grid: '<table></table>'
@@ -95,13 +95,13 @@ function get_from_ajax ()
 
 			makeup_rows('#data_form_div_attribute tr.row_class');
 
-			//$('#data_form_div_attribute input:checkbox').attr('checked', true);
+			//$jq1001('#data_form_div_attribute input:checkbox').attr('checked', true);
 
 			select_ajax();
 		}
 		else
 		{
-			$('#data_form_div_attribute').emtpy();
+			$jq1001('#data_form_div_attribute').emtpy();
 			alert (ajaxReturn.attribute.metadata.returnMessage);
 		}
 
@@ -134,7 +134,7 @@ function select_ajax ()
 			ajaxReturn.metadata.returnCode == "X_RESULTS_DISPLAYED"
 		)
 		{
-			/*$('#page_content').datamalico(ajaxReturn).display_datagrid({
+			/*$jq1001('#page_content').datamalico(ajaxReturn).display_datagrid({
 				template: {
 				grid: '<table></table>'
 				, row: '<tr></tr>'
@@ -146,7 +146,7 @@ function select_ajax ()
 
 				// #######################################
 				// paginate()
-				$("#res_ctnr #results_book")
+				$jq1001("#res_ctnr #results_book")
 				.find(".pagination")
 				.datamalico(ajaxReturn)
 				.paginate({
@@ -161,7 +161,7 @@ function select_ajax ()
 
 				function render_this_inner_page (page_num) // This page_num, is necessary for the jquery paging extension. This is the number of the rendered page.
 				{
-					$("#results_book").find("#page_content").datamalico(ajaxReturn).display_datagrid({
+					$jq1001("#results_book").find("#page_content").datamalico(ajaxReturn).display_datagrid({
 						template: {
 							grid: '<table></table>'
 							, row: '<tr></tr>'
