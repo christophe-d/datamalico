@@ -965,6 +965,147 @@ BrowserDetect.init();
 // ################################################################################
 // ################################################################################
 
+/**
+* It eases the ajax handling. It uses the jquery $.ajax() function.
+*
+* @param params: {object} Is an associative array, containing params for the ajax transaction.
+* 	- form_id: (REQUIRED AND OPTIONAL: you must specify at least, form_id or data, both are possible too) {string} Id of the form you want to submit.
+* 	- data: (REQUIRED AND OPTIONAL: you must specify at least, form_id or data, both are possible too) {object} You can add data even to forms or just send data alone.
+* 		- ex: {hello: 'Good morning', bye: 'Good bye', alphabet:['a', 'b', 'c']}
+* 		- ex: {delupsert: {html_ctnr_lastname: { t: "registered", f: { lastname: "Bond" }, c: { reg_id: 1 } } } }
+* 			- In this case, the 'delupsert' from the HTML form is not overrided by this 'delupsert', but completes it.
+* 		- Escape strings:
+* 			- In this data param (not in a form text or textarea), you must escape \ by a \ and naturally escape " by \ if within "" or escape ' by \ if within ''
+* 			- In such case, having a textarea in wich you copy-paste, or having such a data string so escaped, the server will receive the same.
+* 			- It has been tested successfully with the following string: "! \"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~ `‚ƒ„…†‡ˆ‰Š‹ŒŽ‘’“”•–—˜™š›œžŸ ¡¢£¤¥¦§¨©ª«¬®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ€";
+* 				- ==> I also tried to insert CR and LN into a textarea and variables and this is kept into the db, and displayed if you fetch this from db
+* 					and display it in a div or in a textarea
+* 				- ==> I just note that 2 chars are rendered in a different maner : DEL (%7F) and NBSP (%A0)
+* 				- ==> In conclusion : except for DEL and NBSP, if you write something into a textarea or a variable (which must escaped for quotes and \),
+* 					you will have the same result when fetching from the db it and displaying it onto the web page.
+* 				- GET or POST you get the same strings on the server side
+* 	- url: (optional if a form and form action is defined) {string} Target url of the ajax transaction. Default is the form action, but you can overwrite it with this
+* 		url param.
+* 		- In the mil_ system, it could be something like: "[+this_relative_file_path+]/server_script.ajax.php"
+* 	- method: (optional) {string} Method to use for the ajax transcation.
+* 		- 2 values are possible : 'POST', 'GET'
+* 		- If you don't specify it, this is the form method defined, or if no form is specifyed as form_id, then , the default method is 'POST'.
+* 	- success: (optional) {function} Specify what must be executed as a callback on ajax transaction success. Params of the functions are those of the success 
+* 		function invoked by jQuery.ajax() :
+* 		- data: Is the response of the server. It is handled as:
+* 			- text if Content-type of response is text/plain
+* 			- html if Content-type of response is text/html
+* 			- json if Content-type of response is application/json
+* 			- See the jquery documentation for more information: http://api.jquery.com/jQuery.ajax/
+* 		- textStatus: See the jquery documentation for more information: http://api.jquery.com/jQuery.ajax/
+* 		- jqXHR: See the jquery documentation for more information: http://api.jquery.com/jQuery.ajax/
+* 	- error: (optional) {function} Specify what must be executed as a callback on ajax transaction error. Params of the functions are those of the success 
+* 		function invoked by jQuery.ajax() :
+* 		- jqXHR: See the jquery documentation for more information: http://api.jquery.com/jQuery.ajax/
+* 		- textStatus: See the jquery documentation for more information: http://api.jquery.com/jQuery.ajax/
+* 		- errorThrown: See the jquery documentation for more information: http://api.jquery.com/jQuery.ajax/
+*
+* Example of use:
+* @code
+* mil_ajax ({
+* 	form_id: "select_objects_form"
+* 	, data: {
+* 		temp_insert_id: {		// will be an associative array in the PHP page: $_POST['temp_insert_id']
+* 			field: "mil_d_registered.reg_id"	// will be: $_POST['temp_insert_id']['field']
+* 			, value: temp_insert_id
+* 		}
+* 		, hello: 'Good morning'
+* 		, bye: 'Good bye'
+* 		, alphabet:['a', 'b', 'c']			// will be a numerical array: $_POST['alphabet']
+* 	}
+* 	, success: on_success
+* 	});
+*
+* function on_success (data, textStatus, jqXHR)
+* {
+* 	var ajaxReturn = data;	// so many things are called data in various libraries (jquery...) that I prefer rename data to ajaxReturn
+* 	data = null;		// and destroy data in order to free memory
+* 
+* 	//mil_ajax_debug_and_see_raw_server_results (ajaxReturn, textStatus, jqXHR, div_debug_display); return;
+* 	//mil_ajax_debug_and_see_object_server_results (ajaxReturn, textStatus, jqXHR, div_debug_display);
+* 
+* 	// ####################
+* 	// WORK
+* 	alert (ajaxReturn.metadata.returnMessage);
+* }
+* @endcode
+*/
+function mil_ajax (params)
+{
+	// ############################
+	// Params and config
+	config = check_params(params);
+	function check_params(params)
+	{
+		//console.log($.type(params));
+		//console.log($.type(params.form_id));
+		//console.log($.type(params.data));
+		if (
+			!isset_notempty_notnull (params.form_id)
+			&& !isset_notempty_notnull (params.data)
+		)
+		{
+			millib_Exception ("the form_id in the mil_ajax () function must be fullfilled", "1205211121", "WARN");
+			alert ("the form_id in the mil_ajax () function must be fullfilled");
+		}
+		if (isset_notempty_notnull (params.form_id))
+		{
+			if (!isset_notempty_notnull (params.url)) params.url = $('#' + params.form_id).attr("action");
+			if (!isset_notempty_notnull (params.method)) params.method = $('#' + params.form_id).attr("method");
+		}
+		else
+		{
+			if (!isset_notempty_notnull (params.url)) params.url = "";
+			if (!isset_notempty_notnull (params.method)) params.method = "POST";
+		}
+
+		if (!isset_notempty_notnull (params.data)) params.data = {};
+		if (!isset_notempty_notnull (params.success)) params.success = function () {};
+		if (!isset_notempty_notnull (params.error)) params.error = function () {};
+
+		return params;
+	}
+
+
+	// ############################
+	// Work
+	config.data = $('#' + config.form_id).serialize () + '&' + $.param (config.data);
+
+	//console.log(config);
+	//console.log("mil_ajax (), data to be sent:" + config.data);
+
+	var request = $.ajax({url: config.url
+		, type : config.method
+		, data: config.data
+		, success : config.success
+		//, dataFilter : on_dataFilter
+		, error : error
+		, timeout : 45000
+		, isLocal : true
+		, beforeSend: mil_xhrPool_beforeSend
+		, complete : mil_xhrPool_complete
+	});
+
+	function error (jqXHR, textStatus, errorThrown)
+	{
+		//console.log (jqXHR);
+		//console.log (textStatus);
+		//console.log (errorThrown);
+
+		mil_Exception ({adminMessage: "mil_ajax error, the reason is:" + textStatus, errorId: "1207251800", errorLevel: "WARN"});
+		alert ("[+ajax_Failure_error+]");
+		config.error ();
+
+		return;
+	}
+}
+
+
 
 // call examples : 
 // 	mil_Exception ({adminMessage: "test", errorId: "1207251825", errorLevel: "WARN"});
@@ -1304,149 +1445,6 @@ function mil_listen_to_ESC_down (event)
 	}
 }
 
-// }}}
-
-
-/**
-* Ease the ajax handling. Use the jquery $.ajax () function.
-*
-* @param params: {object} Is an associative array, containing params for the ajax transaction.
-* 	- form_id: (REQUIRED AND OPTIONAL: you must specify at least, form_id or data, both are possible too) {string} Id of the form you want to submit.
-* 	- data: (REQUIRED AND OPTIONAL: you must specify at least, form_id or data, both are possible too) {object} You can add data even to forms or just send data alone.
-* 		- ex: {hello: 'Good morning', bye: 'Good bye', alphabet:['a', 'b', 'c']}
-* 		- ex: {delupsert: {html_ctnr_lastname: {t: "registered", f: {lastname: "Bond"}, c: {reg_id: 1}}}}
-* 			- In this case, the 'delupsert' from the HTML form is not overrided by this 'delupsert', but completes it.
-* 		- Escape strings:
-* 			- In this data param (not in a form text or textarea), you must escape \ by a \ and naturally escape " by \ if within "" or escape ' by \ if within ''
-* 			- In such case, having a textarea in wich you copy-paste, or having such a data string so escaped, the server will receive the same.
-* 			- It has been tested with: "! \"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~ `‚ƒ„…†‡ˆ‰Š‹ŒŽ‘’“”•–—˜™š›œžŸ ¡¢£¤¥¦§¨©ª«¬®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ€";
-* 				- ==> I also tried to insert CR and LN into a textarea and variables and this is kept into the db, and displayed if you fetch this from db
-* 					and display it in a div or in a textarea
-* 				- ==> I just note that 2 chars are rendered in a different maner : DEL (%7F) and NBSP (%A0)
-* 				- ==> In conclusion : except for DEL and NBSP, if you write something into a textarea or a variable (which must escaped for quotes and \),
-* 					you will have the same result when fetching from the db it and displaying it onto the web page.
-* 				- GET or POST you get the same strings on the server side
-* 	- url: (optional if a form and form action is defined) {string} Target url of the ajax transaction. Default is the form action, but you can overwrite it with this
-* 		url param.
-* 		- In the mil_ system, it could be something like: "[+this_relative_file_path+]/server_script.ajax.php"
-* 	- method: (optional) {string} Method to use for the ajax transcation.
-* 		- 2 values are possible : 'POST', 'GET'
-* 		- If you don't specify it, this is the form method defined, or if no form is specifyed as form_id, then , the default method is 'POST'.
-* 	- success: (optional) {function} Specify what must be executed as a callback on ajax transaction success. Params of the functions are those of the success 
-* 		function invoked by jQuery.ajax() :
-* 		- data: Is the response of the server. It is handled as:
-* 			- text if Content-type of response is text/plain
-* 			- html if Content-type of response is text/html
-* 			- json if Content-type of response is application/json
-* 			- See the jquery documentation for more information: http://api.jquery.com/jQuery.ajax/
-* 		- textStatus: See the jquery documentation for more information: http://api.jquery.com/jQuery.ajax/
-* 		- jqXHR: See the jquery documentation for more information: http://api.jquery.com/jQuery.ajax/
-* 	- error: (optional) {function} Specify what must be executed as a callback on ajax transaction error. Params of the functions are those of the success 
-* 		function invoked by jQuery.ajax() :
-* 		- jqXHR: See the jquery documentation for more information: http://api.jquery.com/jQuery.ajax/
-* 		- textStatus: See the jquery documentation for more information: http://api.jquery.com/jQuery.ajax/
-* 		- errorThrown: See the jquery documentation for more information: http://api.jquery.com/jQuery.ajax/
-*
-* Example of use:
-* @code
-* mil_ajax ({
-* 	form_id: "select_objects_form"
-* 	, data: {
-* 		temp_insert_id: {				// will be an associative array: $_POST['temp_insert_id']
-* 			field: "mil_d_registered.reg_id"	// will be: $_POST['temp_insert_id']['field']
-* 			, value: temp_insert_id
-* 		}
-* 		, hello: 'Good morning'
-* 		, bye: 'Good bye'
-* 		, alphabet:['a', 'b', 'c']			// will be a numerical array: $_POST['alphabet']
-* 	}
-* 	, success: on_success
-* 	});
-*
-* function on_success (data, textStatus, jqXHR)
-* {
-* 	var ajaxReturn = data;	// so many things are called data in various libraries (jquery...) that I prefer rename data to ajaxReturn
-* 	data = null;		// and destroy data in order to free memory
-* 
-* 	//mil_ajax_debug_and_see_raw_server_results (ajaxReturn, textStatus, jqXHR, div_debug_display); return;
-* 	//mil_ajax_debug_and_see_object_server_results (ajaxReturn, textStatus, jqXHR, div_debug_display);
-* 
-* 	// ####################
-* 	// WORK
-* 	alert (ajaxReturn.metadata.returnMessage);
-* }
-* @endcode
-*/
-function mil_ajax (params)
-{
-	// ############################
-	// Params and config
-	config = check_params(params);
-	function check_params(params)
-	{
-		//console.log($.type(params));
-		//console.log($.type(params.form_id));
-		//console.log($.type(params.data));
-		if (
-			!isset_notempty_notnull (params.form_id)
-			&& !isset_notempty_notnull (params.data)
-		)
-		{
-			millib_Exception ("the form_id in the mil_ajax () function must be fullfilled", "1205211121", "WARN");
-			alert ("the form_id in the mil_ajax () function must be fullfilled");
-		}
-		if (isset_notempty_notnull (params.form_id))
-		{
-			if (!isset_notempty_notnull (params.url)) params.url = $('#' + params.form_id).attr("action");
-			if (!isset_notempty_notnull (params.method)) params.method = $('#' + params.form_id).attr("method");
-		}
-		else
-		{
-			if (!isset_notempty_notnull (params.url)) params.url = "";
-			if (!isset_notempty_notnull (params.method)) params.method = "POST";
-		}
-
-		if (!isset_notempty_notnull (params.data)) params.data = {};
-		if (!isset_notempty_notnull (params.success)) params.success = function () {};
-		if (!isset_notempty_notnull (params.error)) params.error = function () {};
-
-		return params;
-	}
-
-
-	// ############################
-	// Work
-	config.data = $('#' + config.form_id).serialize () + '&' + $.param (config.data);
-
-	//console.log(config);
-	//console.log("mil_ajax (), data to be sent:" + config.data);
-
-	var request = $.ajax({url: config.url
-		, type : config.method
-		, data: config.data
-		, success : config.success
-		//, dataFilter : on_dataFilter
-		, error : error
-		, timeout : 45000
-		, isLocal : true
-		, beforeSend: mil_xhrPool_beforeSend
-		, complete : mil_xhrPool_complete
-	});
-
-	function error (jqXHR, textStatus, errorThrown)
-	{
-		//console.log (jqXHR);
-		//console.log (textStatus);
-		//console.log (errorThrown);
-
-		mil_Exception ({adminMessage: "mil_ajax error, the reason is:" + textStatus, errorId: "1207251800", errorLevel: "WARN"});
-		alert ("[+ajax_Failure_error+]");
-		config.error ();
-
-		return;
-	}
-}
-
 
 $.mil_xhrPool = [];
 $.mil_xhrPool.abortAll = function() {
@@ -1456,7 +1454,7 @@ $.mil_xhrPool.abortAll = function() {
 	$.mil_xhrPool.length = 0
 };
 
-
+// }}}
 
 
 // {{{ Encoding:
