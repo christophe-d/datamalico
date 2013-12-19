@@ -1,0 +1,204 @@
+-- MySQL dump 10.13  Distrib 5.1.72, for debian-linux-gnu (i486)
+--
+-- Server version	5.1.72-log
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+
+--
+-- Table structure for table `starwars_config_attribute`
+--
+
+DROP TABLE IF EXISTS `starwars_config_attribute`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `starwars_config_attribute` (
+  `attr_id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+  `attribute` varchar(255) NOT NULL,
+  `enabled` tinyint(1) DEFAULT NULL,
+  `sort_index` smallint(6) NOT NULL,
+  PRIMARY KEY (`attr_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `starwars_config_attribute`
+--
+
+LOCK TABLES `starwars_config_attribute` WRITE;
+/*!40000 ALTER TABLE `starwars_config_attribute` DISABLE KEYS */;
+INSERT INTO `starwars_config_attribute` VALUES (1,'Pilot of the Millenium Falcon.',1,7);
+INSERT INTO `starwars_config_attribute` VALUES (2,'Gone to the dark side of the force.',1,1);
+INSERT INTO `starwars_config_attribute` VALUES (3,'A bit rebel!',1,6);
+INSERT INTO `starwars_config_attribute` VALUES (4,'Ugly',1,5);
+INSERT INTO `starwars_config_attribute` VALUES (5,'Funny',1,4);
+INSERT INTO `starwars_config_attribute` VALUES (6,'Good boy',1,2);
+INSERT INTO `starwars_config_attribute` VALUES (7,'Bad boy',1,3);
+/*!40000 ALTER TABLE `starwars_config_attribute` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `starwars_config_type`
+--
+
+DROP TABLE IF EXISTS `starwars_config_type`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `starwars_config_type` (
+  `type_id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
+  `type_name` varchar(100) NOT NULL,
+  `enabled` tinyint(1) DEFAULT NULL,
+  `sort_index` smallint(6) NOT NULL,
+  PRIMARY KEY (`type_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `starwars_config_type`
+--
+
+LOCK TABLES `starwars_config_type` WRITE;
+/*!40000 ALTER TABLE `starwars_config_type` DISABLE KEYS */;
+INSERT INTO `starwars_config_type` VALUES (1,'Human',1,1);
+INSERT INTO `starwars_config_type` VALUES (2,'Droid',1,2);
+INSERT INTO `starwars_config_type` VALUES (3,'Alien',1,3);
+/*!40000 ALTER TABLE `starwars_config_type` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `starwars_data_character`
+--
+
+DROP TABLE IF EXISTS `starwars_data_character`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `starwars_data_character` (
+  `char_id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+  `fullname` varchar(255) NOT NULL,
+  `change_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `owner_ip` varchar(15) NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `type_id` tinyint(4) NOT NULL,
+  PRIMARY KEY (`char_id`),
+  KEY `name` (`fullname`)
+) ENGINE=MyISAM AUTO_INCREMENT=92 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `starwars_data_character`
+--
+
+LOCK TABLES `starwars_data_character` WRITE;
+/*!40000 ALTER TABLE `starwars_data_character` DISABLE KEYS */;
+INSERT INTO `starwars_data_character` VALUES (1,'Princess Leia Organa','2013-11-25 10:57:48','','Pretty hairstyle.',1);
+INSERT INTO `starwars_data_character` VALUES (2,'Obi Wan Kenobi','2013-11-25 10:57:48','','THE Jedi.',1);
+INSERT INTO `starwars_data_character` VALUES (3,'R2D2','2013-11-25 10:57:48','','tweet tweet',2);
+INSERT INTO `starwars_data_character` VALUES (4,'Luke Skywalker','2013-11-25 10:57:48','','He did it.',1);
+INSERT INTO `starwars_data_character` VALUES (5,'Anikan Skywalker - Darth Vader','2013-11-25 10:57:48','','Luke, Swish... I\'m your father. Swish, Swish...',1);
+INSERT INTO `starwars_data_character` VALUES (6,'C3PO','2013-11-25 10:57:48','','R2-D2 where are you ?',2);
+INSERT INTO `starwars_data_character` VALUES (7,'Jabba the Hutt','2013-11-25 10:57:48','','I will not give up my favorite decoration. I like Captain Solo where he is.',3);
+INSERT INTO `starwars_data_character` VALUES (8,'Chewbakka','2013-11-25 10:57:48','','Very hairy.',3);
+INSERT INTO `starwars_data_character` VALUES (9,'Blue Leader','2013-11-25 10:57:48','','Can you hear me?',1);
+INSERT INTO `starwars_data_character` VALUES (10,'Han Solo','2013-11-25 10:57:48','','The Millenium Falcon is the ship that made castle run in less than twelve parsecs, she\'s fast enough for you old man.',1);
+INSERT INTO `starwars_data_character` VALUES (11,'Gold Leader','2013-11-25 10:57:48','',NULL,1);
+INSERT INTO `starwars_data_character` VALUES (12,'Senator Palpatine - Darth Sidious','2013-11-25 10:57:48','',NULL,1);
+INSERT INTO `starwars_data_character` VALUES (13,'Darth Maul','2013-11-25 10:57:48','','Ugly.',3);
+INSERT INTO `starwars_data_character` VALUES (14,'Qui-Gon Jinn','2013-11-25 10:57:48','','Jinn often placed himself in conflict with the Jedi High Council.',1);
+INSERT INTO `starwars_data_character` VALUES (15,'Princess Amidala','2013-11-25 10:57:48','','Also known as Her Royal Highness, Queen Amidala of Naboo.',1);
+INSERT INTO `starwars_data_character` VALUES (16,'Jar Jar Binks','2013-11-25 10:57:48','',NULL,3);
+INSERT INTO `starwars_data_character` VALUES (17,'Boba Fett','2013-11-25 10:57:48','',NULL,1);
+INSERT INTO `starwars_data_character` VALUES (18,'Lando Calrissian','2013-11-25 10:57:48','',NULL,1);
+INSERT INTO `starwars_data_character` VALUES (19,'Count Dooku','2013-11-25 10:57:48','',NULL,1);
+INSERT INTO `starwars_data_character` VALUES (20,'Jango Fett','2013-11-25 10:57:48','',NULL,1);
+INSERT INTO `starwars_data_character` VALUES (21,'Mace Windu','2013-11-25 10:57:48','',NULL,1);
+INSERT INTO `starwars_data_character` VALUES (22,'General Grievous','2013-11-25 10:57:48','',NULL,3);
+/*!40000 ALTER TABLE `starwars_data_character` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `starwars_data_character2attribute`
+--
+
+DROP TABLE IF EXISTS `starwars_data_character2attribute`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `starwars_data_character2attribute` (
+  `char2attr_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `char_id` smallint(5) unsigned NOT NULL,
+  `attr_id` smallint(5) unsigned NOT NULL,
+  PRIMARY KEY (`char_id`,`attr_id`),
+  UNIQUE KEY `char2attr_id` (`char2attr_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=45 DEFAULT CHARSET=utf8 COMMENT='Join table between characters and attributes';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `starwars_data_character2attribute`
+--
+
+LOCK TABLES `starwars_data_character2attribute` WRITE;
+/*!40000 ALTER TABLE `starwars_data_character2attribute` DISABLE KEYS */;
+INSERT INTO `starwars_data_character2attribute` VALUES (1,1,1);
+INSERT INTO `starwars_data_character2attribute` VALUES (2,1,3);
+INSERT INTO `starwars_data_character2attribute` VALUES (3,1,5);
+INSERT INTO `starwars_data_character2attribute` VALUES (4,2,6);
+INSERT INTO `starwars_data_character2attribute` VALUES (5,3,5);
+INSERT INTO `starwars_data_character2attribute` VALUES (6,3,6);
+INSERT INTO `starwars_data_character2attribute` VALUES (7,4,6);
+INSERT INTO `starwars_data_character2attribute` VALUES (8,4,3);
+INSERT INTO `starwars_data_character2attribute` VALUES (9,5,2);
+INSERT INTO `starwars_data_character2attribute` VALUES (10,5,3);
+INSERT INTO `starwars_data_character2attribute` VALUES (11,5,7);
+INSERT INTO `starwars_data_character2attribute` VALUES (12,6,5);
+INSERT INTO `starwars_data_character2attribute` VALUES (13,6,6);
+INSERT INTO `starwars_data_character2attribute` VALUES (14,7,4);
+INSERT INTO `starwars_data_character2attribute` VALUES (15,7,7);
+INSERT INTO `starwars_data_character2attribute` VALUES (16,8,1);
+INSERT INTO `starwars_data_character2attribute` VALUES (17,8,3);
+INSERT INTO `starwars_data_character2attribute` VALUES (18,8,4);
+INSERT INTO `starwars_data_character2attribute` VALUES (19,8,6);
+INSERT INTO `starwars_data_character2attribute` VALUES (20,9,6);
+INSERT INTO `starwars_data_character2attribute` VALUES (21,10,1);
+INSERT INTO `starwars_data_character2attribute` VALUES (22,10,3);
+INSERT INTO `starwars_data_character2attribute` VALUES (23,10,6);
+INSERT INTO `starwars_data_character2attribute` VALUES (24,11,6);
+INSERT INTO `starwars_data_character2attribute` VALUES (25,12,2);
+INSERT INTO `starwars_data_character2attribute` VALUES (26,12,7);
+INSERT INTO `starwars_data_character2attribute` VALUES (27,13,7);
+INSERT INTO `starwars_data_character2attribute` VALUES (28,14,3);
+INSERT INTO `starwars_data_character2attribute` VALUES (29,14,6);
+INSERT INTO `starwars_data_character2attribute` VALUES (30,15,3);
+INSERT INTO `starwars_data_character2attribute` VALUES (31,15,5);
+INSERT INTO `starwars_data_character2attribute` VALUES (32,16,5);
+INSERT INTO `starwars_data_character2attribute` VALUES (33,16,4);
+INSERT INTO `starwars_data_character2attribute` VALUES (34,16,6);
+INSERT INTO `starwars_data_character2attribute` VALUES (35,17,7);
+INSERT INTO `starwars_data_character2attribute` VALUES (36,18,1);
+INSERT INTO `starwars_data_character2attribute` VALUES (37,18,3);
+INSERT INTO `starwars_data_character2attribute` VALUES (38,18,6);
+INSERT INTO `starwars_data_character2attribute` VALUES (39,19,2);
+INSERT INTO `starwars_data_character2attribute` VALUES (40,19,7);
+INSERT INTO `starwars_data_character2attribute` VALUES (41,20,7);
+INSERT INTO `starwars_data_character2attribute` VALUES (42,21,6);
+INSERT INTO `starwars_data_character2attribute` VALUES (43,22,7);
+INSERT INTO `starwars_data_character2attribute` VALUES (44,22,4);
+/*!40000 ALTER TABLE `starwars_data_character2attribute` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
