@@ -172,6 +172,18 @@
  * @subsection mil_translation Translation
  * @subsection mil_params Parameters
  * Pagination
+ *
+ * @section configuration Configuration
+ * @subsection config-files Congiguration files
+ * Here are all the configuration files:
+ * 	- library/datamalico/backend_access/backend_access.conf.php
+ * 	- library/datamalico/data_validator/data_validator.conf.php
+ * 	- library/datamalico/frontend_access/frontend_access.conf.php
+ * 	- library/datamalico/relationship/relationship.conf.php
+ * 	- library/datamalico/datamalico.conf.php
+ *
+ * All these files are loaded in library/datamalico/datamalico_server_dbquery.lib.php
+ *
  * 
  *
  * @todo

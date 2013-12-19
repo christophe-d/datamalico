@@ -15,6 +15,11 @@
  *
  * @section good2know Good to know
  *
+ * @section install Installation
+ * In order to work well, the initial get_region_settings() (in mil_.lib.php) procedure needs 2 tables:
+ * 	- mil_c_topleveldomain
+ * 	- mil_c_currency
+ *
  * @subsection renamed_files Renamed Files
  *
  * In earlier versions:
