@@ -115,6 +115,8 @@ field_name : "firstname"	// specify that you display the "firstname" column of t
 *
 * @warning Keep the html_container and the container. The reason is that container is necessary in order to make any standard or custom atomic_update 
 * 	(and add the form id dco_ajax_atomic_update_form)
+*
+* @todo Prevent potential jQuery version conflicts with other versions which could be loaded in any CMS you could use surrounding your datamalico features. See jQuery.noConflict().
 */
 $.fn.datamalico = function (ajaxReturn)
 {
@@ -3724,6 +3726,16 @@ function  dco_paginate_procedural (params)
 			//console.log("request_uri:" + request_uri);
 
 			//console.log("onFormat:" + type);
+			var pattern1 = /\{page\}/gi;
+			var pattern2 = /\{perpage\}/gi;
+			if (
+				pattern1.exec(config.display.page_link_format) === null
+				|| pattern2.exec(config.display.page_link_format) === null
+			)
+			{
+				config.display.page_link_format = "?page=[page]&perpage=[perpage]";
+			}
+
 			switch (type)
 			{
 				case 'block': // n and c
