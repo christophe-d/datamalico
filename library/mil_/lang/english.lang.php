@@ -11,8 +11,8 @@
 $mil_lang_common['YourBrowser'] = "Your browser is:";
 $mil_lang_common['WatchOutBrowserVersion'] = "This version is already old and can cause navigation problems. You should do an update and or use another up-to-date browser.";
 $mil_lang_common['pleaseWait'] = "Please wait...";
-$mil_lang_common['mil_problem_notification_box_title'] = "Notify a problem";
-$mil_lang_common['mil_abuse_notification_box_title'] = "Report abuse";
+$mil_lang_common['mil_problem_notification_box_title'] = "Report a problem on this page";
+$mil_lang_common['mil_abuse_notification_box_title'] = "Report an abuse";
 
 
 // ######################################################
