@@ -1318,7 +1318,7 @@ function mil_display_waitingModalBox ()
 	//console.log($("#dialog-modal"));
 	//$('body').prepend ('<div id="dialog-modal" title="Please wait"></div>');
 	$('body').prepend ("<div id=\"dialog-modal\" title=\"[+pleaseWait+]\"></div>");
-	$('#dialog-modal').append('<p"><img src="1001_addon/assets/templates/common/img/wait.gif" /></p>');
+	$('#dialog-modal').append('<p"><img src="' + window.location.protocol + "//" + window.location.hostname + "/" + '1001_addon/assets/templates/common/img/wait.gif" /></p>');
 
 	$("#dialog:ui-dialog").dialog("destroy"); // a workaround for a flaw in the demo system. See the page: http://dev.jqueryui.com/ticket/4375
 	$("#dialog-modal").dialog({
@@ -1791,70 +1791,70 @@ $.fn.serializeObject = function()
 * @endcode 
 */
 (function($){
-    $.fn.serializeObject2 = function(){
+	$.fn.serializeObject2 = function(){
 
-        var self = this,
-            json = {},
-            push_counters = {},
-            patterns = {
-                "validate": /^[a-zA-Z][a-zA-Z0-9_]*(?:\[(?:\d*|[a-zA-Z0-9_]+)\])*$/,
-                "key":      /[a-zA-Z0-9_]+|(?=\[\])/g,
-                "push":     /^$/,
-                "fixed":    /^\d+$/,
-                "named":    /^[a-zA-Z0-9_]+$/
-            };
+		var self = this,
+		json = {},
+		push_counters = {},
+		patterns = {
+			"validate": /^[a-zA-Z][a-zA-Z0-9_]*(?:\[(?:\d*|[a-zA-Z0-9_]+)\])*$/,
+			"key":      /[a-zA-Z0-9_]+|(?=\[\])/g,
+			"push":     /^$/,
+			"fixed":    /^\d+$/,
+			"named":    /^[a-zA-Z0-9_]+$/
+		};
 
 
-        this.build = function(base, key, value){
-            base[key] = value;
-            return base;
-        };
+		this.build = function(base, key, value){
+			base[key] = value;
+			return base;
+		};
 
-        this.push_counter = function(key){
-            if(push_counters[key] === undefined){
-                push_counters[key] = 0;
-            }
-            return push_counters[key]++;
-        };
+		this.push_counter = function(key){
+			if(push_counters[key] === undefined){
+				push_counters[key] = 0;
+			}
+			return push_counters[key]++;
+		};
 
-        $.each($(this).serializeArray(), function(){
+		$.each($(this).serializeArray(), function(){
 
-            // skip invalid keys
-            if(!patterns.validate.test(this.name)){
-                return;
-            }
+			// skip invalid keys
+			if(!patterns.validate.test(this.name)){
+				return;
+			}
 
-            var k,
-                keys = this.name.match(patterns.key),
-                merge = this.value,
-                reverse_key = this.name;
+			var k,
+			keys = this.name.match(patterns.key),
+			merge = this.value,
+			reverse_key = this.name;
 
-            while((k = keys.pop()) !== undefined){
+			while((k = keys.pop()) !== undefined){
 
-                // adjust reverse_key
-                reverse_key = reverse_key.replace(new RegExp("\\[" + k + "\\]$"), '');
+				// adjust reverse_key
+				reverse_key = reverse_key.replace(new RegExp("\\[" + k + "\\]$"), '');
 
-                // push
-                if(k.match(patterns.push)){
-                    merge = self.build([], self.push_counter(reverse_key), merge);
-                }
+				// push
+				if(k.match(patterns.push)){
+					merge = self.build([], self.push_counter(reverse_key), merge);
+				}
 
-                // fixed
-                else if(k.match(patterns.fixed)){
-                    merge = self.build([], k, merge);
-                }
+				// fixed
+				else if(k.match(patterns.fixed)){
+					merge = self.build([], k, merge);
+				}
 
-                // named
-                else if(k.match(patterns.named)){
-                    merge = self.build({}, k, merge);
-                }
-            }
+				// named
+				else if(k.match(patterns.named)){
+					merge = self.build({}, k, merge);
+				}
+			}
 
-            json = $.extend(true, json, merge);
-        });
+			json = $.extend(true, json, merge);
+		});
 
-        return json;
-    };
+		return json;
+	};
 })(jQuery);
 
 
@@ -2167,7 +2167,7 @@ String.prototype.capitalize = function()
 */String.prototype.capitalize_1st_word_of_sentence = function()
 {
 	//return this.replace( /(^|\.|\.\.\.|\?|\!)(\D)/g , function(m,p1,p2){//console.log(m + "-" + p1 + "-" + p2.toUpperCase()); } );
-	return this.replace( /(^|\.+|\.+\s*|\?|\?\s*|\!|\!\s*)(\w)/g , function(m,p1,p2){ return p1+p2.toUpperCase(); } );
+		return this.replace( /(^|\.+|\.+\s*|\?|\?\s*|\!|\!\s*)(\w)/g , function(m,p1,p2){ return p1+p2.toUpperCase(); } );
 };
 
 // }}}
