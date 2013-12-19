@@ -1,0 +1,35 @@
+
+
+.gitignore
+!/.gitignore
+
+# Ignore all vim backup files
+*~
+
+# Ignore all vim swap files
+*.swp
+*.swo
+
+
+
+###################################
+# test github repo
+#/snippets/test/
+#/snippets/tuto0*
+
+
+###################################
+# datamalico github repo
+HOME
+/assets/snippets/test/*
+/assets/snippets/*/lang/html/*
+/assets/snippets/*/lang/js/*
+/documentation/*
+/library/TEMPLATES_CODE/*
+/library/config/*
+!/library/config/fake.mysql-connection.php
+/logs/*
+*trace.log.txt
+
+
+
