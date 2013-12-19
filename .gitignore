@@ -3,6 +3,8 @@
 .gitignore
 !/.gitignore
 
+HOME
+
 # Ignore all vim backup files
 *~
 
@@ -20,16 +22,33 @@
 
 ###################################
 # datamalico github repo
-HOME
+
 /assets/snippets/test/*
-/assets/snippets/*/lang/html/*
-/assets/snippets/*/lang/js/*
 /documentation/*
 /library/TEMPLATES_CODE/*
 /library/config/*
 !/library/config/fake.mysql-connection.php
+
+# log files:
 /logs/*
 *trace.log.txt
+
+
+# ignore mil_ lang automatic translation (see mil_page.class.php, methods: internationalize_html and internationalize_js)
+/assets/snippets/*/lang/html/*
+/assets/snippets/*/lang/js/*
+
+/assets/templates/common/js/lang/html/*
+/assets/templates/common/js/lang/js/*
+
+/library/TEMPLATES_CODE/mil_page/lang/html/*
+/library/TEMPLATES_CODE/mil_page/lang/js/*
+
+/library/datamalico/lang/html/*
+/library/datamalico/lang/js/*
+
+/library/mil_/lang/html/*
+/library/mil_/lang/js/*
 
 
 
