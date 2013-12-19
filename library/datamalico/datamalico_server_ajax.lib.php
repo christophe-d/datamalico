@@ -1163,6 +1163,14 @@ class datamalico_server_ajax
 	 * 		- can_vertically_access_field() in backend_access.conf.php
 	 *
 	 * @return No return value, but the datamalico_server_ajax::output property is filled with the result of the the delupsert.
+	 *
+	 * @todo Complete theses explanations:
+	 * 	- For updates, the condition must be a fixed value (id) or the last field (of the array config['fields'])
+	 * 		- In other words, if you change first, a value, that is taken later as condition, then the condition is obsolete.
+	 * 		- eg: Pour data_registered_2_profession il est impossible de changer en mìme temps reg_id et profession_id car le 
+	 * 		premier update va se faire, mais pas le deuxiÿme. Parce que les conditions renvoyées par la page de saisie sont : 
+	 * 		reg_id = 'old_val_1' AND profession_id = 'old_val_2' mais aprÿs le premier update, l'une de ces deux valeures a changé, 
+	 * 		et donc le deuxiÿmÿe update fait avec cette condition ne fonctionnera pas.
 	 */
 	public function delupsert ($params = array ())
 	{
