@@ -1536,9 +1536,10 @@ function get_region_settings ()
 	$region = array (
 		'geoloc' => get_geoloc_vars ()
 		, 'tld' => NULL
-		, 'lang' => NULL
-		, 'sLangue' => NULL
+		, 'lang' => "english"
+		, 'sLangue' => "EN"
 		, 'currency' => NULL
+		, 'country_info' => NULL
 	);
 
 	$currency_id;
@@ -1678,7 +1679,7 @@ function get_region_settings ()
 			. $region['country_info']['country_id'] . "\n"
 			. trace2web($region, "region")
 			, "1201111240", "WARN", __FILE__ .":". __LINE__ );
-		die("mil_lib.php:" . __LINE__);
+		//die("mil_lib.php:" . __LINE__);
 	}
 
 	//$mysqli_con->close();
