@@ -263,4 +263,7 @@ $GLOBALS['config_ini']['JS']['link_to_functional_JS_libs_managersite'] = '
 $GLOBALS['config_ini']['JS']['link_to_mil_lib'] = get_JS_withGoodLang_fromDynamicCache ("/1001_addon/assets/templates/common/js/mil_.lib.js");
 
 
+$GLOBALS['config_ini']['head'] = $GLOBALS['config_ini']['JS']['link_to_functional_JS_libs_publicsite'] . $GLOBALS['config_ini']['JS']['link_to_mil_lib'];
+
+
 ?>
