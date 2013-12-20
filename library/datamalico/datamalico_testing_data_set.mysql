@@ -103,7 +103,7 @@ INSERT INTO `starwars_data_character` VALUES (1,'Princess Leia Organa','2013-11-
 INSERT INTO `starwars_data_character` VALUES (2,'Obi Wan Kenobi','2013-11-25 10:57:48','','THE Jedi.',1);
 INSERT INTO `starwars_data_character` VALUES (3,'R2D2','2013-11-25 10:57:48','','tweet tweet',2);
 INSERT INTO `starwars_data_character` VALUES (4,'Luke Skywalker','2013-11-25 10:57:48','','He did it.',1);
-INSERT INTO `starwars_data_character` VALUES (5,'Anikan Skywalker - Darth Vader','2013-11-25 10:57:48','','Luke, Swish... I\'m your father. Swish, Swish...',1);
+INSERT INTO `starwars_data_character` VALUES (5,'Anakin Skywalker - Darth Vader','2013-11-25 10:57:48','','Luke, Swish... I\'m your father. Swish, Swish...',1);
 INSERT INTO `starwars_data_character` VALUES (6,'C3PO','2013-11-25 10:57:48','','R2-D2 where are you ?',2);
 INSERT INTO `starwars_data_character` VALUES (7,'Jabba the Hutt','2013-11-25 10:57:48','','I will not give up my favorite decoration. I like Captain Solo where he is.',3);
 INSERT INTO `starwars_data_character` VALUES (8,'Chewbakka','2013-11-25 10:57:48','','Very hairy.',3);

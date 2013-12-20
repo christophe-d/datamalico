@@ -1541,7 +1541,7 @@ class datamalico_server_ajax
 	 * 						- number field (MySQL tinyint, smallint, mediumint, int, bigint, decimal) The default operator is = (equals)
 	 * 						- date field (MySQL datetime, timestamp) The default operator is 'LIKE'
 	 * 							- The wildcard operator % is prepend and append to the time expression
-	 * 			- g: {associative array} (optional) Are grouping specifications of the WHERE clause. It must be define as a frontend_access value.
+	 * 			- g: {associative array} (optional) Are grouping specifications of the WHERE clause. It must be defined as a frontend_access value.
 	 * 				(See $GLOBALS['security']['frontend_access']['DEFAULT_FRONTEND_SETTINGS']['research_operators']['cond_group'] in frontend_access.conf.php)
 	 * 				- name: {string} (optional, default is "default") Is the name of the group of conditions.
 	 * 				- parent: {string} (optional, default is "none") Is the name of the parent group.
