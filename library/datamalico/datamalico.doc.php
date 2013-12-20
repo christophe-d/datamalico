@@ -5,6 +5,9 @@
  *
  * Don't miss our presentation website: http://datamalico.org/
  *
+ *
+ *
+ *
  * @section introduction Introduction (backend-server, frontend-client, owning to RIA ajax and a config)
  *
  * @subsection ajax_ria Ajax and RIA
@@ -12,6 +15,11 @@
  * 
  * @subsection simple_example A simple example:
  * See tutorials on http://datamalico.org/tutorials/73-tuto-1-dreamy-db-data-display
+ *
+ *
+ *
+ *
+ *
  *
  * @section advantages Advantages of datamalico
  * 	- You keep your use of the web coding: AJAX, CMS...
@@ -40,6 +48,12 @@
  * - datamalico_server_dbquery: This is the core class, the closest to the database, a php class for server side pages. (See datamalico_server_dbquery.lib.php)
  * - datamalico_server_ajax: This is a php class making the interface between javascript client side pages and php server-side pages. (See datamalico_server_ajax.lib.php) 
  * 
+ *
+ *
+ *
+ *
+ *
+ *
  *
  * @section security Security
  * @subsection security_in_backend What is the backend access?
@@ -92,6 +106,11 @@
  * 	- it uses the jquery paging extension: infusion-jQuery-Paging-1121b46.zip taken at http://www.xarg.org/2011/09/jquery-pagination-revised/
  *
  *
+ *
+ *
+ *
+ *
+ *
  * 
  * @section delupsert Upsert and Delupsert
  * 	- in the datamalico_server_dbquery, the method upsert() allows you in one method to INSERT or UPDATE depending on the case.
@@ -142,6 +161,10 @@
  * @section multi-selection-list Multi selection lists:
  * Explain better entity table, list table, join table...
  *
+ *
+ *
+ *
+ *
  * @section good2know Good to know:
  *
  * @subsection Special thing in the database:
@@ -167,6 +190,11 @@
  *
  * @subsection mil_features Nices features belonging to the mil_ help library.
  *
+ *
+ *
+ *
+ *
+ *
  * @section mil_library Relation with the mil_ help library (general functions, lang, separate html, php, js).
  *
  * @subsection mil_translation Translation
@@ -183,6 +211,11 @@
  * 	- library/datamalico/datamalico.conf.php
  *
  * All these files are loaded in library/datamalico/datamalico_server_dbquery.lib.php
+ *
+ *
+ *
+ *
+ *
  *
  * @section dependencies Dependencies
  * @subsection mil_-dependency mil_ help library (embedded)
@@ -215,5 +248,9 @@
  * 	- Clean the code in order to make a lightweight version.
  * 	- Make a minimized version.
  * 	- Make clearer what version of jQuery to use with the jQuery-UI
+ * 		- jQuery UI uses:
+ * 			- datepicker
+ * 			- button
+ * 			- accordion
  */
 ?>

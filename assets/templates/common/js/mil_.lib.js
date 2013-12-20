@@ -9,6 +9,9 @@
 */
 
 
+// {{{ Main code
+// ################################################
+// ################################################
 
 $jq1001(document).ready(mil_init);
 function mil_init () 
@@ -17,6 +20,7 @@ function mil_init ()
 	$jq1001('#mil_problem_notification_box').hide();
 }
 
+// }}}
 
 
 // {{{ Layout lib:
@@ -1317,11 +1321,11 @@ function mil_display_waitingModalBox ()
 	//console.log("#dialog-modal type: " + $.type($("#dialog-modal")));
 	//console.log($("#dialog-modal"));
 	//$('body').prepend ('<div id="dialog-modal" title="Please wait"></div>');
-	$('body').prepend ("<div id=\"dialog-modal\" title=\"[+pleaseWait+]\"></div>");
-	$('#dialog-modal').append('<p"><img src="' + window.location.protocol + "//" + window.location.hostname + "/" + '1001_addon/assets/templates/common/img/wait.gif" /></p>');
+	$jq1001('body').prepend ("<div id=\"dialog-modal\" title=\"[+pleaseWait+]\"></div>");
+	$jq1001('#dialog-modal').append('<p"><img src="' + window.location.protocol + "//" + window.location.hostname + '/' + '1001_addon/assets/templates/common/img/wait.gif" /></p>');
 
-	$("#dialog:ui-dialog").dialog("destroy"); // a workaround for a flaw in the demo system. See the page: http://dev.jqueryui.com/ticket/4375
-	$("#dialog-modal").dialog({
+	jQuery("#dialog:ui-dialog").dialog("destroy"); // a workaround for a flaw in the demo system. See the page: http://dev.jqueryui.com/ticket/4375
+	jQuery("#dialog-modal").dialog({
 		height: 140
 		, width: 250
 		, modal: true
@@ -1329,14 +1333,14 @@ function mil_display_waitingModalBox ()
 		, resizable: false
 		, close: function(event, ui) 
 		{
-			$.mil_xhrPool.abortAll ();
+			$jq1001.mil_xhrPool.abortAll ();
 		}
 	});
 
-	$("#dialog-modal").parent("div").css("position", "fixed");
-	$("#dialog-modal").css("height", "25px");
-	$(".ui-widget-overlay").css("position", "fixed");
-	$(".ui-widget-overlay").css("background", "#666 url('1001_addon/assets/templates/common/img/phpThumb_generated_thumbnailpng.png') 50% 50% repeat");
+	$jq1001("#dialog-modal").parent("div").css("position", "fixed");
+	$jq1001("#dialog-modal").css("height", "25px");
+	$jq1001(".ui-widget-overlay").css("position", "fixed");
+	$jq1001(".ui-widget-overlay").css("background", "#666 url('" + window.location.protocol + "//" + window.location.hostname + "/" + "1001_addon/assets/templates/common/img/phpThumb_generated_thumbnailpng.png') 50% 50% repeat");
 
 	return;
 
@@ -1347,14 +1351,14 @@ function mil_display_waitingModalBox ()
 	{
 		event.stopImmediatePropagation();
 		//console.log("click on X");
-		$.mil_xhrPool.abortAll ();
+		$jq1001.mil_xhrPool.abortAll ();
 	}
 
 	popup('loadingWheel');
 
-	$("#waitingModalBox .mil_button_bg").css('margin', '0px');
-	$("#waitingModalBox .mil_button_bg").css('width', '100%');
-	$("#loadingWheel").css('top', '200px');
+	$jq1001("#waitingModalBox .mil_button_bg").css('margin', '0px');
+	$jq1001("#waitingModalBox .mil_button_bg").css('width', '100%');
+	$jq1001("#loadingWheel").css('top', '200px');
 
 	function toggle(div_id, open_close)
 	{

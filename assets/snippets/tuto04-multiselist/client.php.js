@@ -13,7 +13,7 @@ function init_document ()
 	// Input action
 	var temp_insert_id = dco_get_temp_insert_id ();
 	select_empty_ajax(temp_insert_id);
-	$jq1001("#insert_button")
+	$("#insert_button")
 	.button()			// uses the jQueryUI in order to create a nice button.
 	.click(insert_ajax);	// attach a function to the click event.
 
@@ -21,12 +21,12 @@ function init_document ()
 	select_ajax();
 
 	// Write action
-	$jq1001("#update_button")
+	$("#update_button")
 	.button()			// uses the jQueryUI in order to create a nice button.
 	.click(update_ajax);	// attach a function to the click event.
 
 	// Delete action
-	$jq1001("#delete_button")
+	$("#delete_button")
 	.button()			// uses the jQueryUI in order to create a nice button.
 	.click(delete_ajax);	// attach a function to the click event.
 }
@@ -42,7 +42,7 @@ function init_document ()
 */
 function select_empty_ajax(temp_insert_id)
 {
-	console.log("select_empty_ajax() - " + temp_insert_id);
+	//console.log("select_empty_ajax() - " + temp_insert_id);
 
 	mil_ajax ({
 		form_id: "insert_form"

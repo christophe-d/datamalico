@@ -16,7 +16,7 @@ function init_document ()
 	//$jq1001("#selectbutton").button().click(select_empty_ajax);	
 	//$jq1001("#global_save_button").button().click(global_save_ajax);
 	//$jq1001("#reset_button").button().click(reset_form);
-	$jq1001("#research_button").button().click(select_ajax);
+	$("#research_button").button().click(select_ajax);
 
 	/*
 	pagination = {		// If you use the mil_help library and the mil_page class, per default this variable is set to $GLOBALS['pagination']['page'] and $GLOBALS['pagination']['perpage'] in library/datamalico/datamalico.conf.php

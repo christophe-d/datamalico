@@ -72,6 +72,12 @@
 * @todo Avoid sending a big ajax parameter to each function, but use the jquery data() to attach the ajaxReturn to the object.
 */
 
+
+
+// {{{ datamalico class definition
+// ################################################################################
+// ################################################################################
+
 /**
 * \class datamalico The javascript 'datamalico' class is actually, not real class, but just alias of the class named: 'datamalico_client'
 *
@@ -758,12 +764,11 @@ datamalico_client.prototype.display_errors = function(params)
 };
 
 
+// }}}
 
+
+// {{{ jqyery general extension put at the end of the file, otherwise the documentor doxygen bugs.
 // ################################################################################
-// ################################################################################
-//
-// jqyery general extension put at the end of the file, otherwise the documentor doxygen bugs.
-//
 // ################################################################################
 
 /**
@@ -832,6 +837,21 @@ $jq1001.fn.selectRange = function(start, end)
 };
 
 /**
+* Generates and set an id for an html element with the $jq1001 version.
+*
+* fjdksql fjdkslm
+*/
+$jq1001.fn.set_unique_id_generator = function ()
+{
+	$jq1001(this).each (function( index ) {
+		var unique_id = get_unique_id_generator ($jq1001(this));
+		$jq1001(this).attr("id", unique_id);
+	});
+	return $jq1001(this);
+};
+
+
+/**
 * I think that The code below creates a class extending ithe autocomplete class.
 * Thus, instead of invoking the autocomplete class, you must invoke mil_autocomplete.
 */
@@ -854,12 +874,44 @@ $.widget( "custom.mil_autocomplete", $.ui.autocomplete, {
 	}
 });
 
+// }}}
 
+
+// {{{ Methods in order to work with jQuery UI (because datamalico $jq1001 uses a controled version of jquery, whereas the jQuery object in the general scope can be the one of your own page)
+// This avoid jquery version conflicts.
 // ################################################################################
 // ################################################################################
-//
-// Utilities
-//
+
+/**
+* Generates and set an id for an html element with the standard jQuery version.
+*
+* fjdksql fjdkslm
+*/
+jQuery.fn.set_unique_id_generator = function ()
+{
+	jQuery(this).each (function( index ) {
+		var unique_id = get_unique_id_generator (jQuery(this));
+		jQuery(this).attr("id", unique_id);
+	});
+	return jQuery(this);
+};
+
+/**
+* jQuery("#kryzaBloc").tagname()
+*/
+jQuery.fn.tagname = function()
+{
+	//console.log(jQuery(this));
+	//console.log(jQuery(this).get(0));
+	//console.log(jQuery(this)[0]);
+	return jQuery(this).get(0).tagName.toLowerCase();
+};
+
+// }}}
+
+
+// {{{ Utilities
+// ################################################################################
 // ################################################################################
 
 function now ()
@@ -921,21 +973,6 @@ function dco_get_temp_insert_id ()
 	return "TEMPINSERTID_" + get_unique_time_id ();
 }
 
-
-/**
-* Generates and set an id for an html element
-*
-* fjdksql fjdkslm
-*/
-$jq1001.fn.set_unique_id_generator = function ()
-{
-	$jq1001(this).each (function( index ) {
-		var unique_id = get_unique_id_generator ($jq1001(this));
-		$jq1001(this).attr("id", unique_id);
-	});
-	return $jq1001(this);
-};
-
 /**
 * Generates a unique_id for an element.
 * @param elem {HTML element}
@@ -947,16 +984,12 @@ function get_unique_id_generator (elem)
 	return unique_id;
 }
 
+// }}}
 
 
-
+// {{{ Section for the mil_ HTML handling
 // ################################################################################
 // ################################################################################
-//
-// Section for the mil_ HTML handling
-//
-// ################################################################################
-
 
 /**
 * Attach a "click" and/or "dblclick" event handler function for one or more events to the selected elements.
@@ -1086,15 +1119,15 @@ function _click_or_dblclick (event)
 }
 
 
+// }}}
 
-// ################################################################################
-// ################################################################################
-//
-// dco means "datamalico" meaning "data managing library for coders".
+
+// {{{ dco means "datamalico" meaning "data managing library for coders".
 // This all in one (php, javascript, html) library is written by Christophe Delcourte in order to ease interactions between frontend and backend.
 // This all in one (php, javascript, html) library is written by Christophe DELCOURTE in order to ease data handling between front-end and back-end
-//
 // ################################################################################
+// ################################################################################
+
 
 /**
 * See the display() method of the Javascript class: datamalico.
@@ -1871,7 +1904,7 @@ function dco_edition_event (event)
 		//$jq1001('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][ctnr]" value="' + config.display.container + '" />');
 
 		//config.edition.elem_in_edit_mode = $jq1001('#' + html_ctnr + ' input[name|="'+manip+'[' + html_ctnr + '][f]['+config.org_field_name+']"]');
-		config.edition.elem_in_edit_mode = $jq1001('#' + html_ctnr + ' input[name^="'+manip+'[' + html_ctnr + ']["]').filter('[name$jq1001="]['+config.org_field_name+']"]');
+		config.edition.elem_in_edit_mode = $jq1001('#' + html_ctnr + ' input[name^="'+manip+'[' + html_ctnr + ']["]').filter('[name$="]['+config.org_field_name+']"]');
 		config.edition.elem_in_edit_mode.addClass("ui-corner-all");
 
 		if (isset_notempty_notnull (this_field_structure.frontend_access.maxlength))
@@ -2040,7 +2073,7 @@ else if (this_field_structure.frontend_access.form_field_type.toString().toLower
 		//console.log('#' + html_ctnr + ' input[name|="'+manip+'[' + html_ctnr + '][f]['+config.org_field_name+']"]');
 		//console.log($jq1001('#' + html_ctnr + ' input[name|="'+manip+'[' + html_ctnr + '][f]['+config.org_field_name+']"]').attr('id'));
 		//alert("Before datepicker creation");
-		$jq1001('#' + html_ctnr + ' input[name|="'+manip+'[' + html_ctnr + '][f]['+config.org_field_name+']"]')
+		jQuery('#' + html_ctnr + ' input[name|="'+manip+'[' + html_ctnr + '][f]['+config.org_field_name+']"]')
 		//.get(0)
 		//$jq1001('#' + datepicker_id)
 		.datepicker({
@@ -2073,7 +2106,7 @@ else if (this_field_structure.frontend_access.form_field_type.toString().toLower
 		//.dco_add_DVIC (this_field_structure);
 
 		// init the jqueryui datepicker
-		$jq1001('#' + html_ctnr + ' input[name|="'+manip+'[' + html_ctnr + '][c]['+config.org_field_name+']"]')
+		jQuery('#' + html_ctnr + ' input[name|="'+manip+'[' + html_ctnr + '][c]['+config.org_field_name+']"]')
 		.datepicker({
 			dateFormat: "yy-mm-dd"
 			// For menus
@@ -2105,7 +2138,7 @@ else if (this_field_structure.frontend_access.form_field_type.toString().toLower
 	//$jq1001('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][ctnr]" value="' + config.display.container + '" />');
 
 	//config.edition.elem_in_edit_mode = $jq1001('#' + html_ctnr + ' input[name|="'+manip+'[' + html_ctnr + '][f]['+config.org_field_name+']"]');
-	config.edition.elem_in_edit_mode = $jq1001('#' + html_ctnr + ' input[name^="'+manip+'[' + html_ctnr + ']["]').filter('[name$jq1001="]['+config.org_field_name+']"]');
+	config.edition.elem_in_edit_mode = $jq1001('#' + html_ctnr + ' input[name^="'+manip+'[' + html_ctnr + ']["]').filter('[name$="]['+config.org_field_name+']"]');
 	config.edition.elem_in_edit_mode.addClass("ui-corner-all");
 
 	if (isset_notempty_notnull (this_field_structure.frontend_access.maxlength))
@@ -2438,7 +2471,7 @@ else if (this_field_structure.frontend_access.form_field_type.toString().toLower
 	//$jq1001('#' + config.display.container).append('<input type="hidden" name="'+manip+'[' + html_ctnr + '][ctnr]" value="' + config.display.container + '" />');
 
 	//config.edition.elem_in_edit_mode = $jq1001('#' + html_ctnr + ' input[name|="'+manip+'[' + html_ctnr + '][f]['+config.org_field_name+']"]');
-	config.edition.elem_in_edit_mode = $jq1001('#' + html_ctnr + ' input[name^="'+manip+'[' + html_ctnr + ']["]').filter('[name$jq1001="]['+config.org_field_name+']"]');
+	config.edition.elem_in_edit_mode = $jq1001('#' + html_ctnr + ' input[name^="'+manip+'[' + html_ctnr + ']["]').filter('[name$="]['+config.org_field_name+']"]');
 	config.edition.elem_in_edit_mode.addClass("ui-corner-all");
 
 	if (isset_notempty_notnull (this_field_structure.frontend_access.maxlength))
@@ -2886,7 +2919,7 @@ function display_search_operator_debug (config)
 	{
 		//console.log("operator_changed");
 		//console.log(event);
-		var j_operator = $jq1001(event.target);
+		var j_operator = jQuery(event.target);
 		var j_MIN_field = j_operator.next();
 		var j_MIN_field_name = j_MIN_field.attr("name");
 		var j_MAX_field_name = j_MIN_field_name.replace(/\]$/g,"_MAX\]");
@@ -2899,7 +2932,7 @@ function display_search_operator_debug (config)
 				if (this_field_structure.frontend_access.form_field_type.toString().toLowerCase() === "datepicker")
 				{
 					// Neutralize the first datepicker before cloning:
-					$jq1001('[name="' + j_MIN_field_name + '"]').datepicker("destroy");
+					jQuery('[name="' + j_MIN_field_name + '"]').datepicker("destroy");
 					//console.log("betw");
 
 
@@ -2912,7 +2945,7 @@ function display_search_operator_debug (config)
 
 
 					// Create the 2nd datepicker:
-					j_MIN_field.clone(false)
+					var clone_id = j_MIN_field.clone(false)
 					.hide()
 					.insertAfter(j_MIN_field)
 					.show("slow")	//.slideDown("slow")
@@ -2932,15 +2965,18 @@ function display_search_operator_debug (config)
 					})
 					.on("keydown", config, dco_on_keydown_on_edition_elem)
 					.on("focusout", config, dco_focusout_and_save_event)
-					.dco_add_DVIC (this_field_structure);
+					// .dco_add_DVIC (this_field_structure);
+					.attr("id");
 
-					//$jq1001('[name="' + j_MIN_field_name + '"]').datepicker("destroy");
+					$jq1001("#" + clone_id).dco_add_DVIC (this_field_structure);
+
+					//jQuery('[name="' + j_MIN_field_name + '"]').datepicker("destroy");
 
 
 
 					// Restore the first datepicker after cloning:
 					//j_MIN_field
-					$jq1001('[name="' + j_MIN_field_name + '"]')
+					jQuery('[name="' + j_MIN_field_name + '"]')
 					.datepicker({
 						dateFormat: "yy-mm-dd"
 						// For menus
@@ -2975,7 +3011,7 @@ function display_search_operator_debug (config)
 		{
 			if (this_field_structure.frontend_access.form_field_type.toString().toLowerCase() === "datepicker")
 			{
-				$jq1001('[name="' + j_MAX_field_name + '"]').datepicker("destroy");
+				jQuery('[name="' + j_MAX_field_name + '"]').datepicker("destroy");
 			}
 			$jq1001('[name="' + j_MAX_field_name + '"]').remove();
 
@@ -3502,7 +3538,7 @@ function dco_display_errors (ajaxReturn)
 	{
 		if (manipulation === "insert" || manipulation === "update" || manipulation === "custom_data_validation")
 		{
-			console.log("ajaxReturn["+manipulation+"]: "+ajaxReturn[manipulation] + " - " +Object.keys(ajaxReturn[manipulation]).length);
+			//console.log("ajaxReturn["+manipulation+"]: "+ajaxReturn[manipulation] + " - " +Object.keys(ajaxReturn[manipulation]).length);
 			if (Object.keys(ajaxReturn[manipulation]).length > 0)	// avoid errors
 			{
 				for (html_container in ajaxReturn[manipulation])
@@ -3845,4 +3881,9 @@ function  dco_paginate_procedural (params)
 			}
 		}
 }
+
+
+// }}}
+
+
 
